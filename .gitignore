@@ -1,0 +1,13 @@
+/node_modules
+.vs/ProjectSettings.json
+.vs/slnx.sqlite
+.vs/VSWorkspaceState.json
+.vs/PortfolioProject/v16/.suo
+/unity_projects
+/gamejam_projects
+xmlConfigManager.js
+/XMLGenerator/PortfolioXMLGenerator/PortfolioXMLGenerator/obj/Debug
+/XMLGenerator/PortfolioXMLGenerator/PortfolioXMLGenerator/bin/Debug
+/XMLGenerator/PortfolioXMLGenerator/.vs/PortfolioXMLGenerator/v16
+/.vs/slnx.sqlite-journal
+.env
