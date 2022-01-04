@@ -38,7 +38,47 @@ namespace PortfolioXMLGenerator
                 foreach(Type type in assembly.GetExportedTypes())
                 {
                     rtbLog.Text += "\n" + type.ToString();
+                    foreach(MemberInfo member in type.GetMembers())
+                    {
+                        rtbLog.Text += "\n\t" + member.Name;
+                    }
                 }
+            }
+        }
+
+        private void BtnBrowseDocumentation_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog fdOpen = new OpenFileDialog();
+            fdOpen.Multiselect = false;
+            fdOpen.Filter = "XML files|*.xml";
+            if (fdOpen.ShowDialog() == DialogResult.OK)
+            {
+                tbDocumentationPath.Text = fdOpen.FileName;
+            }
+        }
+
+        private void btnParse_Click(object sender, EventArgs e)
+        {
+            if (File.Exists(tbDocumentationPath.Text))
+            {
+                ParseNode node;
+                if (XMLDocumentationParser.ParseDocumentationFile(tbDocumentationPath.Text, out node))
+                {
+                    ProcessNode(node);
+                }
+            }
+        }
+
+        void ProcessNode(ParseNode node)
+        {
+            if (!string.IsNullOrEmpty(node.Description))
+            {
+                string message = string.Format("\nName: {0}; Description: {1}; Type: {2};", node.Name, node.Description, node.Type);
+                rtbParseLog.AppendText(message);
+            }
+            foreach(ParseNode child in node.Children)
+            {
+                ProcessNode(child);
             }
         }
     }
