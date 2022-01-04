@@ -11,3 +11,4 @@ xmlConfigManager.js
 /XMLGenerator/PortfolioXMLGenerator/.vs/PortfolioXMLGenerator/v16
 /.vs/slnx.sqlite-journal
 .env
+.vs
