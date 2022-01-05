@@ -90,6 +90,11 @@ namespace PortfolioXMLGenerator
             return nameStr;
         }
 
+        /// <summary>
+        /// Get the distinct components of the member name.
+        /// </summary>
+        /// <param name="nameStr"></param>
+        /// <returns></returns>
         public static string[] GetParts(this string nameStr)
         {
             int bracketIndex = nameStr.IndexOf('(');
