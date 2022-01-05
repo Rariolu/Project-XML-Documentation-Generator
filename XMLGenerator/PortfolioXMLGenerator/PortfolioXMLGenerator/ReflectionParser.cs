@@ -37,8 +37,8 @@ namespace PortfolioXMLGenerator
 
                         foreach (FieldInfo field in type.GetFields(BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Public))
                         {
-                            ParsedVariable parsedVariable = new ParsedVariable(field.Name, field.FieldType.ToString());
-
+                            ParsedVariable parsedVariable = new ParsedVariable(field.Name, field.FieldType.ToString(), field.GetProtectionLevel());
+                            
                             parsedType.AddVariable(parsedVariable);
                         }
 
@@ -70,16 +70,16 @@ namespace PortfolioXMLGenerator
 
                             if (getter != null)
                             {
-                                ParsedAccessor accessor = new ParsedAccessor(ACCESSOR_TYPE.GETTER, getter.GetProtectionLevel());
-                                parsedProperty.AddAccessor(accessor);
+                                //ParsedAccessor accessor = new ParsedAccessor(ACCESSOR_TYPE.GETTER, getter.GetProtectionLevel());
+                                parsedProperty.AddAccessor(ACCESSOR_TYPE.GETTER, getter.GetProtectionLevel());//(accessor);
                             }
 
                             MethodInfo setter = property.GetSetMethod(true);
 
                             if (setter != null)
                             {
-                                ParsedAccessor accessor = new ParsedAccessor(ACCESSOR_TYPE.SETTER, setter.GetProtectionLevel());
-                                parsedProperty.AddAccessor(accessor);
+                                //ParsedAccessor accessor = new ParsedAccessor(ACCESSOR_TYPE.SETTER, setter.GetProtectionLevel());
+                                parsedProperty.AddAccessor(ACCESSOR_TYPE.SETTER, setter.GetProtectionLevel());//(accessor);
                             }
 
                             parsedType.AddProperty(parsedProperty);
@@ -107,9 +107,13 @@ namespace PortfolioXMLGenerator
             return protection;
         }
 
-        //public static PROTECTION GetProtectionLevel(this MemberInfo memberInfo)
-        //{
-            
-        //}
+        public static PROTECTION GetProtectionLevel(this FieldInfo field)
+        {
+            PROTECTION protection = field.IsPublic ? PROTECTION.PUBLIC :
+            (
+                field.IsPrivate ? PROTECTION.PRIVATE : PROTECTION.PROTECTED
+            );
+            return protection;
+        }
     }
 }
