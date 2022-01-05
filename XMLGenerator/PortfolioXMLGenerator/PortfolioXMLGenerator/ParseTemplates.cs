@@ -10,7 +10,8 @@ namespace PortfolioXMLGenerator
     {
         PRIVATE,
         PROTECTED,
-        PUBLIC
+        PUBLIC,
+        INTERNAL
     }
     public struct ParsedAssembly
     {
@@ -131,10 +132,20 @@ namespace PortfolioXMLGenerator
             }
         }
 
-        public ParsedVariable(string _name, string _type)
+        PROTECTION protectionLevel;
+        public PROTECTION ProtectionLevel
+        {
+            get
+            {
+                return protectionLevel;
+            }
+        }
+
+        public ParsedVariable(string _name, string _type, PROTECTION protection)
         {
             name = _name;
             type = _type;
+            protectionLevel = protection;
         }
     }
 
@@ -187,6 +198,7 @@ namespace PortfolioXMLGenerator
     {
         public string Name { get; set; }
         public string Type { get; set; }
+        public string Description { get; set; }
     }
 
     public struct ParsedProperty
@@ -200,24 +212,31 @@ namespace PortfolioXMLGenerator
             }
         }
 
-        List<ParsedAccessor> accessors;
-        public ParsedAccessor[] Accessors
-        {
-            get
-            {
-                return accessors.ToArray();
-            }
-        }
+        public string Description { get; set; }
+
+        //List<ParsedAccessor> accessors;
+        Dictionary<ACCESSOR_TYPE, PROTECTION> accessors;
 
         public ParsedProperty(string _name)
         {
             name = _name;
-            accessors = new List<ParsedAccessor>();
+            accessors = new Dictionary<ACCESSOR_TYPE, PROTECTION>();
         }
 
-        public void AddAccessor(ParsedAccessor accessor)
+        public void AddAccessor(ACCESSOR_TYPE type, PROTECTION protection)//(ParsedAccessor accessor)
         {
-            accessors.Add(accessor);
+            accessors.Add(type, protection);
+            //accessors.Add(accessor);
+        }
+        public bool HasAccessor(ACCESSOR_TYPE type, out PROTECTION protection)
+        {
+            if (accessors.ContainsKey(type))
+            {
+                protection = accessors[type];
+                return true;
+            }
+            protection = default(PROTECTION);
+            return false;
         }
     }
 
@@ -225,32 +244,5 @@ namespace PortfolioXMLGenerator
     {
         GETTER,
         SETTER
-    }
-
-    public struct ParsedAccessor
-    {
-        ACCESSOR_TYPE type;
-        public ACCESSOR_TYPE Type
-        {
-            get
-            {
-                return type;
-            }
-        }
-
-        PROTECTION protectionLevel;
-        public PROTECTION ProtectionLevel
-        {
-            get
-            {
-                return protectionLevel;
-            }
-        }
-
-        public ParsedAccessor(ACCESSOR_TYPE _type, PROTECTION _protectionLevel)
-        {
-            type = _type;
-            protectionLevel = _protectionLevel;
-        }
     }
 }
