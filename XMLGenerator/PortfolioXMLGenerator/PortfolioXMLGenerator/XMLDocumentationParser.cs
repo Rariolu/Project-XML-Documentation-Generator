@@ -200,5 +200,16 @@ namespace PortfolioXMLGenerator
 /// </summary>
 public class TEMP
 {
+    public void BLEP()
+    {
 
+    }
+    private void BLEP2()
+    {
+
+    }
+    protected void BLEP3()
+    {
+
+    }
 }
