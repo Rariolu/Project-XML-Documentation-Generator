@@ -14,6 +14,7 @@ namespace PortfolioXMLGenerator
 {
     public partial class MainForm : Form
     {
+        public int blep;
         public MainForm()
         {
             InitializeComponent();
@@ -30,21 +31,53 @@ namespace PortfolioXMLGenerator
         }
         private void BtnProcessAssembly_Click(object sender, EventArgs e)
         {
-            if (File.Exists(tbAssemblyPath.Text))
+            //if (File.Exists(tbAssemblyPath.Text))
+            //{
+            //    Assembly assembly = Assembly.LoadFile(tbAssemblyPath.Text);
+
+
+            //    foreach(Type type in assembly.GetTypes())
+            //    {
+            //        rtbLog.Text += "\n" + type.ToString();
+            //        foreach(MemberInfo member in type.GetMembers())
+            //        {
+            //            rtbLog.Text += "\n\t" + member.Name;
+            //        }
+            //    }
+            //}
+            ParsedAssembly assembly;
+            if (ReflectionParser.ParseAssembly(tbAssemblyPath.Text, out assembly))
             {
-                Assembly assembly = Assembly.LoadFile(tbAssemblyPath.Text);
-                
-                
-                foreach(Type type in assembly.GetExportedTypes())
+                foreach(ParsedType type in assembly.ParsedTypes)
                 {
-                    rtbLog.Text += "\n" + type.ToString();
-                    foreach(MemberInfo member in type.GetMembers())
+                    rtbLog.Text += "\n" + type.Name;
+
+                    foreach(ParsedVariable variable in type.Variables)
                     {
-                        rtbLog.Text += "\n\t" + member.Name;
+                        rtbLog.Text += "\n\t" + variable.Name;
                     }
+
+                    foreach (ParsedProperty property in type.Properties)
+                    {
+                        rtbLog.Text += "\n\t" + property.Name;
+                    }
+
+                    foreach (ParsedMethod method in type.Methods)
+                    {
+                        rtbLog.Text += "\n\t" + string.Format("{0} {1}",protectionSymbols[method.ProtectionLevel], method.Name);
+                    }
+
+
                 }
             }
         }
+
+        Dictionary<PROTECTION, string> protectionSymbols = new Dictionary<PROTECTION, string>()
+        {
+            {PROTECTION.PRIVATE, "-"},
+            {PROTECTION.PROTECTED, "#"},
+            {PROTECTION.PUBLIC, "+"}
+        };
 
         private void BtnBrowseDocumentation_Click(object sender, EventArgs e)
         {
