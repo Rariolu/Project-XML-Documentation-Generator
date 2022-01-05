@@ -54,12 +54,25 @@ namespace PortfolioXMLGenerator
 
                     foreach(ParsedVariable variable in type.Variables)
                     {
-                        rtbLog.Text += "\n\t" + variable.Name;
+                        rtbLog.Text += "\n\t" + string.Format("{0} {1}",protectionSymbols[variable.ProtectionLevel], variable.Name);
                     }
 
                     foreach (ParsedProperty property in type.Properties)
                     {
-                        rtbLog.Text += "\n\t" + property.Name;
+                        string getter = "no getter";
+                        PROTECTION getterProt;
+                        if (property.HasAccessor(ACCESSOR_TYPE.GETTER, out getterProt))
+                        {
+                            getter = getterProt.ToString().ToLower() + " getter";
+                        }
+
+                        string setter = "no setter";
+                        PROTECTION setterProt;
+                        if (property.HasAccessor(ACCESSOR_TYPE.SETTER, out setterProt))
+                        {
+                            setter = setterProt.ToString().ToLower() + " setter";
+                        }
+                        rtbLog.Text += "\n\t" + string.Format("{0} ({1}, {2})", property.Name, getter, setter);
                     }
 
                     foreach (ParsedMethod method in type.Methods)
