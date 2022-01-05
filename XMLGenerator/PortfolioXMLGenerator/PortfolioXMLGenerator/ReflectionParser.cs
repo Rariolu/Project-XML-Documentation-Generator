@@ -98,14 +98,6 @@ namespace PortfolioXMLGenerator
             }
         }
 
-        public static int P
-        {
-            get
-            {
-                return 4;
-            }
-        }
-
         public static PROTECTION GetProtectionLevel(this MethodInfo method)
         {
             PROTECTION protection = method.IsPublic ? PROTECTION.PUBLIC :
