@@ -179,6 +179,13 @@ namespace PortfolioXMLGenerator
         }
 
         List<ParsedParameter> parameters;
+        public ParsedParameter[] Parameters
+        {
+            get
+            {
+                return parameters.ToArray();
+            }
+        }
 
         public ParsedMethod(string _name, string _returnType, PROTECTION protection)
         {
@@ -212,14 +219,24 @@ namespace PortfolioXMLGenerator
             }
         }
 
+        string type;
+        public string Type
+        {
+            get
+            {
+                return type;
+            }
+        }
+
         public string Description { get; set; }
 
-        //List<ParsedAccessor> accessors;
         Dictionary<ACCESSOR_TYPE, PROTECTION> accessors;
 
-        public ParsedProperty(string _name)
+        public ParsedProperty(string _name, string _type)
         {
             name = _name;
+            type = _type;
+            Description = "";
             accessors = new Dictionary<ACCESSOR_TYPE, PROTECTION>();
         }
 

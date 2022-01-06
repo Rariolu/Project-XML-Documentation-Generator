@@ -64,7 +64,7 @@ namespace PortfolioXMLGenerator
 
                         foreach(PropertyInfo property in type.GetProperties(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance))
                         {
-                            ParsedProperty parsedProperty = new ParsedProperty(property.Name);
+                            ParsedProperty parsedProperty = new ParsedProperty(property.Name, property.PropertyType.ToString());
 
                             MethodInfo getter = property.GetGetMethod(true);
 
