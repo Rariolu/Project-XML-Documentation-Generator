@@ -39,6 +39,9 @@ namespace PortfolioXMLGenerator
             this.btnParse = new System.Windows.Forms.Button();
             this.btnBrowseDocumentation = new System.Windows.Forms.Button();
             this.tbDocumentationPath = new System.Windows.Forms.TextBox();
+            this.btnSaveAssembly = new System.Windows.Forms.Button();
+            this.tbAssemblyOutputPath = new System.Windows.Forms.TextBox();
+            this.btnBrowseAssemblyDir = new System.Windows.Forms.Button();
             this.gbAssembly.SuspendLayout();
             this.gbDocumentation.SuspendLayout();
             this.SuspendLayout();
@@ -82,13 +85,16 @@ namespace PortfolioXMLGenerator
             // 
             // gbAssembly
             // 
+            this.gbAssembly.Controls.Add(this.btnBrowseAssemblyDir);
+            this.gbAssembly.Controls.Add(this.tbAssemblyOutputPath);
+            this.gbAssembly.Controls.Add(this.btnSaveAssembly);
             this.gbAssembly.Controls.Add(this.tbAssemblyPath);
             this.gbAssembly.Controls.Add(this.rtbLog);
             this.gbAssembly.Controls.Add(this.btnBrowse);
             this.gbAssembly.Controls.Add(this.btnProcessAssembly);
             this.gbAssembly.Location = new System.Drawing.Point(12, 12);
             this.gbAssembly.Name = "gbAssembly";
-            this.gbAssembly.Size = new System.Drawing.Size(342, 426);
+            this.gbAssembly.Size = new System.Drawing.Size(342, 472);
             this.gbAssembly.TabIndex = 4;
             this.gbAssembly.TabStop = false;
             this.gbAssembly.Text = "Assembly";
@@ -101,7 +107,7 @@ namespace PortfolioXMLGenerator
             this.gbDocumentation.Controls.Add(this.tbDocumentationPath);
             this.gbDocumentation.Location = new System.Drawing.Point(360, 12);
             this.gbDocumentation.Name = "gbDocumentation";
-            this.gbDocumentation.Size = new System.Drawing.Size(425, 426);
+            this.gbDocumentation.Size = new System.Drawing.Size(425, 472);
             this.gbDocumentation.TabIndex = 5;
             this.gbDocumentation.TabStop = false;
             this.gbDocumentation.Text = "Documentation";
@@ -143,11 +149,39 @@ namespace PortfolioXMLGenerator
             this.tbDocumentationPath.Text = "D:\\PortfolioProject\\XMLGenerator\\PortfolioXMLGenerator\\PortfolioXMLGenerator\\bin\\" +
     "Debug\\PortfolioXMLGenerator.xml";
             // 
+            // btnSaveAssembly
+            // 
+            this.btnSaveAssembly.Enabled = false;
+            this.btnSaveAssembly.Location = new System.Drawing.Point(6, 420);
+            this.btnSaveAssembly.Name = "btnSaveAssembly";
+            this.btnSaveAssembly.Size = new System.Drawing.Size(116, 46);
+            this.btnSaveAssembly.TabIndex = 4;
+            this.btnSaveAssembly.Text = "Save";
+            this.btnSaveAssembly.UseVisualStyleBackColor = true;
+            this.btnSaveAssembly.Click += new System.EventHandler(this.btnSaveAssembly_Click);
+            // 
+            // tbAssemblyOutputPath
+            // 
+            this.tbAssemblyOutputPath.Location = new System.Drawing.Point(6, 380);
+            this.tbAssemblyOutputPath.Name = "tbAssemblyOutputPath";
+            this.tbAssemblyOutputPath.Size = new System.Drawing.Size(229, 20);
+            this.tbAssemblyOutputPath.TabIndex = 5;
+            // 
+            // btnBrowseAssemblyDir
+            // 
+            this.btnBrowseAssemblyDir.Location = new System.Drawing.Point(241, 378);
+            this.btnBrowseAssemblyDir.Name = "btnBrowseAssemblyDir";
+            this.btnBrowseAssemblyDir.Size = new System.Drawing.Size(75, 23);
+            this.btnBrowseAssemblyDir.TabIndex = 6;
+            this.btnBrowseAssemblyDir.Text = "Browse";
+            this.btnBrowseAssemblyDir.UseVisualStyleBackColor = true;
+            this.btnBrowseAssemblyDir.Click += new System.EventHandler(this.btnBrowseAssemblyDir_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(797, 450);
+            this.ClientSize = new System.Drawing.Size(797, 496);
             this.Controls.Add(this.gbDocumentation);
             this.Controls.Add(this.gbAssembly);
             this.Name = "MainForm";
@@ -172,6 +206,9 @@ namespace PortfolioXMLGenerator
         private System.Windows.Forms.TextBox tbDocumentationPath;
         private System.Windows.Forms.RichTextBox rtbParseLog;
         private System.Windows.Forms.Button btnParse;
+        private System.Windows.Forms.Button btnSaveAssembly;
+        private System.Windows.Forms.Button btnBrowseAssemblyDir;
+        private System.Windows.Forms.TextBox tbAssemblyOutputPath;
     }
 }
 

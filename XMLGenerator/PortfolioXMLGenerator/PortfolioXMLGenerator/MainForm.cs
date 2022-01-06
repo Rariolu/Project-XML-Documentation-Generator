@@ -29,6 +29,8 @@ namespace PortfolioXMLGenerator
                 tbAssemblyPath.Text = fdOpen.FileName;
             }
         }
+
+        ParsedAssembly assembly;
         private void BtnProcessAssembly_Click(object sender, EventArgs e)
         {
             //if (File.Exists(tbAssemblyPath.Text))
@@ -45,9 +47,10 @@ namespace PortfolioXMLGenerator
             //        }
             //    }
             //}
-            ParsedAssembly assembly;
+
             if (ReflectionParser.ParseAssembly(tbAssemblyPath.Text, out assembly))
             {
+                btnSaveAssembly.Enabled = true;
                 foreach(ParsedType type in assembly.ParsedTypes)
                 {
                     rtbLog.Text += "\n" + type.Name;
@@ -125,6 +128,20 @@ namespace PortfolioXMLGenerator
             foreach(ParseNode child in node.Children)
             {
                 ProcessNode(child);
+            }
+        }
+
+        private void btnSaveAssembly_Click(object sender, EventArgs e)
+        {
+            XMLPortfolioSerialiser.SerialiseParsedElements(assembly, tbAssemblyOutputPath.Text);
+        }
+
+        private void btnBrowseAssemblyDir_Click(object sender, EventArgs e)
+        {
+            FolderBrowserDialog fbd = new FolderBrowserDialog();
+            if (fbd.ShowDialog() == DialogResult.OK)
+            {
+                tbAssemblyOutputPath.Text = fbd.SelectedPath;
             }
         }
     }
