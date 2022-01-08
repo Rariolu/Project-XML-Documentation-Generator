@@ -31,6 +31,7 @@ namespace PortfolioXMLGenerator
         }
 
         ParsedAssembly assembly;
+        MemberDict parsedDocumentationMembers;
         private void BtnProcessAssembly_Click(object sender, EventArgs e)
         {
             //if (File.Exists(tbAssemblyPath.Text))
@@ -116,8 +117,8 @@ namespace PortfolioXMLGenerator
             //        ProcessNode(node);
             //    }
             //}
-            Dictionary<string, ParsedMember> members = XMLDocumentationParser.ParseDocumentationFile(tbDocumentationPath.Text);
-            foreach(ParsedMember member in members.Values)
+            parsedDocumentationMembers = XMLDocumentationParser.ParseDocumentationFile(tbDocumentationPath.Text);
+            foreach(ParsedMember member in parsedDocumentationMembers.Values)
             {
                 string message = string.Format("\nName: {0}; Description: {1}; Type: {2};", member.FullName, member.Description, member.MemberType);
                 rtbParseLog.AppendText(message);
@@ -139,6 +140,10 @@ namespace PortfolioXMLGenerator
 
         private void btnSaveAssembly_Click(object sender, EventArgs e)
         {
+            foreach(ParsedType type in assembly.ParsedTypes)
+            {
+                //string fullName = string.Format("{0}.{1}",type.)
+            }
             XMLPortfolioSerialiser.SerialiseParsedElements(assembly, tbAssemblyOutputPath.Text);
         }
 

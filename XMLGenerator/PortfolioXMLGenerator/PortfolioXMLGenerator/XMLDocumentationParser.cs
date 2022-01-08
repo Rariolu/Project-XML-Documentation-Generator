@@ -23,9 +23,9 @@ namespace PortfolioXMLGenerator
             param
         }
 
-        public static Dictionary<string, ParsedMember> ParseDocumentationFile(string file)
+        public static MemberDict ParseDocumentationFile(string file)
         {
-            Dictionary<string, ParsedMember> members = new Dictionary<string, ParsedMember>();
+            MemberDict members = new MemberDict();
             if (!File.Exists(file))
             {
                 return members;
@@ -173,6 +173,11 @@ namespace PortfolioXMLGenerator
             }
             return parts;
         }
+    }
+
+    public class MemberDict : Dictionary<string, ParsedMember>
+    {
+
     }
 
     /// <summary>
