@@ -19,7 +19,58 @@ namespace PortfolioXMLGenerator
             assembly,
             member,
             name,
-            summary
+            summary,
+            param
+        }
+
+        public static Dictionary<string, ParsedMember> ParseDocumentationFile(string file)
+        {
+            Dictionary<string, ParsedMember> members = new Dictionary<string, ParsedMember>();
+            if (!File.Exists(file))
+            {
+                return members;
+            }
+
+            XmlReader xmlReader = XmlReader.Create(file);
+            while(xmlReader.Read())
+            {
+                if (xmlReader.IsStartElement(XML_ELEMENT.member.ToString()))
+                {
+                    string name = xmlReader["name"];
+                    string memberName = name.GetMemberName();
+                    MemberTypes memberType = name.GetMemberType();
+
+                    bool isMethod = memberType == MemberTypes.Method || memberType == MemberTypes.Constructor;
+
+                    ParsedMember member = isMethod ? new ParsedMemberMethod(memberName, memberType) : new ParsedMember(memberName, memberType);
+
+                    xmlReader.Read();
+                    if (xmlReader.IsStartElement(XML_ELEMENT.summary.ToString()))
+                    {
+                        xmlReader.Read();
+                        member.Description = xmlReader.Value;
+                    }
+
+                    if (isMethod)
+                    {
+                        ParsedMemberMethod parsedMethod = member as ParsedMemberMethod;
+                        xmlReader.Read();
+                        while(xmlReader.IsStartElement(XML_ELEMENT.param.ToString()))
+                        {
+                            string paramName = xmlReader["name"];
+                            xmlReader.Read();
+                            string paramDescription = xmlReader.Value;
+                            xmlReader.Read();
+
+                            parsedMethod.AddParam(paramName, paramDescription);
+                        }
+                    }
+
+                    members.Add(member.FullName, member);
+                }
+            }
+
+            return members;
         }
 
         public static bool ParseDocumentationFile(string file, out ParseNode parentNode)
@@ -64,6 +115,7 @@ namespace PortfolioXMLGenerator
 
             return true;
         }
+
         static MemberTypes GetMemberType(this string nameStr)
         {
             char c = nameStr[0];
@@ -193,6 +245,59 @@ namespace PortfolioXMLGenerator
                 }
             }
         }
+    }
+
+    public class ParsedMember
+    {
+        string fullName;
+        public string FullName
+        {
+            get
+            {
+                return fullName;
+            }
+        }
+
+        MemberTypes type;
+        public MemberTypes MemberType
+        {
+            get
+            {
+                return type;
+            }
+        }
+        
+        public string Description { get; set; }
+
+        public ParsedMember(string name, MemberTypes memberType)
+        {
+            fullName = name;
+            type = memberType;
+
+        }
+    }
+    public class ParsedMemberMethod : ParsedMember
+    {
+        List<ParsedMemberMethodParam> parameters = new List<ParsedMemberMethodParam>();
+        public ParsedMemberMethod(string name, MemberTypes memberType)
+            : base(name, memberType)
+        {
+
+        }
+
+        public void AddParam(string name ,string description)
+        {
+            ParsedMemberMethodParam param = new ParsedMemberMethodParam();
+            param.Name = name;
+            param.Description = description;
+            parameters.Add(param);
+        }
+    }
+
+    public struct ParsedMemberMethodParam
+    {
+        public string Name { get; set; }
+        public string Description { get; set; }
     }
 }
 /// <summary>

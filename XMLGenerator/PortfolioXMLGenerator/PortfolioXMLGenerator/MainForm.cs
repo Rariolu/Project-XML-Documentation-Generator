@@ -108,13 +108,19 @@ namespace PortfolioXMLGenerator
 
         private void btnParse_Click(object sender, EventArgs e)
         {
-            if (File.Exists(tbDocumentationPath.Text))
+            //if (File.Exists(tbDocumentationPath.Text))
+            //{
+            //    ParseNode node;
+            //    if (XMLDocumentationParser.ParseDocumentationFile(tbDocumentationPath.Text, out node))
+            //    {
+            //        ProcessNode(node);
+            //    }
+            //}
+            Dictionary<string, ParsedMember> members = XMLDocumentationParser.ParseDocumentationFile(tbDocumentationPath.Text);
+            foreach(ParsedMember member in members.Values)
             {
-                ParseNode node;
-                if (XMLDocumentationParser.ParseDocumentationFile(tbDocumentationPath.Text, out node))
-                {
-                    ProcessNode(node);
-                }
+                string message = string.Format("\nName: {0}; Description: {1}; Type: {2};", member.FullName, member.Description, member.MemberType);
+                rtbParseLog.AppendText(message);
             }
         }
 
