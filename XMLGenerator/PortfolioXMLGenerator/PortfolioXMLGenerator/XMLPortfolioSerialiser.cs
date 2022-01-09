@@ -22,7 +22,8 @@ namespace PortfolioXMLGenerator
             method,
             parameter,
             properties,
-            property
+            property,
+            classconst
         }
         public enum PORTFOLIO_XML_ATTRIBUTE
         {
@@ -101,6 +102,39 @@ namespace PortfolioXMLGenerator
 
                 //<methods>
                 xmlWriter.WriteStartElementEnum(PORTFOLIO_XML_ELEMENT.methods);
+
+                foreach(ParsedConstructor parsedConstructor in parsedType.Constructors)
+                {
+                    //<classconst>
+                    xmlWriter.WriteStartElementEnum(PORTFOLIO_XML_ELEMENT.classconst);
+
+                    xmlWriter.WriteAttributeEnum(PORTFOLIO_XML_ATTRIBUTE.protection, parsedConstructor.ProtectionLevel.ToString().ToLower());
+
+                    if (!string.IsNullOrEmpty(parsedConstructor.Description))
+                    {
+                        xmlWriter.WriteAttributeEnum(PORTFOLIO_XML_ATTRIBUTE.description, parsedConstructor.Description);
+                    }
+
+
+                    foreach (ParsedParameter parsedParameter in parsedConstructor.Parameters)
+                    {
+                        xmlWriter.WriteStartElementEnum(PORTFOLIO_XML_ELEMENT.parameter);
+
+                        xmlWriter.WriteAttributeEnum(PORTFOLIO_XML_ATTRIBUTE.type, parsedParameter.Type);
+
+                        xmlWriter.WriteAttributeEnum(PORTFOLIO_XML_ATTRIBUTE.name, parsedParameter.Name);
+
+                        if (!string.IsNullOrEmpty(parsedParameter.Description))
+                        {
+                            xmlWriter.WriteAttributeEnum(PORTFOLIO_XML_ATTRIBUTE.description, parsedParameter.Description);
+                        }
+
+                        xmlWriter.WriteEndElement();
+                    }
+
+                    //</classconst>
+                    xmlWriter.WriteEndElement();
+                }
 
                 foreach(ParsedMethod parsedMethod in parsedType.Methods)
                 {

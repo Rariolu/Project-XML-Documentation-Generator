@@ -217,7 +217,7 @@ namespace PortfolioXMLGenerator
         /// <summary>
         /// Blep2
         /// </summary>
-        /// <param name="_name"></param>
+        /// <param name="_name">Node name</param>
         /// <param name="memberType"></param>
         public ParseNode(string _name, MemberTypes memberType) : this(_name)
         {
@@ -284,6 +284,13 @@ namespace PortfolioXMLGenerator
     public class ParsedMemberMethod : ParsedMember
     {
         List<ParsedMemberMethodParam> parameters = new List<ParsedMemberMethodParam>();
+        public ParsedMemberMethodParam[] Parameters
+        {
+            get
+            {
+                return parameters.ToArray();
+            }
+        }
         public ParsedMemberMethod(string name, MemberTypes memberType)
             : base(name, memberType)
         {

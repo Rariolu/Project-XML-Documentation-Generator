@@ -94,6 +94,15 @@ namespace PortfolioXMLGenerator
             }
         }
 
+        List<ParsedMethod> constructors;
+        public ParsedMethod[] Constructors
+        {
+            get
+            {
+                return constructors.ToArray();
+            }
+        }
+
         public ParsedType(string _name, string _fullName)
         {
             name = _name;
@@ -102,11 +111,19 @@ namespace PortfolioXMLGenerator
             methods = new List<ParsedMethod>();
             variables = new List<ParsedVariable>();
             properties = new List<ParsedProperty>();
+            constructors = new List<ParsedMethod>();
         }
 
-        public void AddMethod(ParsedMethod method)
+        public void AddMethod(ParsedMethod method, bool isConstructor = false)
         {
-            methods.Add(method);
+            if (isConstructor)
+            {
+                constructors.Add(method);
+            }
+            else
+            {
+                methods.Add(method);
+            }
             //methods.Add(method.Name, method);
         }
 
@@ -201,6 +218,45 @@ namespace PortfolioXMLGenerator
 
         public string Description { get; set; }
 
+        public virtual string CompleteName
+        {
+            get
+            {
+                string completeName = Name;
+
+                if (Parameters.Length > 0)
+                {
+                    //string paramms = "";
+                    //for (int i = 0; i < Parameters.Length; i++)
+                    //{
+                    //    paramms += Parameters[i].Type;
+                    //    if (i < Parameters.Length - 1)
+                    //    {
+                    //        paramms += ",";
+                    //    }
+                        
+                    //}
+                    completeName += GetParamText();
+                }
+
+                return completeName;
+            }
+        }
+
+        public string GetParamText()
+        {
+            string paramms = "";
+            for (int i = 0; i < Parameters.Length; i++)
+            {
+                paramms += Parameters[i].Type;
+                if (i < Parameters.Length - 1)
+                {
+                    paramms += ",";
+                }
+            }
+            return "(" + paramms + ")";
+        }
+
         public ParsedMethod(string _name, string _returnType, PROTECTION protection)
         {
             name = _name;
@@ -213,6 +269,27 @@ namespace PortfolioXMLGenerator
         public void AddParameter(ParsedParameter parameter)
         {
             parameters.Add(parameter);
+        }
+    }
+
+    public class ParsedConstructor : ParsedMethod
+    {
+        public ParsedConstructor(PROTECTION protection)
+            : base ("","",protection)
+        {
+
+        }
+        public override string CompleteName
+        {
+            get
+            {
+                string completeName = "#ctor";
+                if (Parameters.Length > 0)
+                {
+                    completeName += GetParamText();
+                }
+                return completeName;
+            }
         }
     }
 

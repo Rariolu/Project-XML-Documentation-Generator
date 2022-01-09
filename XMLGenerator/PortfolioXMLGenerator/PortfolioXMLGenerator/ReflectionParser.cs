@@ -86,6 +86,23 @@ namespace PortfolioXMLGenerator
                             parsedType.AddProperty(parsedProperty);
                         }
 
+                        foreach (ConstructorInfo constructor in type.GetConstructors(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance))
+                        {
+                            ParsedConstructor parsedConstructor = new ParsedConstructor(constructor.GetProtectionLevel());
+
+                            ParameterInfo[] parameters = constructor.GetParameters();
+
+                            foreach (ParameterInfo parameter in parameters)
+                            {
+                                ParsedParameter parsedParameter = new ParsedParameter();
+                                parsedParameter.Name = parameter.Name;
+                                parsedParameter.Type = parameter.ParameterType.ToString();
+                                parsedConstructor.AddParameter(parsedParameter);
+                            }
+
+                            parsedType.AddMethod(parsedConstructor, true);
+                        }
+
                         parsedAssembly.AddType(parsedType);
                     }
                 }
@@ -113,6 +130,15 @@ namespace PortfolioXMLGenerator
             PROTECTION protection = field.IsPublic ? PROTECTION.PUBLIC :
             (
                 field.IsPrivate ? PROTECTION.PRIVATE : PROTECTION.PROTECTED
+            );
+            return protection;
+        }
+
+        public static PROTECTION GetProtectionLevel(this ConstructorInfo constructor)
+        {
+            PROTECTION protection = constructor.IsPublic ? PROTECTION.PUBLIC :
+            (
+                constructor.IsPrivate ? PROTECTION.PRIVATE : PROTECTION.PROTECTED
             );
             return protection;
         }
