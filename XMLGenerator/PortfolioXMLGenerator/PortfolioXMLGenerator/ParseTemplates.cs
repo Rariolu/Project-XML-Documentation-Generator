@@ -66,13 +66,11 @@ namespace PortfolioXMLGenerator
         public string Description { get; set; }
 
         List<ParsedMethod> methods;
-        //Dictionary<string, ParsedMethod> methods;
         public ParsedMethod[] Methods
         {
             get
             {
                 return methods.ToArray();
-                //return methods.Values.ToArray();
             }
         }
 
@@ -134,7 +132,6 @@ namespace PortfolioXMLGenerator
             {
                 methods.Add(method);
             }
-            //methods.Add(method.Name, method);
         }
 
         public void AddVariable(ParsedVariable variable)
@@ -246,16 +243,6 @@ namespace PortfolioXMLGenerator
 
                 if (Parameters.Length > 0)
                 {
-                    //string paramms = "";
-                    //for (int i = 0; i < Parameters.Length; i++)
-                    //{
-                    //    paramms += Parameters[i].Type;
-                    //    if (i < Parameters.Length - 1)
-                    //    {
-                    //        paramms += ",";
-                    //    }
-                        
-                    //}
                     completeName += GetParamText();
                 }
 
@@ -368,19 +355,15 @@ namespace PortfolioXMLGenerator
         public void AddAccessor(ACCESSOR_TYPE type, PROTECTION protection, bool isStatic)//(ParsedAccessor accessor)
         {
             accessors.Add(type, new ParsedPropertyAccessor(type, protection, isStatic));
-            //accessors.Add(type, protection);
-            //accessors.Add(accessor);
         }
         public bool HasAccessor(ACCESSOR_TYPE type, out ParsedPropertyAccessor propertyAccessor)
         {
             if (accessors.ContainsKey(type))
             {
                 propertyAccessor = accessors[type];
-                //protection = accessors[type];
                 return true;
             }
             propertyAccessor = default(ParsedPropertyAccessor);
-            //protection = default(PROTECTION);
             return false;
         }
     }

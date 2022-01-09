@@ -73,49 +73,6 @@ namespace PortfolioXMLGenerator
             return members;
         }
 
-        public static bool ParseDocumentationFile(string file, out ParseNode parentNode)
-        {
-            parentNode = new ParseNode("misc");
-            if (!File.Exists(file))
-            {
-                return false;
-            }
-
-            XmlReader xmlReader = XmlReader.Create(file);
-            while(xmlReader.Read())
-            {
-                if (xmlReader.IsStartElement(XML_ELEMENT.assembly.ToString()))
-                {
-                    xmlReader.Read();
-                    if (xmlReader.IsStartElement(XML_ELEMENT.name.ToString()))
-                    {
-                        parentNode.Name = xmlReader.Value;
-                    }
-                }
-                else if (xmlReader.IsStartElement(XML_ELEMENT.member.ToString()))
-                {
-                    string name = xmlReader["name"];
-                    string memberName = name.GetMemberName();
-                    MemberTypes memberType = name.GetMemberType();
-                    string[] parts = GetParts(memberName);
-                    //string[] parts = name.Split('.');
-                    string nodeName = parts.Length > 0 ? parts[parts.Length - 1] : "misc";
-                    ParseNode node = new ParseNode(nodeName, memberType);
-
-                    xmlReader.Read();
-                    if (xmlReader.IsStartElement(XML_ELEMENT.summary.ToString()))
-                    {
-                        xmlReader.Read();
-                        node.Description = xmlReader.Value;
-                    }
-
-                    parentNode.AddChild(memberName, node);
-                }
-            }
-
-            return true;
-        }
-
         static MemberTypes GetMemberType(this string nameStr)
         {
             char c = nameStr[0];
@@ -135,9 +92,7 @@ namespace PortfolioXMLGenerator
         }
         static string GetMemberName(this string nameStr)
         {
-            //string prefix = nameStr.Substring(0, 2);
             nameStr = nameStr.Remove(0, 2);
-            //nameStr = nameStr.TrimStart(prefix.ToCharArray());
 
             return nameStr;
         }
@@ -178,78 +133,6 @@ namespace PortfolioXMLGenerator
     public class MemberDict : Dictionary<string, ParsedMember>
     {
 
-    }
-
-    /// <summary>
-    /// jeiofjeof
-    /// </summary>
-    public struct ParseNode
-    {
-        public string Name { get; set; }
-        public string Description { get; set; }
-        Dictionary<string, ParseNode> childNodes;
-        public ParseNode[] Children
-        {
-            get
-            {
-                return childNodes.Values.ToArray();
-            }
-        }
-        MemberTypes type;
-        public MemberTypes Type
-        {
-            get
-            {
-                return type;
-            }
-        }
-        /// <summary>
-        /// Blep
-        /// </summary>
-        /// <param name="_name"></param>
-        public ParseNode(string _name)
-        {
-            Name = _name;
-            Description = "";
-            childNodes = new Dictionary<string, ParseNode>();
-            type = MemberTypes.Custom;
-        }
-        /// <summary>
-        /// Blep2
-        /// </summary>
-        /// <param name="_name">Node name</param>
-        /// <param name="memberType"></param>
-        public ParseNode(string _name, MemberTypes memberType) : this(_name)
-        {
-            type = memberType;
-        }
-
-        /// <summary>
-        /// Add child node to this node or one of its children
-        /// </summary>
-        /// <param name="childName"></param>
-        /// <param name="node"></param>
-        public void AddChild(string childName, ParseNode node)
-        {
-            string[] parts = childName.GetParts();//childName.Split('.');
-            if (parts.Length == 1)
-            {
-                childNodes.Add(parts.Single(), node);
-            }
-            else if (parts.Length > 1)
-            {
-                string nextName = childName.TrimStart((parts[0] + ".").ToCharArray());
-                if (childNodes.ContainsKey(parts[0]))
-                {
-                    childNodes[parts[0]].AddChild(nextName, node);
-                }
-                else
-                {
-                    ParseNode temp = new ParseNode(parts[0]);
-                    childNodes.Add(parts[0], temp);
-                }
-            }
-        }
     }
 
     public class ParsedMember
@@ -310,23 +193,5 @@ namespace PortfolioXMLGenerator
     {
         public string Name { get; set; }
         public string Description { get; set; }
-    }
-}
-/// <summary>
-/// TEMP
-/// </summary>
-public class TEMP
-{
-    public void BLEP()
-    {
-
-    }
-    private void BLEP2()
-    {
-
-    }
-    protected void BLEP3()
-    {
-
     }
 }
