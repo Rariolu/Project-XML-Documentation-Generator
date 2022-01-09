@@ -150,24 +150,40 @@ namespace PortfolioXMLGenerator
 
                 foreach(ParsedMethod method in type.Methods)
                 {
-                    string methodFullName = fullname + "." + method.Name;
-                    if (method.Parameters.Length > 0)
-                    {
-                        string paramStr = "";
-                        for(int i = 0; i < method.Parameters.Length; i++)
-                        {
-                            paramStr += method.Parameters[i].Type;
-                            if (i < method.Parameters.Length-1)
-                            {
-                                paramStr += ",";
-                            }
-                        }
-                        methodFullName += string.Format("({0})", paramStr);
-                    }
+                    string methodFullName = fullname + "." + method.CompleteName;
+                    //string methodFullName = fullname + "." + method.Name;
+                    //if (method.Parameters.Length > 0)
+                    //{
+                    //    string paramStr = "";
+                    //    for(int i = 0; i < method.Parameters.Length; i++)
+                    //    {
+                    //        paramStr += method.Parameters[i].Type;
+                    //        if (i < method.Parameters.Length-1)
+                    //        {
+                    //            paramStr += ",";
+                    //        }
+                    //    }
+                    //    methodFullName += string.Format("({0})", paramStr);
+                    //}
 
                     if (parsedDocumentationMembers.ContainsKey(methodFullName))
                     {
-                        method.Description = parsedDocumentationMembers[methodFullName].Description;
+                        ParsedMemberMethod parsedMethod = parsedDocumentationMembers[methodFullName] as ParsedMemberMethod;
+                        method.Description = parsedMethod.Description;
+
+                        foreach(ParsedParameter param in method.Parameters)
+                        {
+                            //TODO: Write better version later
+                            foreach(ParsedMemberMethodParam docParam in parsedMethod.Parameters)
+                            {
+                                if (param.Name == docParam.Name)
+                                {
+                                    param.Description = docParam.Description;
+                                    break;
+                                }
+                            }
+                            //method.Parameters
+                        }
                     }
                 }
 
@@ -186,6 +202,31 @@ namespace PortfolioXMLGenerator
                     if (parsedDocumentationMembers.ContainsKey(propFullName))
                     {
                         property.Description = parsedDocumentationMembers[propFullName].Description;
+                    }
+                }
+
+                foreach(ParsedConstructor constructor in type.Constructors)
+                {
+                    string constructorFullName = fullname + "." + constructor.CompleteName;
+                    if (parsedDocumentationMembers.ContainsKey(constructorFullName))
+                    {
+                        ParsedMemberMethod parsedConstructor = parsedDocumentationMembers[constructorFullName] as ParsedMemberMethod;
+
+                        constructor.Description = parsedConstructor.Description;
+
+                        foreach (ParsedParameter param in constructor.Parameters)
+                        {
+                            //TODO: Write better version later
+                            foreach (ParsedMemberMethodParam docParam in parsedConstructor.Parameters)
+                            {
+                                if (param.Name == docParam.Name)
+                                {
+                                    param.Description = docParam.Description;
+                                    break;
+                                }
+                            }
+                            //method.Parameters
+                        }
                     }
                 }
             }
