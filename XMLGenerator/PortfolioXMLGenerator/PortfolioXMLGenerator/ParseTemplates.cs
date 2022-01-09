@@ -103,7 +103,16 @@ namespace PortfolioXMLGenerator
             }
         }
 
-        public ParsedType(string _name, string _fullName)
+        bool isStatic;
+        public bool IsStatic
+        {
+            get
+            {
+                return isStatic;
+            }
+        }
+
+        public ParsedType(string _name, string _fullName, bool _isStatic = false)
         {
             name = _name;
             fullName = _fullName;
@@ -112,6 +121,7 @@ namespace PortfolioXMLGenerator
             variables = new List<ParsedVariable>();
             properties = new List<ParsedProperty>();
             constructors = new List<ParsedMethod>();
+            isStatic = _isStatic;
         }
 
         public void AddMethod(ParsedMethod method, bool isConstructor = false)
@@ -169,12 +179,22 @@ namespace PortfolioXMLGenerator
 
         public string Description { get; set; }
 
-        public ParsedVariable(string _name, string _type, PROTECTION protection)
+        bool isStatic = false;
+        public bool IsStatic
+        {
+            get
+            {
+                return isStatic;
+            }
+        }
+
+        public ParsedVariable(string _name, string _type, PROTECTION protection, bool _isStatic = false)
         {
             name = _name;
             type = _type;
             protectionLevel = protection;
             Description = "";
+            isStatic = _isStatic;
         }
     }
 
@@ -243,6 +263,15 @@ namespace PortfolioXMLGenerator
             }
         }
 
+        bool isStatic = false;
+        public bool IsStatic
+        {
+            get
+            {
+                return isStatic;
+            }
+        }
+
         public string GetParamText()
         {
             string paramms = "";
@@ -257,13 +286,14 @@ namespace PortfolioXMLGenerator
             return "(" + paramms + ")";
         }
 
-        public ParsedMethod(string _name, string _returnType, PROTECTION protection)
+        public ParsedMethod(string _name, string _returnType, PROTECTION protection, bool _isStatic = false)
         {
             name = _name;
             Description = "";
             returnType = _returnType;
             parameters = new List<ParsedParameter>();
             protectionLevel = protection;
+            isStatic = _isStatic;
         }
 
         public void AddParameter(ParsedParameter parameter)
@@ -274,8 +304,8 @@ namespace PortfolioXMLGenerator
 
     public class ParsedConstructor : ParsedMethod
     {
-        public ParsedConstructor(PROTECTION protection)
-            : base ("","",protection)
+        public ParsedConstructor(PROTECTION protection, bool isStatic = false)
+            : base ("","",protection, isStatic)
         {
 
         }
@@ -325,30 +355,70 @@ namespace PortfolioXMLGenerator
 
         public string Description { get; set; }
 
-        Dictionary<ACCESSOR_TYPE, PROTECTION> accessors;
+        Dictionary<ACCESSOR_TYPE, ParsedPropertyAccessor> accessors;
 
         public ParsedProperty(string _name, string _type)
         {
             name = _name;
             type = _type;
             Description = "";
-            accessors = new Dictionary<ACCESSOR_TYPE, PROTECTION>();
+            accessors = new Dictionary<ACCESSOR_TYPE, ParsedPropertyAccessor>();
         }
 
-        public void AddAccessor(ACCESSOR_TYPE type, PROTECTION protection)//(ParsedAccessor accessor)
+        public void AddAccessor(ACCESSOR_TYPE type, PROTECTION protection, bool isStatic)//(ParsedAccessor accessor)
         {
-            accessors.Add(type, protection);
+            accessors.Add(type, new ParsedPropertyAccessor(type, protection, isStatic));
+            //accessors.Add(type, protection);
             //accessors.Add(accessor);
         }
-        public bool HasAccessor(ACCESSOR_TYPE type, out PROTECTION protection)
+        public bool HasAccessor(ACCESSOR_TYPE type, out ParsedPropertyAccessor propertyAccessor)
         {
             if (accessors.ContainsKey(type))
             {
-                protection = accessors[type];
+                propertyAccessor = accessors[type];
+                //protection = accessors[type];
                 return true;
             }
-            protection = default(PROTECTION);
+            propertyAccessor = default(ParsedPropertyAccessor);
+            //protection = default(PROTECTION);
             return false;
+        }
+    }
+
+    public struct ParsedPropertyAccessor
+    {
+        ACCESSOR_TYPE type;
+        public ACCESSOR_TYPE Type
+        {
+            get
+            {
+                return type;
+            }
+        }
+
+        PROTECTION protectionLevel;
+        public PROTECTION ProtectionLevel
+        {
+            get
+            {
+                return protectionLevel;
+            }
+        }
+
+        bool isStatic;
+        public bool IsStatic
+        {
+            get
+            {
+                return isStatic;
+            }
+        }
+
+        public ParsedPropertyAccessor(ACCESSOR_TYPE _type, PROTECTION _protectionLevel, bool _isStatic)
+        {
+            type = _type;
+            protectionLevel = _protectionLevel;
+            isStatic = _isStatic;
         }
     }
 

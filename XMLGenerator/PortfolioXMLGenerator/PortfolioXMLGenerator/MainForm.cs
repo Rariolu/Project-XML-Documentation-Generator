@@ -64,17 +64,21 @@ namespace PortfolioXMLGenerator
                     foreach (ParsedProperty property in type.Properties)
                     {
                         string getter = "no getter";
-                        PROTECTION getterProt;
-                        if (property.HasAccessor(ACCESSOR_TYPE.GETTER, out getterProt))
+                        ParsedPropertyAccessor getAccessor;
+                        //PROTECTION getterProt;
+                        if (property.HasAccessor(ACCESSOR_TYPE.GETTER, out getAccessor))//out getterProt))
                         {
-                            getter = getterProt.ToString().ToLower() + " getter";
+                            //getter = getterProt.ToString().ToLower() + " getter";
+                            getter = getAccessor.ProtectionLevel.ToString().ToLower() + " getter";
                         }
 
                         string setter = "no setter";
-                        PROTECTION setterProt;
-                        if (property.HasAccessor(ACCESSOR_TYPE.SETTER, out setterProt))
+                        ParsedPropertyAccessor setAccessor;
+                        //PROTECTION setterProt;
+                        if (property.HasAccessor(ACCESSOR_TYPE.SETTER, out setAccessor))//out setterProt))
                         {
-                            setter = setterProt.ToString().ToLower() + " setter";
+                            //setter = setterProt.ToString().ToLower() + " setter";
+                            setter = setAccessor.ProtectionLevel.ToString().ToLower() + " setter";
                         }
                         rtbLog.Text += "\n\t" + string.Format("{0} ({1}, {2})", property.Name, getter, setter);
                     }

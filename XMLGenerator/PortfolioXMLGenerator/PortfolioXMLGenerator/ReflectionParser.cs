@@ -38,7 +38,8 @@ namespace PortfolioXMLGenerator
 
                         foreach (FieldInfo field in type.GetFields(BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Public))
                         {
-                            ParsedVariable parsedVariable = new ParsedVariable(field.Name, field.FieldType.ToString(), field.GetProtectionLevel());
+                            
+                            ParsedVariable parsedVariable = new ParsedVariable(field.Name, field.FieldType.ToString(), field.GetProtectionLevel(), field.IsStatic);
                             
                             parsedType.AddVariable(parsedVariable);
                         }
@@ -46,7 +47,7 @@ namespace PortfolioXMLGenerator
                         foreach (MethodInfo method in type.GetMethods(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance))
                         {
                             
-                            ParsedMethod parsedMethod = new ParsedMethod(method.Name, method.ReturnType.ToString(), method.GetProtectionLevel());
+                            ParsedMethod parsedMethod = new ParsedMethod(method.Name, method.ReturnType.ToString(), method.GetProtectionLevel(), method.IsStatic);
 
                             ParameterInfo[] parameters = method.GetParameters();
 
@@ -72,15 +73,18 @@ namespace PortfolioXMLGenerator
                             if (getter != null)
                             {
                                 //ParsedAccessor accessor = new ParsedAccessor(ACCESSOR_TYPE.GETTER, getter.GetProtectionLevel());
-                                parsedProperty.AddAccessor(ACCESSOR_TYPE.GETTER, getter.GetProtectionLevel());//(accessor);
+                                //parsedProperty.AddAccessor(ACCESSOR_TYPE.GETTER, getter.GetProtectionLevel());//(accessor);
+                                parsedProperty.AddAccessor(ACCESSOR_TYPE.GETTER, getter.GetProtectionLevel(), getter.IsStatic);
                             }
 
                             MethodInfo setter = property.GetSetMethod(true);
 
                             if (setter != null)
                             {
+
                                 //ParsedAccessor accessor = new ParsedAccessor(ACCESSOR_TYPE.SETTER, setter.GetProtectionLevel());
-                                parsedProperty.AddAccessor(ACCESSOR_TYPE.SETTER, setter.GetProtectionLevel());//(accessor);
+                                //parsedProperty.AddAccessor(ACCESSOR_TYPE.SETTER, setter.GetProtectionLevel());//(accessor);
+                                parsedProperty.AddAccessor(ACCESSOR_TYPE.SETTER, setter.GetProtectionLevel(), setter.IsStatic);
                             }
 
                             parsedType.AddProperty(parsedProperty);
@@ -88,7 +92,7 @@ namespace PortfolioXMLGenerator
 
                         foreach (ConstructorInfo constructor in type.GetConstructors(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance))
                         {
-                            ParsedConstructor parsedConstructor = new ParsedConstructor(constructor.GetProtectionLevel());
+                            ParsedConstructor parsedConstructor = new ParsedConstructor(constructor.GetProtectionLevel(), constructor.IsStatic);
 
                             ParameterInfo[] parameters = constructor.GetParameters();
 
@@ -113,6 +117,14 @@ namespace PortfolioXMLGenerator
             {
                 Console.WriteLine("ERROR: "+err.Message);
                 return false;
+            }
+        }
+
+        public static int I
+        {
+            get
+            {
+                return 42;
             }
         }
 

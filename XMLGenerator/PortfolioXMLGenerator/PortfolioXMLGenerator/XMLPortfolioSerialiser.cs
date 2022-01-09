@@ -32,7 +32,10 @@ namespace PortfolioXMLGenerator
             protection,
             description,
             getter,
-            setter
+            setter,
+            is_static,
+            getterStatic,
+            setterStatic
         }
         public static void SerialiseParsedElements(this ParsedAssembly assembly, string dir)
         {
@@ -93,6 +96,8 @@ namespace PortfolioXMLGenerator
                         xmlWriter.WriteAttributeEnum(PORTFOLIO_XML_ATTRIBUTE.description, parsedVariable.Description);
                     }
 
+                    xmlWriter.WriteAttributeEnum(PORTFOLIO_XML_ATTRIBUTE.is_static, parsedVariable.IsStatic);
+
                     //</variable>
                     xmlWriter.WriteEndElement();
                 }
@@ -115,6 +120,7 @@ namespace PortfolioXMLGenerator
                         xmlWriter.WriteAttributeEnum(PORTFOLIO_XML_ATTRIBUTE.description, parsedConstructor.Description);
                     }
 
+                    xmlWriter.WriteAttributeEnum(PORTFOLIO_XML_ATTRIBUTE.is_static, parsedConstructor.IsStatic);
 
                     foreach (ParsedParameter parsedParameter in parsedConstructor.Parameters)
                     {
@@ -151,6 +157,8 @@ namespace PortfolioXMLGenerator
                     {
                         xmlWriter.WriteAttributeEnum(PORTFOLIO_XML_ATTRIBUTE.description, parsedMethod.Description);
                     }
+
+                    xmlWriter.WriteAttributeEnum(PORTFOLIO_XML_ATTRIBUTE.is_static, parsedMethod.IsStatic);
 
                     foreach(ParsedParameter parsedParameter in parsedMethod.Parameters)
                     {
@@ -192,16 +200,28 @@ namespace PortfolioXMLGenerator
                         xmlWriter.WriteAttributeEnum(PORTFOLIO_XML_ATTRIBUTE.description, parsedProperty.Description);
                     }
 
-                    PROTECTION getProt;
-                    if (parsedProperty.HasAccessor(ACCESSOR_TYPE.GETTER, out getProt))
+                    ParsedPropertyAccessor getAccessor;
+                    //PROTECTION getProt;
+                    if (parsedProperty.HasAccessor(ACCESSOR_TYPE.GETTER, out getAccessor))//out getProt))
                     {
-                        xmlWriter.WriteAttributeEnum(PORTFOLIO_XML_ATTRIBUTE.getter, getProt.ToString().ToLower());
+                        xmlWriter.WriteAttributeEnum(PORTFOLIO_XML_ATTRIBUTE.getter, getAccessor.ProtectionLevel.ToString().ToLower());//getProt.ToString().ToLower());
+
+                        if (getAccessor.IsStatic)
+                        {
+                            xmlWriter.WriteAttributeEnum(PORTFOLIO_XML_ATTRIBUTE.getterStatic, "true");
+                        }
                     }
 
-                    PROTECTION setProt; 
-                    if (parsedProperty.HasAccessor(ACCESSOR_TYPE.SETTER, out setProt))
+                    ParsedPropertyAccessor setAccessor;
+                    //PROTECTION setProt; 
+                    if (parsedProperty.HasAccessor(ACCESSOR_TYPE.SETTER, out setAccessor))//out setProt))
                     {
-                        xmlWriter.WriteAttributeEnum(PORTFOLIO_XML_ATTRIBUTE.setter, setProt.ToString().ToLower());
+                        xmlWriter.WriteAttributeEnum(PORTFOLIO_XML_ATTRIBUTE.setter, setAccessor.ProtectionLevel.ToString());//setProt.ToString().ToLower());
+
+                        if (setAccessor.IsStatic)
+                        {
+                            xmlWriter.WriteAttributeEnum(PORTFOLIO_XML_ATTRIBUTE.setterStatic, "true");
+                        }
                     }
 
                     //</property>
