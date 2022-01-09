@@ -142,7 +142,52 @@ namespace PortfolioXMLGenerator
         {
             foreach(ParsedType type in assembly.ParsedTypes)
             {
-                //string fullName = string.Format("{0}.{1}",type.)
+                string fullname = type.FullName;
+                if (parsedDocumentationMembers.ContainsKey(fullname))
+                {
+                    type.Description = parsedDocumentationMembers[fullname].Description;
+                }
+
+                foreach(ParsedMethod method in type.Methods)
+                {
+                    string methodFullName = fullname + "." + method.Name;
+                    if (method.Parameters.Length > 0)
+                    {
+                        string paramStr = "";
+                        for(int i = 0; i < method.Parameters.Length; i++)
+                        {
+                            paramStr += method.Parameters[i].Type;
+                            if (i < method.Parameters.Length-1)
+                            {
+                                paramStr += ",";
+                            }
+                        }
+                        methodFullName += string.Format("({0})", paramStr);
+                    }
+
+                    if (parsedDocumentationMembers.ContainsKey(methodFullName))
+                    {
+                        method.Description = parsedDocumentationMembers[methodFullName].Description;
+                    }
+                }
+
+                foreach(ParsedVariable variable in type.Variables)
+                {
+                    string varFullName = fullname + "." + variable.Name;
+                    if (parsedDocumentationMembers.ContainsKey(varFullName))
+                    {
+                        variable.Description = parsedDocumentationMembers[varFullName].Description;
+                    }
+                }
+
+                foreach(ParsedProperty property in type.Properties)
+                {
+                    string propFullName = fullname + "." + property.Name;
+                    if (parsedDocumentationMembers.ContainsKey(propFullName))
+                    {
+                        property.Description = parsedDocumentationMembers[propFullName].Description;
+                    }
+                }
             }
             XMLPortfolioSerialiser.SerialiseParsedElements(assembly, tbAssemblyOutputPath.Text);
         }
