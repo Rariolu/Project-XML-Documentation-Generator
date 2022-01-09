@@ -15,7 +15,7 @@ namespace PortfolioXMLGenerator
     {
         public static bool ParseAssembly(string file, out ParsedAssembly parsedAssembly)
         {
-            parsedAssembly = new ParsedAssembly();
+            parsedAssembly = null;
             if (!File.Exists(file))
             {
                 return false;
@@ -33,7 +33,8 @@ namespace PortfolioXMLGenerator
                 {
                     if (!type.IsEnum)
                     {
-                        ParsedType parsedType = new ParsedType(type.Name);
+                        ParsedType parsedType = new ParsedType(type.Name, type.FullName);
+                        
 
                         foreach (FieldInfo field in type.GetFields(BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Public))
                         {
