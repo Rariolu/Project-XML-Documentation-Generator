@@ -13,7 +13,7 @@ namespace PortfolioXMLGenerator
         PUBLIC,
         INTERNAL
     }
-    public struct ParsedAssembly
+    public class ParsedAssembly
     {
         string name;
         public string Name
@@ -29,7 +29,7 @@ namespace PortfolioXMLGenerator
         {
             get
             {
-                return parsedTypes.Values.ToArray();
+               return parsedTypes.Values.ToArray();
             }
         }
 
@@ -45,7 +45,7 @@ namespace PortfolioXMLGenerator
         }
     }
 
-    public struct ParsedType
+    public class ParsedType
     {
         string name;
         public string Name
@@ -53,6 +53,14 @@ namespace PortfolioXMLGenerator
             get
             {
                 return name;
+            }
+        }
+        string fullName;
+        public string FullName
+        {
+            get
+            {
+                return fullName;
             }
         }
         public string Description { get; set; }
@@ -86,9 +94,10 @@ namespace PortfolioXMLGenerator
             }
         }
 
-        public ParsedType(string _name)
+        public ParsedType(string _name, string _fullName)
         {
             name = _name;
+            fullName = _fullName;
             Description = "";
             methods = new List<ParsedMethod>();
             variables = new List<ParsedVariable>();
@@ -112,7 +121,7 @@ namespace PortfolioXMLGenerator
         }
     }
 
-    public struct ParsedVariable
+    public class ParsedVariable
     {
         string name;
         public string Name
@@ -141,15 +150,18 @@ namespace PortfolioXMLGenerator
             }
         }
 
+        public string Description { get; set; }
+
         public ParsedVariable(string _name, string _type, PROTECTION protection)
         {
             name = _name;
             type = _type;
             protectionLevel = protection;
+            Description = "";
         }
     }
 
-    public struct ParsedMethod
+    public class ParsedMethod
     {
         string name;
         public string Name
@@ -187,9 +199,12 @@ namespace PortfolioXMLGenerator
             }
         }
 
+        public string Description { get; set; }
+
         public ParsedMethod(string _name, string _returnType, PROTECTION protection)
         {
             name = _name;
+            Description = "";
             returnType = _returnType;
             parameters = new List<ParsedParameter>();
             protectionLevel = protection;
@@ -201,14 +216,14 @@ namespace PortfolioXMLGenerator
         }
     }
 
-    public struct ParsedParameter
+    public class ParsedParameter
     {
         public string Name { get; set; }
         public string Type { get; set; }
         public string Description { get; set; }
     }
 
-    public struct ParsedProperty
+    public class ParsedProperty
     {
         string name;
         public string Name
@@ -220,6 +235,9 @@ namespace PortfolioXMLGenerator
         }
 
         string type;
+        /// <summary>
+        /// The type name of this parsed property.
+        /// </summary>
         public string Type
         {
             get

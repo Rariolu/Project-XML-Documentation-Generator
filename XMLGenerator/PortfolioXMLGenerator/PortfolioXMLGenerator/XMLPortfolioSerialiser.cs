@@ -63,13 +63,17 @@ namespace PortfolioXMLGenerator
                 //</name>
                 xmlWriter.WriteEndElement();
 
-                //<description>
-                xmlWriter.WriteStartElementEnum(PORTFOLIO_XML_ELEMENT.description);
+                if (!string.IsNullOrEmpty(parsedType.Description))
+                {
 
-                xmlWriter.WriteValue(parsedType.Description);
+                    //<description>
+                    xmlWriter.WriteStartElementEnum(PORTFOLIO_XML_ELEMENT.description);
 
-                //</description>
-                xmlWriter.WriteEndElement();
+                    xmlWriter.WriteValue(parsedType.Description);
+
+                    //</description>
+                    xmlWriter.WriteEndElement();
+                }
 
                 //<variables>
                 xmlWriter.WriteStartElementEnum(PORTFOLIO_XML_ELEMENT.variables);
@@ -82,6 +86,11 @@ namespace PortfolioXMLGenerator
                     xmlWriter.WriteAttributeEnum(PORTFOLIO_XML_ATTRIBUTE.type, parsedVariable.Type);
 
                     xmlWriter.WriteAttributeEnum(PORTFOLIO_XML_ATTRIBUTE.name, parsedVariable.Name);
+
+                    if (!string.IsNullOrEmpty(parsedVariable.Description))
+                    {
+                        xmlWriter.WriteAttributeEnum(PORTFOLIO_XML_ATTRIBUTE.description, parsedVariable.Description);
+                    }
 
                     //</variable>
                     xmlWriter.WriteEndElement();
@@ -103,6 +112,11 @@ namespace PortfolioXMLGenerator
                     xmlWriter.WriteAttributeEnum(PORTFOLIO_XML_ATTRIBUTE.name, parsedMethod.Name);
 
                     xmlWriter.WriteAttributeEnum(PORTFOLIO_XML_ATTRIBUTE.protection, parsedMethod.ProtectionLevel.ToString().ToLower());
+
+                    if (!string.IsNullOrEmpty(parsedMethod.Description))
+                    {
+                        xmlWriter.WriteAttributeEnum(PORTFOLIO_XML_ATTRIBUTE.description, parsedMethod.Description);
+                    }
 
                     foreach(ParsedParameter parsedParameter in parsedMethod.Parameters)
                     {
@@ -139,13 +153,18 @@ namespace PortfolioXMLGenerator
 
                     xmlWriter.WriteAttributeEnum(PORTFOLIO_XML_ATTRIBUTE.name, parsedProperty.Name);
 
+                    if (!string.IsNullOrEmpty(parsedProperty.Description))
+                    {
+                        xmlWriter.WriteAttributeEnum(PORTFOLIO_XML_ATTRIBUTE.description, parsedProperty.Description);
+                    }
+
                     PROTECTION getProt;
                     if (parsedProperty.HasAccessor(ACCESSOR_TYPE.GETTER, out getProt))
                     {
                         xmlWriter.WriteAttributeEnum(PORTFOLIO_XML_ATTRIBUTE.getter, getProt.ToString().ToLower());
                     }
 
-                    PROTECTION setProt;
+                    PROTECTION setProt; 
                     if (parsedProperty.HasAccessor(ACCESSOR_TYPE.SETTER, out setProt))
                     {
                         xmlWriter.WriteAttributeEnum(PORTFOLIO_XML_ATTRIBUTE.setter, setProt.ToString().ToLower());
