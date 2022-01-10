@@ -45,9 +45,9 @@ namespace PortfolioXMLGenerator
         }
     }
 
-    public class ParsedType
+    public abstract class ParseMemberParent
     {
-        string name;
+        string name = "";
         public string Name
         {
             get
@@ -55,15 +55,66 @@ namespace PortfolioXMLGenerator
                 return name;
             }
         }
-        string fullName;
+
+        TypeStruct type;
+        public TypeStruct Type
+        {
+            get
+            {
+                return type;
+            }
+        }
+
+        public string Description { get; set; }
+
+        bool isStatic;
+        public bool IsStatic
+        {
+            get
+            {
+                return isStatic;
+            }
+        }
+
+        public ParseMemberParent(string _name, string _type, string _namespace, bool _isStatic = false)
+        {
+            name = _name;
+            type = new TypeStruct();
+            type.TypeName = _type;
+            type.Namespace = _namespace;
+            isStatic = _isStatic;
+        }
+    }
+    public class ParsedType : ParseMemberParent
+    {
+        //string name;
+        //public string Name
+        //{
+        //    get
+        //    {
+        //        return name;
+        //    }
+        //}
+        //string fullName;
         public string FullName
         {
             get
             {
-                return fullName;
+                return Type.Namespace + "." + Name;
+                //return fullName;
             }
         }
-        public string Description { get; set; }
+
+        //string nameSpace;
+        //public string Namespace
+        //{
+        //    get
+        //    {
+        //        return nameSpace;
+        //    }
+        //}
+
+        //public string Description { get; set; }
 
         List<ParsedMethod> methods;
         public ParsedMethod[] Methods
@@ -101,25 +152,28 @@ namespace PortfolioXMLGenerator
             }
         }
 
-        bool isStatic;
-        public bool IsStatic
-        {
-            get
-            {
-                return isStatic;
-            }
-        }
+        //bool isStatic;
+        //public bool IsStatic
+        //{
+        //    get
+        //    {
+        //        return isStatic;
+        //    }
+        //}
 
-        public ParsedType(string _name, string _fullName, bool _isStatic = false)
+        //public ParsedType(string _name, string _fullName, bool _isStatic = false)
+        public ParsedType(string _name, string _namespace, bool _isStatic = false)
+            :base(_name, _name, _namespace, _isStatic)
         {
-            name = _name;
-            fullName = _fullName;
-            Description = "";
+            //name = _name;
+            //fullName = _fullName;
+            //nameSpace = _namespace;
+            //Description = "";
             methods = new List<ParsedMethod>();
             variables = new List<ParsedVariable>();
             properties = new List<ParsedProperty>();
             constructors = new List<ParsedMethod>();
-            isStatic = _isStatic;
+            //isStatic = _isStatic;
         }
 
         public void AddMethod(ParsedMethod method, bool isConstructor = false)
@@ -145,25 +199,34 @@ namespace PortfolioXMLGenerator
         }
     }
 
-    public class ParsedVariable
+    public class ParsedVariable : ParseMemberParent
     {
-        string name;
-        public string Name
-        {
-            get
-            {
-                return name;
-            }
-        }
+        //string name;
+        //public string Name
+        //{
+        //    get
+        //    {
+        //        return name;
+        //    }
+        //}
 
-        string type;
-        public string Type
-        {
-            get
-            {
-                return type;
-            }
-        }
+        //string type;
+        //public string Type
+        //{
+        //    get
+        //    {
+        //        return type;
+        //    }
+        //}
+
+        //string nameSpace;
+        //public string Namespace
+        //{
+        //    get
+        //    {
+        //        return nameSpace;
+        //    }
+        //}
 
         PROTECTION protectionLevel;
         public PROTECTION ProtectionLevel
@@ -174,46 +237,48 @@ namespace PortfolioXMLGenerator
             }
         }
 
-        public string Description { get; set; }
+        //public string Description { get; set; }
 
-        bool isStatic = false;
-        public bool IsStatic
-        {
-            get
-            {
-                return isStatic;
-            }
-        }
+        //bool isStatic = false;
+        //public bool IsStatic
+        //{
+        //    get
+        //    {
+        //        return isStatic;
+        //    }
+        //}
 
-        public ParsedVariable(string _name, string _type, PROTECTION protection, bool _isStatic = false)
+        public ParsedVariable(string _name, string _type, string _namespace, PROTECTION protection, bool _isStatic = false)
+            : base(_name, _type, _namespace, _isStatic)
         {
-            name = _name;
-            type = _type;
+            //name = _name;
+            //type = _type;
+            //nameSpace = _namespace;
             protectionLevel = protection;
             Description = "";
-            isStatic = _isStatic;
+            //isStatic = _isStatic;
         }
     }
 
-    public class ParsedMethod
+    public class ParsedMethod : ParseMemberParent
     {
-        string name;
-        public string Name
-        {
-            get
-            {
-                return name;
-            }
-        }
+        //string name;
+        //public string Name
+        //{
+        //    get
+        //    {
+        //        return name;
+        //    }
+        //}
 
-        string returnType;
-        public string ReturnType
-        {
-            get
-            {
-                return returnType;
-            }
-        }
+        //string returnType;
+        //public string ReturnType
+        //{
+        //    get
+        //    {
+        //        return returnType;
+        //    }
+        //}
 
         PROTECTION protectionLevel;
         public PROTECTION ProtectionLevel
@@ -233,7 +298,7 @@ namespace PortfolioXMLGenerator
             }
         }
 
-        public string Description { get; set; }
+        //public string Description { get; set; }
 
         public virtual string CompleteName
         {
@@ -250,14 +315,14 @@ namespace PortfolioXMLGenerator
             }
         }
 
-        bool isStatic = false;
-        public bool IsStatic
-        {
-            get
-            {
-                return isStatic;
-            }
-        }
+        //bool isStatic = false;
+        //public bool IsStatic
+        //{
+        //    get
+        //    {
+        //        return isStatic;
+        //    }
+        //}
 
         public string GetParamText()
         {
@@ -273,14 +338,15 @@ namespace PortfolioXMLGenerator
             return "(" + paramms + ")";
         }
 
-        public ParsedMethod(string _name, string _returnType, PROTECTION protection, bool _isStatic = false)
+        public ParsedMethod(string _name, string _returnType, string _namespace, PROTECTION protection, bool _isStatic = false)
+            : base(_name, _returnType, _namespace, _isStatic)
         {
-            name = _name;
-            Description = "";
-            returnType = _returnType;
+            //name = _name;
+            //Description = "";
+            //returnType = _returnType;
             parameters = new List<ParsedParameter>();
             protectionLevel = protection;
-            isStatic = _isStatic;
+            //isStatic = _isStatic;
         }
 
         public void AddParameter(ParsedParameter parameter)
@@ -292,7 +358,7 @@ namespace PortfolioXMLGenerator
     public class ParsedConstructor : ParsedMethod
     {
         public ParsedConstructor(PROTECTION protection, bool isStatic = false)
-            : base ("","",protection, isStatic)
+            : base ("","","",protection, isStatic)
         {
 
         }
@@ -310,45 +376,51 @@ namespace PortfolioXMLGenerator
         }
     }
 
-    public class ParsedParameter
+    public class ParsedParameter : ParseMemberParent
     {
-        public string Name { get; set; }
-        public string Type { get; set; }
-        public string Description { get; set; }
+        //public string Name { get; set; }
+        //public string Type { get; set; }
+        //public string Description { get; set; }
+        public ParsedParameter(string _name, string _type, string _namespace)
+            :base(_name, _type, _namespace)
+        {
+
+        }
     }
 
-    public class ParsedProperty
+    public class ParsedProperty : ParseMemberParent
     {
-        string name;
-        public string Name
-        {
-            get
-            {
-                return name;
-            }
-        }
+        //string name;
+        //public string Name
+        //{
+        //    get
+        //    {
+        //        return name;
+        //    }
+        //}
 
-        string type;
-        /// <summary>
-        /// The type name of this parsed property.
-        /// </summary>
-        public string Type
-        {
-            get
-            {
-                return type;
-            }
-        }
+        //string type;
+        ///// <summary>
+        ///// The type name of this parsed property.
+        ///// </summary>
+        //public string Type
+        //{
+        //    get
+        //    {
+        //        return type;
+        //    }
+        //}
 
-        public string Description { get; set; }
+        //public string Description { get; set; }
 
         Dictionary<ACCESSOR_TYPE, ParsedPropertyAccessor> accessors;
 
-        public ParsedProperty(string _name, string _type)
+        public ParsedProperty(string _name, string _type, string _namespace)
+            : base(_name, _type, _namespace)
         {
-            name = _name;
-            type = _type;
-            Description = "";
+            //name = _name;
+            //type = _type;
+            //Description = "";
             accessors = new Dictionary<ACCESSOR_TYPE, ParsedPropertyAccessor>();
         }
 
@@ -402,6 +474,16 @@ namespace PortfolioXMLGenerator
             type = _type;
             protectionLevel = _protectionLevel;
             isStatic = _isStatic;
+        }
+    }
+
+    public struct TypeStruct
+    {
+        public string TypeName { get; set; }
+        public string Namespace { get; set; }
+        public override string ToString()
+        {
+            return TypeName;
         }
     }
 

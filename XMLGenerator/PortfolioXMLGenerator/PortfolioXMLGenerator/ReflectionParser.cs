@@ -33,21 +33,28 @@ namespace PortfolioXMLGenerator
                 {
                     if (!type.IsEnum)
                     {
-                        ParsedType parsedType = new ParsedType(type.Name, type.FullName);
+                        string _namespace = type.FullName.TrimEnd(("." + type.Name).ToCharArray());
+                        ParsedType parsedType = new ParsedType(type.Name, _namespace);//type.FullName);
                         
 
                         foreach (FieldInfo field in type.GetFields(BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Public))
                         {
-                            
-                            ParsedVariable parsedVariable = new ParsedVariable(field.Name, field.FieldType.ToString(), field.GetProtectionLevel(), field.IsStatic);
-                            
+                            string fieldType;
+                            string fieldNamespace;
+                            GetNamespaceAndType(field.FieldType.ToString(), out fieldNamespace, out fieldType);
+
+                            ParsedVariable parsedVariable = new ParsedVariable(field.Name, fieldType, fieldNamespace, field.GetProtectionLevel(), field.IsStatic);
+
                             parsedType.AddVariable(parsedVariable);
                         }
 
                         foreach (MethodInfo method in type.GetMethods(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance))
                         {
-                            
-                            ParsedMethod parsedMethod = new ParsedMethod(method.Name, method.ReturnType.ToString(), method.GetProtectionLevel(), method.IsStatic);
+                            string methodType;
+                            string methodNamespace;
+                            GetNamespaceAndType(method.ReturnType.ToString(), out methodNamespace, out methodType);
+                            //ParsedMethod parsedMethod = new ParsedMethod(method.Name, method.ReturnType.ToString(), method.GetProtectionLevel(), method.IsStatic);
+                            ParsedMethod parsedMethod = new ParsedMethod(method.Name, methodType, methodNamespace, method.GetProtectionLevel(), method.IsStatic);
 
                             ParameterInfo[] parameters = method.GetParameters();
 
@@ -55,9 +62,12 @@ namespace PortfolioXMLGenerator
 
                             foreach (ParameterInfo parameter in parameters)
                             {
-                                ParsedParameter parsedParameter = new ParsedParameter();
-                                parsedParameter.Name = parameter.Name;
-                                parsedParameter.Type = parameter.ParameterType.ToString();
+                                string parameterType;
+                                string parameterNamespace;
+                                GetNamespaceAndType(parameter.ParameterType.ToString(), out parameterNamespace, out parameterType);
+                                ParsedParameter parsedParameter = new ParsedParameter(parameter.Name,parameterType, parameterNamespace);
+                                //parsedParameter.Name = parameter.Name;
+                                //parsedParameter.Type = parameter.ParameterType.ToString();
                                 parsedMethod.AddParameter(parsedParameter);
                             }
 
@@ -66,14 +76,16 @@ namespace PortfolioXMLGenerator
 
                         foreach(PropertyInfo property in type.GetProperties(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance))
                         {
-                            ParsedProperty parsedProperty = new ParsedProperty(property.Name, property.PropertyType.ToString());
+                            string propertyType;
+                            string propertyNamespace;
+                            GetNamespaceAndType(property.PropertyType.ToString(), out propertyNamespace, out propertyType);
+                            //ParsedProperty parsedProperty = new ParsedProperty(property.Name, property.PropertyType.ToString());
+                            ParsedProperty parsedProperty = new ParsedProperty(property.Name, propertyType,propertyNamespace);
 
                             MethodInfo getter = property.GetGetMethod(true);
 
                             if (getter != null)
                             {
-                                //ParsedAccessor accessor = new ParsedAccessor(ACCESSOR_TYPE.GETTER, getter.GetProtectionLevel());
-                                //parsedProperty.AddAccessor(ACCESSOR_TYPE.GETTER, getter.GetProtectionLevel());//(accessor);
                                 parsedProperty.AddAccessor(ACCESSOR_TYPE.GETTER, getter.GetProtectionLevel(), getter.IsStatic);
                             }
 
@@ -98,9 +110,13 @@ namespace PortfolioXMLGenerator
 
                             foreach (ParameterInfo parameter in parameters)
                             {
-                                ParsedParameter parsedParameter = new ParsedParameter();
-                                parsedParameter.Name = parameter.Name;
-                                parsedParameter.Type = parameter.ParameterType.ToString();
+                                string parameterType;
+                                string parameterNamespace;
+                                GetNamespaceAndType(parameter.ParameterType.ToString(), out parameterNamespace, out parameterType);
+                                ParsedParameter parsedParameter = new ParsedParameter(parameter.Name, parameterType, parameterNamespace);
+                                //ParsedParameter parsedParameter = new ParsedParameter();
+                                //parsedParameter.Name = parameter.Name;
+                                //parsedParameter.Type = parameter.ParameterType.ToString();
                                 parsedConstructor.AddParameter(parsedParameter);
                             }
 
@@ -120,12 +136,20 @@ namespace PortfolioXMLGenerator
             }
         }
 
-        public static int I
+        public static void GetNamespaceAndType(this string str, out string nameSpace, out string type)
         {
-            get
+            int dotIndex = str.LastIndexOf('.');
+            if (dotIndex < 0)
             {
-                return 42;
+                nameSpace = "";
+                type = str;
+                return;
             }
+            string n = str.Substring(0, dotIndex);
+            nameSpace = n;
+
+            string t = str.Substring(dotIndex + 1, str.Length - (dotIndex+1));
+            type = t;
         }
 
         public static PROTECTION GetProtectionLevel(this MethodInfo method)

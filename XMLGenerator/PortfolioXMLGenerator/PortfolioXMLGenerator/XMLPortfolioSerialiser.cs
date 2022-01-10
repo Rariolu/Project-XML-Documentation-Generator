@@ -23,7 +23,8 @@ namespace PortfolioXMLGenerator
             parameter,
             properties,
             property,
-            classconst
+            classconst,
+            NAMESPACE
         }
         public enum PORTFOLIO_XML_ATTRIBUTE
         {
@@ -35,7 +36,8 @@ namespace PortfolioXMLGenerator
             setter,
             is_static,
             getterStatic,
-            setterStatic
+            setterStatic,
+            NAMESPACE
         }
         public static void SerialiseParsedElements(this ParsedAssembly assembly, string dir)
         {
@@ -67,6 +69,14 @@ namespace PortfolioXMLGenerator
                 //</name>
                 xmlWriter.WriteEndElement();
 
+                //<namespace>
+                xmlWriter.WriteStartElementEnum(PORTFOLIO_XML_ELEMENT.NAMESPACE);
+
+                xmlWriter.WriteValue(parsedType.Type.Namespace);
+
+                //</namespace>
+                xmlWriter.WriteEndElement();
+
                 if (!string.IsNullOrEmpty(parsedType.Description))
                 {
 
@@ -90,6 +100,8 @@ namespace PortfolioXMLGenerator
                     xmlWriter.WriteAttributeEnum(PORTFOLIO_XML_ATTRIBUTE.type, parsedVariable.Type);
 
                     xmlWriter.WriteAttributeEnum(PORTFOLIO_XML_ATTRIBUTE.name, parsedVariable.Name);
+
+                    xmlWriter.WriteAttributeEnum(PORTFOLIO_XML_ATTRIBUTE.NAMESPACE, parsedVariable.Type.Namespace);
 
                     if (!string.IsNullOrEmpty(parsedVariable.Description))
                     {
@@ -147,9 +159,11 @@ namespace PortfolioXMLGenerator
                     //<method>
                     xmlWriter.WriteStartElementEnum(PORTFOLIO_XML_ELEMENT.method);
 
-                    xmlWriter.WriteAttributeEnum(PORTFOLIO_XML_ATTRIBUTE.type, parsedMethod.ReturnType);
+                    xmlWriter.WriteAttributeEnum(PORTFOLIO_XML_ATTRIBUTE.type, parsedMethod.Type);
 
                     xmlWriter.WriteAttributeEnum(PORTFOLIO_XML_ATTRIBUTE.name, parsedMethod.Name);
+
+                    xmlWriter.WriteAttributeEnum(PORTFOLIO_XML_ATTRIBUTE.NAMESPACE, parsedMethod.Type.Namespace);
 
                     xmlWriter.WriteAttributeEnum(PORTFOLIO_XML_ATTRIBUTE.protection, parsedMethod.ProtectionLevel.ToString().ToLower());
 
@@ -167,6 +181,8 @@ namespace PortfolioXMLGenerator
                         xmlWriter.WriteAttributeEnum(PORTFOLIO_XML_ATTRIBUTE.type, parsedParameter.Type);
 
                         xmlWriter.WriteAttributeEnum(PORTFOLIO_XML_ATTRIBUTE.name, parsedParameter.Name);
+
+                        xmlWriter.WriteAttributeEnum(PORTFOLIO_XML_ATTRIBUTE.NAMESPACE, parsedParameter.Type.Namespace);
 
                         if (!string.IsNullOrEmpty(parsedParameter.Description))
                         {
@@ -195,13 +211,14 @@ namespace PortfolioXMLGenerator
 
                     xmlWriter.WriteAttributeEnum(PORTFOLIO_XML_ATTRIBUTE.name, parsedProperty.Name);
 
+                    xmlWriter.WriteAttributeEnum(PORTFOLIO_XML_ATTRIBUTE.NAMESPACE, parsedProperty.Type.Namespace);
+
                     if (!string.IsNullOrEmpty(parsedProperty.Description))
                     {
                         xmlWriter.WriteAttributeEnum(PORTFOLIO_XML_ATTRIBUTE.description, parsedProperty.Description);
                     }
 
                     ParsedPropertyAccessor getAccessor;
-                    //PROTECTION getProt;
                     if (parsedProperty.HasAccessor(ACCESSOR_TYPE.GETTER, out getAccessor))//out getProt))
                     {
                         xmlWriter.WriteAttributeEnum(PORTFOLIO_XML_ATTRIBUTE.getter, getAccessor.ProtectionLevel.ToString().ToLower());//getProt.ToString().ToLower());
@@ -213,7 +230,6 @@ namespace PortfolioXMLGenerator
                     }
 
                     ParsedPropertyAccessor setAccessor;
-                    //PROTECTION setProt; 
                     if (parsedProperty.HasAccessor(ACCESSOR_TYPE.SETTER, out setAccessor))//out setProt))
                     {
                         xmlWriter.WriteAttributeEnum(PORTFOLIO_XML_ATTRIBUTE.setter, setAccessor.ProtectionLevel.ToString());//setProt.ToString().ToLower());
@@ -242,12 +258,12 @@ namespace PortfolioXMLGenerator
         
         static void WriteStartElementEnum(this XmlWriter writer, PORTFOLIO_XML_ELEMENT element)
         {
-            writer.WriteStartElement(element.ToString());
+            writer.WriteStartElement(element.ToString().ToLower());
         }
 
         static void WriteAttributeEnum(this XmlWriter writer, PORTFOLIO_XML_ATTRIBUTE attribute, object obj)
         {
-            writer.WriteAttributeString(attribute.ToString(), obj.ToString());
+            writer.WriteAttributeString(attribute.ToString().ToLower(), obj.ToString());
         }
     }
 }
