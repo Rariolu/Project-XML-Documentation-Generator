@@ -40,7 +40,7 @@ namespace PortfolioXMLGenerator
                         ParsedType parsedType = new ParsedType(typeName, typeNamespace);//type.FullName);
                         
 
-                        foreach (FieldInfo field in type.GetFields(BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Public))
+                        foreach (FieldInfo field in type.GetFields(BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Public | BindingFlags.DeclaredOnly))
                         {
                             string fieldType;
                             string fieldNamespace;
@@ -51,7 +51,7 @@ namespace PortfolioXMLGenerator
                             parsedType.AddVariable(parsedVariable);
                         }
 
-                        foreach (MethodInfo method in type.GetMethods(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance))
+                        foreach (MethodInfo method in type.GetMethods(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly))
                         {
                             string methodType;
                             string methodNamespace;
@@ -77,7 +77,7 @@ namespace PortfolioXMLGenerator
                             parsedType.AddMethod(parsedMethod);
                         }
 
-                        foreach(PropertyInfo property in type.GetProperties(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance))
+                        foreach(PropertyInfo property in type.GetProperties(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly))
                         {
                             string propertyType;
                             string propertyNamespace;
