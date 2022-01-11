@@ -61,163 +61,176 @@ namespace PortfolioXMLGenerator
                     xmlWriter.WriteEndElement();
                 }
 
-                //<variables>
-                xmlWriter.WriteStartElementEnum(PORTFOLIO_XML_ELEMENT.variables);
-
-                foreach(ParsedVariable parsedVariable in parsedType.Variables)
+                if (parsedType.Variables.Length > 0)
                 {
-                    //<variable>
-                    xmlWriter.WriteStartElementEnum(PORTFOLIO_XML_ELEMENT.variable);
+                    //<variables>
+                    xmlWriter.WriteStartElementEnum(PORTFOLIO_XML_ELEMENT.variables);
 
-                    xmlWriter.WriteAttributeEnum(PORTFOLIO_XML_ATTRIBUTE.type, parsedVariable.Type);
-
-                    xmlWriter.WriteAttributeEnum(PORTFOLIO_XML_ATTRIBUTE.name, parsedVariable.Name);
-
-                    xmlWriter.WriteAttributeEnum(PORTFOLIO_XML_ATTRIBUTE.NAMESPACE, parsedVariable.Type.Namespace);
-
-                    if (!string.IsNullOrEmpty(parsedVariable.Description))
+                    foreach (ParsedVariable parsedVariable in parsedType.Variables)
                     {
-                        xmlWriter.WriteAttributeEnum(PORTFOLIO_XML_ATTRIBUTE.description, parsedVariable.Description);
-                    }
+                        //<variable>
+                        xmlWriter.WriteStartElementEnum(PORTFOLIO_XML_ELEMENT.variable);
 
-                    xmlWriter.WriteAttributeEnum(PORTFOLIO_XML_ATTRIBUTE.is_static, parsedVariable.IsStatic);
+                        xmlWriter.WriteAttributeEnum(PORTFOLIO_XML_ATTRIBUTE.type, parsedVariable.Type);
 
-                    //</variable>
-                    xmlWriter.WriteEndElement();
-                }
+                        xmlWriter.WriteAttributeEnum(PORTFOLIO_XML_ATTRIBUTE.name, parsedVariable.Name);
 
-                //</variables>
-                xmlWriter.WriteEndElement();
+                        xmlWriter.WriteAttributeEnum(PORTFOLIO_XML_ATTRIBUTE.NAMESPACE, parsedVariable.Type.Namespace);
 
-                //<methods>
-                xmlWriter.WriteStartElementEnum(PORTFOLIO_XML_ELEMENT.methods);
-
-                foreach(ParsedConstructor parsedConstructor in parsedType.Constructors)
-                {
-                    //<classconst>
-                    xmlWriter.WriteStartElementEnum(PORTFOLIO_XML_ELEMENT.classconst);
-
-                    xmlWriter.WriteAttributeEnum(PORTFOLIO_XML_ATTRIBUTE.protection, parsedConstructor.ProtectionLevel.ToString().ToLower());
-
-                    if (!string.IsNullOrEmpty(parsedConstructor.Description))
-                    {
-                        xmlWriter.WriteAttributeEnum(PORTFOLIO_XML_ATTRIBUTE.description, parsedConstructor.Description);
-                    }
-
-                    xmlWriter.WriteAttributeEnum(PORTFOLIO_XML_ATTRIBUTE.is_static, parsedConstructor.IsStatic);
-
-                    foreach (ParsedParameter parsedParameter in parsedConstructor.Parameters)
-                    {
-                        xmlWriter.WriteStartElementEnum(PORTFOLIO_XML_ELEMENT.parameter);
-
-                        xmlWriter.WriteAttributeEnum(PORTFOLIO_XML_ATTRIBUTE.type, parsedParameter.Type);
-
-                        xmlWriter.WriteAttributeEnum(PORTFOLIO_XML_ATTRIBUTE.name, parsedParameter.Name);
-
-                        if (!string.IsNullOrEmpty(parsedParameter.Description))
+                        if (!string.IsNullOrEmpty(parsedVariable.Description))
                         {
-                            xmlWriter.WriteAttributeEnum(PORTFOLIO_XML_ATTRIBUTE.description, parsedParameter.Description);
+                            xmlWriter.WriteAttributeEnum(PORTFOLIO_XML_ATTRIBUTE.description, parsedVariable.Description);
                         }
 
+                        xmlWriter.WriteAttributeEnum(PORTFOLIO_XML_ATTRIBUTE.is_static, parsedVariable.IsStatic);
+
+                        //</variable>
                         xmlWriter.WriteEndElement();
                     }
 
-                    //</classconst>
+                    //</variables>
                     xmlWriter.WriteEndElement();
                 }
 
-                foreach(ParsedMethod parsedMethod in parsedType.Methods)
+                if (parsedType.Methods.Length > 0 || parsedType.Constructors.Length > 0)
                 {
-                    //<method>
-                    xmlWriter.WriteStartElementEnum(PORTFOLIO_XML_ELEMENT.method);
 
-                    xmlWriter.WriteAttributeEnum(PORTFOLIO_XML_ATTRIBUTE.type, parsedMethod.Type);
+                    //<methods>
+                    xmlWriter.WriteStartElementEnum(PORTFOLIO_XML_ELEMENT.methods);
 
-                    xmlWriter.WriteAttributeEnum(PORTFOLIO_XML_ATTRIBUTE.name, parsedMethod.Name);
-
-                    xmlWriter.WriteAttributeEnum(PORTFOLIO_XML_ATTRIBUTE.NAMESPACE, parsedMethod.Type.Namespace);
-
-                    xmlWriter.WriteAttributeEnum(PORTFOLIO_XML_ATTRIBUTE.protection, parsedMethod.ProtectionLevel.ToString().ToLower());
-
-                    if (!string.IsNullOrEmpty(parsedMethod.Description))
+                    foreach (ParsedConstructor parsedConstructor in parsedType.Constructors)
                     {
-                        xmlWriter.WriteAttributeEnum(PORTFOLIO_XML_ATTRIBUTE.description, parsedMethod.Description);
-                    }
+                        //<classconst>
+                        xmlWriter.WriteStartElementEnum(PORTFOLIO_XML_ELEMENT.classconst);
 
-                    xmlWriter.WriteAttributeEnum(PORTFOLIO_XML_ATTRIBUTE.is_static, parsedMethod.IsStatic);
+                        xmlWriter.WriteAttributeEnum(PORTFOLIO_XML_ATTRIBUTE.protection, parsedConstructor.ProtectionLevel.ToString().ToLower());
 
-                    foreach(ParsedParameter parsedParameter in parsedMethod.Parameters)
-                    {
-                        xmlWriter.WriteStartElementEnum(PORTFOLIO_XML_ELEMENT.parameter);
-
-                        xmlWriter.WriteAttributeEnum(PORTFOLIO_XML_ATTRIBUTE.type, parsedParameter.Type);
-
-                        xmlWriter.WriteAttributeEnum(PORTFOLIO_XML_ATTRIBUTE.name, parsedParameter.Name);
-
-                        xmlWriter.WriteAttributeEnum(PORTFOLIO_XML_ATTRIBUTE.NAMESPACE, parsedParameter.Type.Namespace);
-
-                        if (!string.IsNullOrEmpty(parsedParameter.Description))
+                        if (!string.IsNullOrEmpty(parsedConstructor.Description))
                         {
-                            xmlWriter.WriteAttributeEnum(PORTFOLIO_XML_ATTRIBUTE.description, parsedParameter.Description);
+                            xmlWriter.WriteAttributeEnum(PORTFOLIO_XML_ATTRIBUTE.description, parsedConstructor.Description);
                         }
 
+                        xmlWriter.WriteAttributeEnum(PORTFOLIO_XML_ATTRIBUTE.is_static, parsedConstructor.IsStatic);
+
+                        foreach (ParsedParameter parsedParameter in parsedConstructor.Parameters)
+                        {
+                            xmlWriter.WriteStartElementEnum(PORTFOLIO_XML_ELEMENT.parameter);
+
+                            xmlWriter.WriteAttributeEnum(PORTFOLIO_XML_ATTRIBUTE.type, parsedParameter.Type);
+
+                            xmlWriter.WriteAttributeEnum(PORTFOLIO_XML_ATTRIBUTE.name, parsedParameter.Name);
+
+                            if (!string.IsNullOrEmpty(parsedParameter.Description))
+                            {
+                                xmlWriter.WriteAttributeEnum(PORTFOLIO_XML_ATTRIBUTE.description, parsedParameter.Description);
+                            }
+
+                            xmlWriter.WriteEndElement();
+                        }
+
+                        //</classconst>
                         xmlWriter.WriteEndElement();
                     }
 
-                    //</method>
+                    foreach (ParsedMethod parsedMethod in parsedType.Methods)
+                    {
+                        //<method>
+                        xmlWriter.WriteStartElementEnum(PORTFOLIO_XML_ELEMENT.method);
+
+                        xmlWriter.WriteAttributeEnum(PORTFOLIO_XML_ATTRIBUTE.type, parsedMethod.Type);
+
+                        xmlWriter.WriteAttributeEnum(PORTFOLIO_XML_ATTRIBUTE.name, parsedMethod.Name);
+
+                        xmlWriter.WriteAttributeEnum(PORTFOLIO_XML_ATTRIBUTE.NAMESPACE, parsedMethod.Type.Namespace);
+
+                        xmlWriter.WriteAttributeEnum(PORTFOLIO_XML_ATTRIBUTE.protection, parsedMethod.ProtectionLevel.ToString().ToLower());
+
+                        if (!string.IsNullOrEmpty(parsedMethod.Description))
+                        {
+                            xmlWriter.WriteAttributeEnum(PORTFOLIO_XML_ATTRIBUTE.description, parsedMethod.Description);
+                        }
+
+                        xmlWriter.WriteAttributeEnum(PORTFOLIO_XML_ATTRIBUTE.is_static, parsedMethod.IsStatic);
+
+                        foreach (ParsedParameter parsedParameter in parsedMethod.Parameters)
+                        {
+                            xmlWriter.WriteStartElementEnum(PORTFOLIO_XML_ELEMENT.parameter);
+
+                            xmlWriter.WriteAttributeEnum(PORTFOLIO_XML_ATTRIBUTE.type, parsedParameter.Type);
+
+                            xmlWriter.WriteAttributeEnum(PORTFOLIO_XML_ATTRIBUTE.name, parsedParameter.Name);
+
+                            xmlWriter.WriteAttributeEnum(PORTFOLIO_XML_ATTRIBUTE.NAMESPACE, parsedParameter.Type.Namespace);
+
+                            if (!string.IsNullOrEmpty(parsedParameter.Description))
+                            {
+                                xmlWriter.WriteAttributeEnum(PORTFOLIO_XML_ATTRIBUTE.description, parsedParameter.Description);
+                            }
+
+                            xmlWriter.WriteEndElement();
+                        }
+
+                        //</method>
+                        xmlWriter.WriteEndElement();
+                    }
+
+                    //</methods>
                     xmlWriter.WriteEndElement();
+
                 }
 
-                //</methods>
-                xmlWriter.WriteEndElement();
-
-                //<properties>
-                xmlWriter.WriteStartElementEnum(PORTFOLIO_XML_ELEMENT.properties);
-
-                foreach (ParsedProperty parsedProperty in parsedType.Properties)
+                if (parsedType.Properties.Length > 0)
                 {
-                    //<property>
-                    xmlWriter.WriteStartElementEnum(PORTFOLIO_XML_ELEMENT.property);
 
-                    xmlWriter.WriteAttributeEnum(PORTFOLIO_XML_ATTRIBUTE.type, parsedProperty.Type);
+                    //<properties>
+                    xmlWriter.WriteStartElementEnum(PORTFOLIO_XML_ELEMENT.properties);
 
-                    xmlWriter.WriteAttributeEnum(PORTFOLIO_XML_ATTRIBUTE.name, parsedProperty.Name);
-
-                    xmlWriter.WriteAttributeEnum(PORTFOLIO_XML_ATTRIBUTE.NAMESPACE, parsedProperty.Type.Namespace);
-
-                    if (!string.IsNullOrEmpty(parsedProperty.Description))
+                    foreach (ParsedProperty parsedProperty in parsedType.Properties)
                     {
-                        xmlWriter.WriteAttributeEnum(PORTFOLIO_XML_ATTRIBUTE.description, parsedProperty.Description);
-                    }
+                        //<property>
+                        xmlWriter.WriteStartElementEnum(PORTFOLIO_XML_ELEMENT.property);
 
-                    ParsedPropertyAccessor getAccessor;
-                    if (parsedProperty.HasAccessor(ACCESSOR_TYPE.GETTER, out getAccessor))//out getProt))
-                    {
-                        xmlWriter.WriteAttributeEnum(PORTFOLIO_XML_ATTRIBUTE.getter, getAccessor.ProtectionLevel.ToString().ToLower());//getProt.ToString().ToLower());
+                        xmlWriter.WriteAttributeEnum(PORTFOLIO_XML_ATTRIBUTE.type, parsedProperty.Type);
 
-                        if (getAccessor.IsStatic)
+                        xmlWriter.WriteAttributeEnum(PORTFOLIO_XML_ATTRIBUTE.name, parsedProperty.Name);
+
+                        xmlWriter.WriteAttributeEnum(PORTFOLIO_XML_ATTRIBUTE.NAMESPACE, parsedProperty.Type.Namespace);
+
+                        if (!string.IsNullOrEmpty(parsedProperty.Description))
                         {
-                            xmlWriter.WriteAttributeEnum(PORTFOLIO_XML_ATTRIBUTE.getterStatic, "true");
+                            xmlWriter.WriteAttributeEnum(PORTFOLIO_XML_ATTRIBUTE.description, parsedProperty.Description);
                         }
-                    }
 
-                    ParsedPropertyAccessor setAccessor;
-                    if (parsedProperty.HasAccessor(ACCESSOR_TYPE.SETTER, out setAccessor))//out setProt))
-                    {
-                        xmlWriter.WriteAttributeEnum(PORTFOLIO_XML_ATTRIBUTE.setter, setAccessor.ProtectionLevel.ToString().ToLower());//setProt.ToString().ToLower());
-
-                        if (setAccessor.IsStatic)
+                        ParsedPropertyAccessor getAccessor;
+                        if (parsedProperty.HasAccessor(ACCESSOR_TYPE.GETTER, out getAccessor))//out getProt))
                         {
-                            xmlWriter.WriteAttributeEnum(PORTFOLIO_XML_ATTRIBUTE.setterStatic, "true");
+                            xmlWriter.WriteAttributeEnum(PORTFOLIO_XML_ATTRIBUTE.getter, getAccessor.ProtectionLevel.ToString().ToLower());//getProt.ToString().ToLower());
+
+                            if (getAccessor.IsStatic)
+                            {
+                                xmlWriter.WriteAttributeEnum(PORTFOLIO_XML_ATTRIBUTE.getterStatic, "true");
+                            }
                         }
+
+                        ParsedPropertyAccessor setAccessor;
+                        if (parsedProperty.HasAccessor(ACCESSOR_TYPE.SETTER, out setAccessor))//out setProt))
+                        {
+                            xmlWriter.WriteAttributeEnum(PORTFOLIO_XML_ATTRIBUTE.setter, setAccessor.ProtectionLevel.ToString().ToLower());//setProt.ToString().ToLower());
+
+                            if (setAccessor.IsStatic)
+                            {
+                                xmlWriter.WriteAttributeEnum(PORTFOLIO_XML_ATTRIBUTE.setterStatic, "true");
+                            }
+                        }
+
+                        //</property>
+                        xmlWriter.WriteEndElement();
                     }
 
-                    //</property>
                     xmlWriter.WriteEndElement();
-                }
+                    //</properties>
 
-                xmlWriter.WriteEndElement();
-                //</properties>
+                }
 
                 //</root>
                 xmlWriter.WriteEndElement();
