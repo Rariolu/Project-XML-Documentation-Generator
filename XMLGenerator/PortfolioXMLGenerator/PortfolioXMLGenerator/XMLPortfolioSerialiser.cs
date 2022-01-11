@@ -204,7 +204,7 @@ namespace PortfolioXMLGenerator
                     ParsedPropertyAccessor setAccessor;
                     if (parsedProperty.HasAccessor(ACCESSOR_TYPE.SETTER, out setAccessor))//out setProt))
                     {
-                        xmlWriter.WriteAttributeEnum(PORTFOLIO_XML_ATTRIBUTE.setter, setAccessor.ProtectionLevel.ToString());//setProt.ToString().ToLower());
+                        xmlWriter.WriteAttributeEnum(PORTFOLIO_XML_ATTRIBUTE.setter, setAccessor.ProtectionLevel.ToString().ToLower());//setProt.ToString().ToLower());
 
                         if (setAccessor.IsStatic)
                         {
@@ -227,43 +227,5 @@ namespace PortfolioXMLGenerator
                 xmlWriter.Close();
             }
         }
-        
-        static void WriteStartElementEnum(this XmlWriter writer, PORTFOLIO_XML_ELEMENT element)
-        {
-            writer.WriteStartElement(element.ToString().ToLower());
-        }
-
-        static void WriteAttributeEnum(this XmlWriter writer, PORTFOLIO_XML_ATTRIBUTE attribute, object obj)
-        {
-            writer.WriteAttributeString(attribute.ToString().ToLower(), obj.ToString());
-        }
-    }
-    public enum PORTFOLIO_XML_ELEMENT
-    {
-        root,
-        name,
-        description,
-        variables,
-        variable,
-        methods,
-        method,
-        parameter,
-        properties,
-        property,
-        classconst,
-        NAMESPACE
-    }
-    public enum PORTFOLIO_XML_ATTRIBUTE
-    {
-        name,
-        type,
-        protection,
-        description,
-        getter,
-        setter,
-        is_static,
-        getterStatic,
-        setterStatic,
-        NAMESPACE
     }
 }
