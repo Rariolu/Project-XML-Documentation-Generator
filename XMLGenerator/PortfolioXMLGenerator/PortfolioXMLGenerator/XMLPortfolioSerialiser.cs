@@ -11,34 +11,6 @@ namespace PortfolioXMLGenerator
 {
     public static class XMLPortfolioSerialiser
     {
-        public enum PORTFOLIO_XML_ELEMENT
-        {
-            root,
-            name,
-            description,
-            variables,
-            variable,
-            methods,
-            method,
-            parameter,
-            properties,
-            property,
-            classconst,
-            NAMESPACE
-        }
-        public enum PORTFOLIO_XML_ATTRIBUTE
-        {
-            name,
-            type,
-            protection,
-            description,
-            getter,
-            setter,
-            is_static,
-            getterStatic,
-            setterStatic,
-            NAMESPACE
-        }
         public static void SerialiseParsedElements(this ParsedAssembly assembly, string dir)
         {
             if (!Directory.Exists(dir))
@@ -265,5 +237,33 @@ namespace PortfolioXMLGenerator
         {
             writer.WriteAttributeString(attribute.ToString().ToLower(), obj.ToString());
         }
+    }
+    public enum PORTFOLIO_XML_ELEMENT
+    {
+        root,
+        name,
+        description,
+        variables,
+        variable,
+        methods,
+        method,
+        parameter,
+        properties,
+        property,
+        classconst,
+        NAMESPACE
+    }
+    public enum PORTFOLIO_XML_ATTRIBUTE
+    {
+        name,
+        type,
+        protection,
+        description,
+        getter,
+        setter,
+        is_static,
+        getterStatic,
+        setterStatic,
+        NAMESPACE
     }
 }
