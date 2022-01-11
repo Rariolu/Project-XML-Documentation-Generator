@@ -42,8 +42,14 @@ namespace PortfolioXMLGenerator
             this.btnParse = new System.Windows.Forms.Button();
             this.btnBrowseDocumentation = new System.Windows.Forms.Button();
             this.tbDocumentationPath = new System.Windows.Forms.TextBox();
+            this.gbPortfolio = new System.Windows.Forms.GroupBox();
+            this.tbPortfolioDir = new System.Windows.Forms.TextBox();
+            this.btnBrowsePortfolioXML = new System.Windows.Forms.Button();
+            this.rtbPortfolioParse = new System.Windows.Forms.RichTextBox();
+            this.btnParsePortfolio = new System.Windows.Forms.Button();
             this.gbAssembly.SuspendLayout();
             this.gbDocumentation.SuspendLayout();
+            this.gbPortfolio.SuspendLayout();
             this.SuspendLayout();
             // 
             // tbAssemblyPath
@@ -178,11 +184,61 @@ namespace PortfolioXMLGenerator
             this.tbDocumentationPath.Text = "D:\\PortfolioProject\\XMLGenerator\\PortfolioXMLGenerator\\PortfolioXMLGenerator\\bin\\" +
     "Debug\\PortfolioXMLGenerator.xml";
             // 
+            // gbPortfolio
+            // 
+            this.gbPortfolio.Controls.Add(this.btnParsePortfolio);
+            this.gbPortfolio.Controls.Add(this.rtbPortfolioParse);
+            this.gbPortfolio.Controls.Add(this.btnBrowsePortfolioXML);
+            this.gbPortfolio.Controls.Add(this.tbPortfolioDir);
+            this.gbPortfolio.Location = new System.Drawing.Point(791, 12);
+            this.gbPortfolio.Name = "gbPortfolio";
+            this.gbPortfolio.Size = new System.Drawing.Size(516, 466);
+            this.gbPortfolio.TabIndex = 6;
+            this.gbPortfolio.TabStop = false;
+            this.gbPortfolio.Text = "Portfolio";
+            // 
+            // tbPortfolioDir
+            // 
+            this.tbPortfolioDir.Location = new System.Drawing.Point(6, 29);
+            this.tbPortfolioDir.Name = "tbPortfolioDir";
+            this.tbPortfolioDir.Size = new System.Drawing.Size(341, 20);
+            this.tbPortfolioDir.TabIndex = 7;
+            this.tbPortfolioDir.Text = "C:\\Users\\maxr1\\Documents\\Bloop";
+            // 
+            // btnBrowsePortfolioXML
+            // 
+            this.btnBrowsePortfolioXML.Location = new System.Drawing.Point(353, 29);
+            this.btnBrowsePortfolioXML.Name = "btnBrowsePortfolioXML";
+            this.btnBrowsePortfolioXML.Size = new System.Drawing.Size(75, 23);
+            this.btnBrowsePortfolioXML.TabIndex = 8;
+            this.btnBrowsePortfolioXML.Text = "Browse";
+            this.btnBrowsePortfolioXML.UseVisualStyleBackColor = true;
+            this.btnBrowsePortfolioXML.Click += new System.EventHandler(this.btnBrowsePortfolioXML_Click);
+            // 
+            // rtbPortfolioParse
+            // 
+            this.rtbPortfolioParse.Location = new System.Drawing.Point(6, 124);
+            this.rtbPortfolioParse.Name = "rtbPortfolioParse";
+            this.rtbPortfolioParse.Size = new System.Drawing.Size(365, 229);
+            this.rtbPortfolioParse.TabIndex = 9;
+            this.rtbPortfolioParse.Text = "";
+            // 
+            // btnParsePortfolio
+            // 
+            this.btnParsePortfolio.Location = new System.Drawing.Point(6, 64);
+            this.btnParsePortfolio.Name = "btnParsePortfolio";
+            this.btnParsePortfolio.Size = new System.Drawing.Size(118, 48);
+            this.btnParsePortfolio.TabIndex = 10;
+            this.btnParsePortfolio.Text = "Parse";
+            this.btnParsePortfolio.UseVisualStyleBackColor = true;
+            this.btnParsePortfolio.Click += new System.EventHandler(this.btnParsePortfolio_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(797, 496);
+            this.ClientSize = new System.Drawing.Size(1319, 496);
+            this.Controls.Add(this.gbPortfolio);
             this.Controls.Add(this.gbDocumentation);
             this.Controls.Add(this.gbAssembly);
             this.Name = "MainForm";
@@ -191,6 +247,8 @@ namespace PortfolioXMLGenerator
             this.gbAssembly.PerformLayout();
             this.gbDocumentation.ResumeLayout(false);
             this.gbDocumentation.PerformLayout();
+            this.gbPortfolio.ResumeLayout(false);
+            this.gbPortfolio.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -210,6 +268,11 @@ namespace PortfolioXMLGenerator
         private System.Windows.Forms.Button btnSaveAssembly;
         private System.Windows.Forms.Button btnBrowseAssemblyDir;
         private System.Windows.Forms.TextBox tbAssemblyOutputPath;
+        private System.Windows.Forms.GroupBox gbPortfolio;
+        private System.Windows.Forms.TextBox tbPortfolioDir;
+        private System.Windows.Forms.Button btnBrowsePortfolioXML;
+        private System.Windows.Forms.Button btnParsePortfolio;
+        private System.Windows.Forms.RichTextBox rtbPortfolioParse;
     }
 }
 

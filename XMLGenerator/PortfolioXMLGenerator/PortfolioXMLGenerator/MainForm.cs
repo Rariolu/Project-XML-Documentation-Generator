@@ -45,40 +45,50 @@ namespace PortfolioXMLGenerator
             if (ReflectionParser.ParseAssembly(tbAssemblyPath.Text, out assembly))
             {
                 btnSaveAssembly.Enabled = true;
-                foreach(ParsedType type in assembly.ParsedTypes)
+                LogAssembly(assembly, rtbLog);
+            }
+        }
+
+        void LogAssembly(ParsedAssembly parsedAssembly, RichTextBox rtb)
+        {
+            foreach (ParsedType type in parsedAssembly.ParsedTypes)
+            {
+                rtb.Text += "\n" + type.Name;
+
+                foreach (ParsedVariable variable in type.Variables)
                 {
-                    rtbLog.Text += "\n" + type.Name;
-
-                    foreach(ParsedVariable variable in type.Variables)
-                    {
-                        rtbLog.Text += "\n\t" + string.Format("{0} {1}",protectionSymbols[variable.ProtectionLevel], variable.Name);
-                    }
-
-                    foreach (ParsedProperty property in type.Properties)
-                    {
-                        string getter = "no getter";
-                        ParsedPropertyAccessor getAccessor;
-                        if (property.HasAccessor(ACCESSOR_TYPE.GETTER, out getAccessor))
-                        {
-                            getter = getAccessor.ProtectionLevel.ToString().ToLower() + " getter";
-                        }
-
-                        string setter = "no setter";
-                        ParsedPropertyAccessor setAccessor;
-                        if (property.HasAccessor(ACCESSOR_TYPE.SETTER, out setAccessor))
-                        {
-                            setter = setAccessor.ProtectionLevel.ToString().ToLower() + " setter";
-                        }
-                        rtbLog.Text += "\n\t" + string.Format("{0} ({1}, {2})", property.Name, getter, setter);
-                    }
-
-                    foreach (ParsedMethod method in type.Methods)
-                    {
-                        rtbLog.Text += "\n\t" + string.Format("{0} {1}",protectionSymbols[method.ProtectionLevel], method.Name);
-                    }
-
-
+                    rtb.Text += "\n\t" + string.Format("{0} {1}", protectionSymbols[variable.ProtectionLevel], variable.Name);
                 }
+
+                foreach (ParsedProperty property in type.Properties)
+                {
+                    string getter = "no getter";
+                    ParsedPropertyAccessor getAccessor;
+                    if (property.HasAccessor(ACCESSOR_TYPE.GETTER, out getAccessor))
+                    {
+                        getter = getAccessor.ProtectionLevel.ToString().ToLower() + " getter";
+                    }
+
+                    string setter = "no setter";
+                    ParsedPropertyAccessor setAccessor;
+                    if (property.HasAccessor(ACCESSOR_TYPE.SETTER, out setAccessor))
+                    {
+                        setter = setAccessor.ProtectionLevel.ToString().ToLower() + " setter";
+                    }
+                    rtb.Text += "\n\t" + string.Format("{0} ({1}, {2})", property.Name, getter, setter);
+                }
+
+                foreach(ParsedMethod constructor in type.Constructors)
+                {
+                    rtb.Text += "\n\t" + string.Format("{0} {1}", protectionSymbols[constructor.ProtectionLevel], constructor.CompleteName);
+                }
+
+                foreach (ParsedMethod method in type.Methods)
+                {
+                    rtb.Text += "\n\t" + string.Format("{0} {1}", protectionSymbols[method.ProtectionLevel], method.CompleteName);
+                }
+
+
             }
         }
 
@@ -103,6 +113,11 @@ namespace PortfolioXMLGenerator
             }
         }
 
+        /// <summary>
+        /// Eventhandler called when "btnSaveAssembly" is clicked.
+        /// </summary>
+        /// <param name="sender">The control that sent the quested.</param>
+        /// <param name="e"></param>
         private void btnSaveAssembly_Click(object sender, EventArgs e)
         {
             foreach(ParsedType type in assembly.ParsedTypes)
@@ -122,15 +137,18 @@ namespace PortfolioXMLGenerator
                         ParsedMemberMethod parsedMethod = parsedDocumentationMembers[methodFullName] as ParsedMemberMethod;
                         method.Description = parsedMethod.Description;
 
-                        foreach(ParsedParameter param in method.Parameters)
+                        if (method.Parameters.Length > 0)
                         {
-                            //TODO: Write better version later
-                            foreach(ParsedMemberMethodParam docParam in parsedMethod.Parameters)
+                            foreach (ParsedParameter param in method.Parameters)
                             {
-                                if (param.Name == docParam.Name)
+                                //TODO: Write better version later
+                                foreach (ParsedMemberMethodParam docParam in parsedMethod.Parameters)
                                 {
-                                    param.Description = docParam.Description;
-                                    break;
+                                    if (param.Name == docParam.Name)
+                                    {
+                                        param.Description = docParam.Description;
+                                        break;
+                                    }
                                 }
                             }
                         }
@@ -188,6 +206,24 @@ namespace PortfolioXMLGenerator
             if (fbd.ShowDialog() == DialogResult.OK)
             {
                 tbAssemblyOutputPath.Text = fbd.SelectedPath;
+            }
+        }
+
+        private void btnBrowsePortfolioXML_Click(object sender, EventArgs e)
+        {
+            FolderBrowserDialog fbd = new FolderBrowserDialog();
+            if (fbd.ShowDialog() == DialogResult.OK)
+            {
+                tbPortfolioDir.Text = fbd.SelectedPath;
+            }
+        }
+
+        private void btnParsePortfolio_Click(object sender, EventArgs e)
+        {
+            ParsedAssembly parseAssembly;
+            if (XMLPortfolioParser.ParsePortfolio(tbPortfolioDir.Text, out parseAssembly))
+            {
+                LogAssembly(parseAssembly, rtbPortfolioParse);
             }
         }
     }
