@@ -70,6 +70,8 @@ namespace PortfolioXMLGenerator
                 }
             }
 
+            xmlReader.Close();
+
             return members;
         }
 
