@@ -33,8 +33,11 @@ namespace PortfolioXMLGenerator
                 {
                     if (!type.IsEnum)
                     {
-                        string _namespace = type.FullName.TrimEnd(("." + type.Name).ToCharArray());
-                        ParsedType parsedType = new ParsedType(type.Name, _namespace);//type.FullName);
+                        string typeName;
+                        string typeNamespace;
+                        GetNamespaceAndType(type.FullName, out typeNamespace, out typeName);
+                        //string _namespace = type.FullName.TrimEnd(("." + type.Name).ToCharArray());
+                        ParsedType parsedType = new ParsedType(typeName, typeNamespace);//type.FullName);
                         
 
                         foreach (FieldInfo field in type.GetFields(BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Public))
