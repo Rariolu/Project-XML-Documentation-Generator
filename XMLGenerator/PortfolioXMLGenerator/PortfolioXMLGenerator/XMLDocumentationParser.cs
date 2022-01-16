@@ -23,6 +23,11 @@ namespace PortfolioXMLGenerator
             param
         }
 
+        /// <summary>
+        /// Returns a dictionary of parsed documentation members from the given file.
+        /// </summary>
+        /// <param name="file">Location of documentation XML file.</param>
+        /// <returns></returns>
         public static MemberDict ParseDocumentationFile(string file)
         {
             MemberDict members = new MemberDict();
@@ -44,25 +49,29 @@ namespace PortfolioXMLGenerator
 
                     ParsedMember member = isMethod ? new ParsedMemberMethod(memberName, memberType) : new ParsedMember(memberName, memberType);
 
-                    xmlReader.Read();
-                    if (xmlReader.IsStartElement(XML_ELEMENT.summary.ToString()))
-                    {
-                        xmlReader.Read();
-                        member.Description = xmlReader.Value;
-                    }
+                    XmlReader subtree = xmlReader.ReadSubtree();
 
-                    if (isMethod)
+                    while(subtree.Read())
                     {
-                        ParsedMemberMethod parsedMethod = member as ParsedMemberMethod;
-                        xmlReader.Read();
-                        while(xmlReader.IsStartElement(XML_ELEMENT.param.ToString()))
+                        if (subtree.IsStartElement(XML_ELEMENT.summary.ToString()))
                         {
-                            string paramName = xmlReader["name"];
                             xmlReader.Read();
-                            string paramDescription = xmlReader.Value;
-                            xmlReader.Read();
+                            member.Description = xmlReader.Value;
+                        }
 
-                            parsedMethod.AddParam(paramName, paramDescription);
+                        if (isMethod)
+                        {
+                            ParsedMemberMethod parsedMethod = member as ParsedMemberMethod;
+
+                            if (subtree.IsStartElement(XML_ELEMENT.param.ToString()))
+                            {
+                                string paramName = xmlReader["name"];
+                                xmlReader.Read();
+                                string paramDescription = xmlReader.Value;
+                                xmlReader.Read();
+
+                                parsedMethod.AddParam(paramName, paramDescription);
+                            }
                         }
                     }
 
