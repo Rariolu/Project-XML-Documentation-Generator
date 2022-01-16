@@ -36,11 +36,10 @@ namespace PortfolioXMLGenerator
                         string typeName;
                         string typeNamespace;
                         GetNamespaceAndType(type.FullName, out typeNamespace, out typeName);
-                        //string _namespace = type.FullName.TrimEnd(("." + type.Name).ToCharArray());
-                        ParsedType parsedType = new ParsedType(typeName, typeNamespace);//type.FullName);
+                        ParsedType parsedType = new ParsedType(typeName, typeNamespace);
                         
 
-                        foreach (FieldInfo field in type.GetFields(BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Public | BindingFlags.DeclaredOnly))
+                        foreach (FieldInfo field in type.GetFields(BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Public | BindingFlags.DeclaredOnly | BindingFlags.Static))
                         {
                             string fieldType;
                             string fieldNamespace;
@@ -51,12 +50,11 @@ namespace PortfolioXMLGenerator
                             parsedType.AddVariable(parsedVariable);
                         }
 
-                        foreach (MethodInfo method in type.GetMethods(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly))
+                        foreach (MethodInfo method in type.GetMethods(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly | BindingFlags.Static))
                         {
                             string methodType;
                             string methodNamespace;
                             GetNamespaceAndType(method.ReturnType.ToString(), out methodNamespace, out methodType);
-                            //ParsedMethod parsedMethod = new ParsedMethod(method.Name, method.ReturnType.ToString(), method.GetProtectionLevel(), method.IsStatic);
                             ParsedMethod parsedMethod = new ParsedMethod(method.Name, methodType, methodNamespace, method.GetProtectionLevel(), method.IsStatic);
 
                             ParameterInfo[] parameters = method.GetParameters();
@@ -69,20 +67,17 @@ namespace PortfolioXMLGenerator
                                 string parameterNamespace;
                                 GetNamespaceAndType(parameter.ParameterType.ToString(), out parameterNamespace, out parameterType);
                                 ParsedParameter parsedParameter = new ParsedParameter(parameter.Name,parameterType, parameterNamespace);
-                                //parsedParameter.Name = parameter.Name;
-                                //parsedParameter.Type = parameter.ParameterType.ToString();
                                 parsedMethod.AddParameter(parsedParameter);
                             }
 
                             parsedType.AddMethod(parsedMethod);
                         }
 
-                        foreach(PropertyInfo property in type.GetProperties(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly))
+                        foreach(PropertyInfo property in type.GetProperties(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly | BindingFlags.Static))
                         {
                             string propertyType;
                             string propertyNamespace;
                             GetNamespaceAndType(property.PropertyType.ToString(), out propertyNamespace, out propertyType);
-                            //ParsedProperty parsedProperty = new ParsedProperty(property.Name, property.PropertyType.ToString());
                             ParsedProperty parsedProperty = new ParsedProperty(property.Name, propertyType,propertyNamespace);
 
                             MethodInfo getter = property.GetGetMethod(true);
@@ -96,9 +91,6 @@ namespace PortfolioXMLGenerator
 
                             if (setter != null)
                             {
-
-                                //ParsedAccessor accessor = new ParsedAccessor(ACCESSOR_TYPE.SETTER, setter.GetProtectionLevel());
-                                //parsedProperty.AddAccessor(ACCESSOR_TYPE.SETTER, setter.GetProtectionLevel());//(accessor);
                                 parsedProperty.AddAccessor(ACCESSOR_TYPE.SETTER, setter.GetProtectionLevel(), setter.IsStatic);
                             }
 
@@ -117,9 +109,6 @@ namespace PortfolioXMLGenerator
                                 string parameterNamespace;
                                 GetNamespaceAndType(parameter.ParameterType.ToString(), out parameterNamespace, out parameterType);
                                 ParsedParameter parsedParameter = new ParsedParameter(parameter.Name, parameterType, parameterNamespace);
-                                //ParsedParameter parsedParameter = new ParsedParameter();
-                                //parsedParameter.Name = parameter.Name;
-                                //parsedParameter.Type = parameter.ParameterType.ToString();
                                 parsedConstructor.AddParameter(parsedParameter);
                             }
 
