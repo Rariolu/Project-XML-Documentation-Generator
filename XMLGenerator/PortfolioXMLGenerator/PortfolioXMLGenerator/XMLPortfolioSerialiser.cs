@@ -77,6 +77,8 @@ namespace PortfolioXMLGenerator
 
                         xmlWriter.WriteAttributeEnum(PORTFOLIO_XML_ATTRIBUTE.NAMESPACE, parsedVariable.Type.Namespace);
 
+                        xmlWriter.WriteAttributeEnum(PORTFOLIO_XML_ATTRIBUTE.protection, parsedVariable.ProtectionLevel.ToString().ToLower());
+
                         if (!string.IsNullOrEmpty(parsedVariable.Description))
                         {
                             xmlWriter.WriteAttributeEnum(PORTFOLIO_XML_ATTRIBUTE.description, parsedVariable.Description);
