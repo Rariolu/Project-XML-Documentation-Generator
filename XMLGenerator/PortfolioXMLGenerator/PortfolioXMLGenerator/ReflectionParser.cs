@@ -13,9 +13,10 @@ namespace PortfolioXMLGenerator
     /// </summary>
     public static class ReflectionParser
     {
-        public static bool ParseAssembly(string file, out ParsedAssembly parsedAssembly)
+        public static bool ParseAssembly(string file, out ParsedAssembly parsedAssembly, out Exception error)
         {
             parsedAssembly = null;
+            error = null;
             if (!File.Exists(file))
             {
                 return false;
@@ -123,8 +124,35 @@ namespace PortfolioXMLGenerator
             }
             catch(Exception err)
             {
+                error = err;
                 Console.WriteLine("ERROR: "+err.Message);
                 return false;
+            }
+        }
+
+        public static void LoadAssembliesFromDirectory(string dir, bool loadExes = false)
+        {
+            if (!Directory.Exists(dir))
+            {
+                return;
+            }
+
+            string[] dllFiles = Directory.GetFiles(dir, "*.dll", SearchOption.AllDirectories);
+
+            LoadAssemblyFiles(dllFiles);
+
+            if (loadExes)
+            {
+                string[] exeFiles = Directory.GetFiles(dir, "*.exe", SearchOption.AllDirectories);
+                LoadAssemblyFiles(exeFiles);
+            }
+        }
+
+        public static void LoadAssemblyFiles(string[] files)
+        {
+            foreach (string file in files)
+            {
+                Assembly.LoadFrom(file);
             }
         }
 
