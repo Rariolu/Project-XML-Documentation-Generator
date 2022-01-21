@@ -42,10 +42,28 @@ namespace PortfolioXMLGenerator
 
         private void BtnProcessAssembly_Click(object sender, EventArgs e)
         {
-            if (ReflectionParser.ParseAssembly(tbAssemblyPath.Text, out assembly))
+            ReflectionParser.LoadAssembliesFromDirectory(@"C:\Program Files\Unity\Hub\Editor\2018.2.0f2\Editor\Data\Managed\UnityEngine");
+            ReflectionParser.LoadAssembliesFromDirectory(@"C:\Program Files\Unity\Hub\Editor\2018.2.0f2\Editor\Data\UnityExtensions\Unity\GUISystem\Standalone");
+            Exception err;
+            if (ReflectionParser.ParseAssembly(tbAssemblyPath.Text, out assembly, out err))
             {
                 btnSaveAssembly.Enabled = true;
                 LogAssembly(assembly, rtbLog);
+            }
+            else
+            {
+                if (err is ReflectionTypeLoadException)
+                {
+                    ReflectionTypeLoadException rtle = err as ReflectionTypeLoadException;
+
+                    StringBuilder sb = new StringBuilder();
+                    foreach(Exception loaderExc in rtle.LoaderExceptions)
+                    {
+                        sb.AppendLine(loaderExc.Message);
+                    }
+
+                    LogAlert.Show(sb.ToString());
+                }
             }
         }
 
