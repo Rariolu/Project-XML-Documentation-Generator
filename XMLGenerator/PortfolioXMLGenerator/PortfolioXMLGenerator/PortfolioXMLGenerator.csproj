@@ -49,8 +49,17 @@
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
+    <Reference Include="XInputDotNetPure">
+      <HintPath>..\..\..\..\UnityProjects\2017Unity Projects\IP2_Mechs\Assets\XInputDotNet\Plugins\XInputDotNetPure.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="LogAlert.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="LogAlert.Designer.cs">
+      <DependentUpon>LogAlert.cs</DependentUpon>
+    </Compile>
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -65,6 +74,9 @@
     <Compile Include="XMLPortfolioParser.cs" />
     <Compile Include="XMLPortfolioSerialiser.cs" />
     <Compile Include="XML_Util.cs" />
+    <EmbeddedResource Include="LogAlert.resx">
+      <DependentUpon>LogAlert.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
