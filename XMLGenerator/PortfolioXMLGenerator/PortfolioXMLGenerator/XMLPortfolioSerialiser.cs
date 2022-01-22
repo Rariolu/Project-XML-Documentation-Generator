@@ -20,7 +20,9 @@ namespace PortfolioXMLGenerator
 
             foreach(ParsedType parsedType in assembly.ParsedTypes)
             {
-                string path = Path.Combine(dir, parsedType.Name + ".xml");
+                string formattedTypeName = parsedType.Name.RemoveInvalidPathChars();
+
+                string path = Path.Combine(dir, formattedTypeName + ".xml");
 
                 XmlWriterSettings xmlWriterSettings = new XmlWriterSettings();
                 xmlWriterSettings.Indent = true;
