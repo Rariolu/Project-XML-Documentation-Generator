@@ -70,6 +70,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ReflectionParser.cs" />
+    <Compile Include="Util.cs" />
     <Compile Include="XMLDocumentationParser.cs" />
     <Compile Include="XMLPortfolioParser.cs" />
     <Compile Include="XMLPortfolioSerialiser.cs" />
