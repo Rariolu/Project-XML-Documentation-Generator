@@ -43,10 +43,10 @@ namespace PortfolioXMLGenerator
             this.btnBrowseDocumentation = new System.Windows.Forms.Button();
             this.tbDocumentationPath = new System.Windows.Forms.TextBox();
             this.gbPortfolio = new System.Windows.Forms.GroupBox();
-            this.tbPortfolioDir = new System.Windows.Forms.TextBox();
-            this.btnBrowsePortfolioXML = new System.Windows.Forms.Button();
-            this.rtbPortfolioParse = new System.Windows.Forms.RichTextBox();
             this.btnParsePortfolio = new System.Windows.Forms.Button();
+            this.rtbPortfolioParse = new System.Windows.Forms.RichTextBox();
+            this.btnBrowsePortfolioXML = new System.Windows.Forms.Button();
+            this.tbPortfolioDir = new System.Windows.Forms.TextBox();
             this.gbAssembly.SuspendLayout();
             this.gbDocumentation.SuspendLayout();
             this.gbPortfolio.SuspendLayout();
@@ -98,7 +98,7 @@ namespace PortfolioXMLGenerator
             this.gbAssembly.Controls.Add(this.rtbLog);
             this.gbAssembly.Controls.Add(this.btnBrowse);
             this.gbAssembly.Controls.Add(this.btnProcessAssembly);
-            this.gbAssembly.Location = new System.Drawing.Point(12, 12);
+            this.gbAssembly.Location = new System.Drawing.Point(12, 27);
             this.gbAssembly.Name = "gbAssembly";
             this.gbAssembly.Size = new System.Drawing.Size(342, 472);
             this.gbAssembly.TabIndex = 4;
@@ -140,7 +140,7 @@ namespace PortfolioXMLGenerator
             this.gbDocumentation.Controls.Add(this.btnParse);
             this.gbDocumentation.Controls.Add(this.btnBrowseDocumentation);
             this.gbDocumentation.Controls.Add(this.tbDocumentationPath);
-            this.gbDocumentation.Location = new System.Drawing.Point(360, 12);
+            this.gbDocumentation.Location = new System.Drawing.Point(360, 21);
             this.gbDocumentation.Name = "gbDocumentation";
             this.gbDocumentation.Size = new System.Drawing.Size(425, 472);
             this.gbDocumentation.TabIndex = 5;
@@ -190,38 +190,12 @@ namespace PortfolioXMLGenerator
             this.gbPortfolio.Controls.Add(this.rtbPortfolioParse);
             this.gbPortfolio.Controls.Add(this.btnBrowsePortfolioXML);
             this.gbPortfolio.Controls.Add(this.tbPortfolioDir);
-            this.gbPortfolio.Location = new System.Drawing.Point(791, 12);
+            this.gbPortfolio.Location = new System.Drawing.Point(791, 27);
             this.gbPortfolio.Name = "gbPortfolio";
             this.gbPortfolio.Size = new System.Drawing.Size(516, 466);
             this.gbPortfolio.TabIndex = 6;
             this.gbPortfolio.TabStop = false;
             this.gbPortfolio.Text = "Portfolio";
-            // 
-            // tbPortfolioDir
-            // 
-            this.tbPortfolioDir.Location = new System.Drawing.Point(6, 29);
-            this.tbPortfolioDir.Name = "tbPortfolioDir";
-            this.tbPortfolioDir.Size = new System.Drawing.Size(341, 20);
-            this.tbPortfolioDir.TabIndex = 7;
-            this.tbPortfolioDir.Text = "C:\\Users\\maxr1\\Documents\\Bloop";
-            // 
-            // btnBrowsePortfolioXML
-            // 
-            this.btnBrowsePortfolioXML.Location = new System.Drawing.Point(353, 29);
-            this.btnBrowsePortfolioXML.Name = "btnBrowsePortfolioXML";
-            this.btnBrowsePortfolioXML.Size = new System.Drawing.Size(75, 23);
-            this.btnBrowsePortfolioXML.TabIndex = 8;
-            this.btnBrowsePortfolioXML.Text = "Browse";
-            this.btnBrowsePortfolioXML.UseVisualStyleBackColor = true;
-            this.btnBrowsePortfolioXML.Click += new System.EventHandler(this.btnBrowsePortfolioXML_Click);
-            // 
-            // rtbPortfolioParse
-            // 
-            this.rtbPortfolioParse.Location = new System.Drawing.Point(6, 124);
-            this.rtbPortfolioParse.Name = "rtbPortfolioParse";
-            this.rtbPortfolioParse.Size = new System.Drawing.Size(365, 229);
-            this.rtbPortfolioParse.TabIndex = 9;
-            this.rtbPortfolioParse.Text = "";
             // 
             // btnParsePortfolio
             // 
@@ -233,11 +207,37 @@ namespace PortfolioXMLGenerator
             this.btnParsePortfolio.UseVisualStyleBackColor = true;
             this.btnParsePortfolio.Click += new System.EventHandler(this.btnParsePortfolio_Click);
             // 
+            // rtbPortfolioParse
+            // 
+            this.rtbPortfolioParse.Location = new System.Drawing.Point(6, 124);
+            this.rtbPortfolioParse.Name = "rtbPortfolioParse";
+            this.rtbPortfolioParse.Size = new System.Drawing.Size(365, 229);
+            this.rtbPortfolioParse.TabIndex = 9;
+            this.rtbPortfolioParse.Text = "";
+            // 
+            // btnBrowsePortfolioXML
+            // 
+            this.btnBrowsePortfolioXML.Location = new System.Drawing.Point(353, 29);
+            this.btnBrowsePortfolioXML.Name = "btnBrowsePortfolioXML";
+            this.btnBrowsePortfolioXML.Size = new System.Drawing.Size(75, 23);
+            this.btnBrowsePortfolioXML.TabIndex = 8;
+            this.btnBrowsePortfolioXML.Text = "Browse";
+            this.btnBrowsePortfolioXML.UseVisualStyleBackColor = true;
+            this.btnBrowsePortfolioXML.Click += new System.EventHandler(this.btnBrowsePortfolioXML_Click);
+            // 
+            // tbPortfolioDir
+            // 
+            this.tbPortfolioDir.Location = new System.Drawing.Point(6, 29);
+            this.tbPortfolioDir.Name = "tbPortfolioDir";
+            this.tbPortfolioDir.Size = new System.Drawing.Size(341, 20);
+            this.tbPortfolioDir.TabIndex = 7;
+            this.tbPortfolioDir.Text = "C:\\Users\\maxr1\\Documents\\Bloop";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1319, 496);
+            this.ClientSize = new System.Drawing.Size(1319, 513);
             this.Controls.Add(this.gbPortfolio);
             this.Controls.Add(this.gbDocumentation);
             this.Controls.Add(this.gbAssembly);
