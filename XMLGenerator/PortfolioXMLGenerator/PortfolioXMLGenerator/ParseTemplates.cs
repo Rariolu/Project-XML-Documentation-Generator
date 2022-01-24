@@ -41,7 +41,7 @@ namespace PortfolioXMLGenerator
 
         public void AddType(ParsedType type)
         {
-            parsedTypes.Add(type.Name, type);
+            parsedTypes.Add(type.FullName, type);
         }
     }
 
