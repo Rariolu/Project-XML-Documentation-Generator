@@ -24,5 +24,17 @@ namespace PortfolioXMLGenerator
             }
             return string.Empty;
         }
+
+        public static bool StringContainsBool(this string str, out bool val)
+        {
+            str = str.ToLower();
+            if (str == "true" || str == "false")
+            {
+                val = str == "true";
+                return true;
+            }
+            val = false;
+            return false;
+        }
     }
 }
