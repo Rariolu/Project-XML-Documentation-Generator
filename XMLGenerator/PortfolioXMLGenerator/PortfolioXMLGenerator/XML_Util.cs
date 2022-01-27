@@ -37,7 +37,7 @@ namespace PortfolioXMLGenerator
 
         public static string GetAttribute(this XmlReader xmlReader, PORTFOLIO_XML_ATTRIBUTE attr)
         {
-            return xmlReader[attr.ToString().ToLower()];
+            return xmlReader[attr.ToString().ToLower()] ?? string.Empty;
         }
 
         public static void WriteStartElementEnum(this XmlWriter writer, PORTFOLIO_XML_ELEMENT element)
