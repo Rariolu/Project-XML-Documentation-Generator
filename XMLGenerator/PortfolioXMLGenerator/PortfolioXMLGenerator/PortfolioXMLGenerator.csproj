@@ -104,5 +104,11 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\XMLGeneratorBackend\XMLGeneratorBackend.csproj">
+      <Project>{993c5795-aa77-4211-bb99-e7d8292ca20d}</Project>
+      <Name>XMLGeneratorBackend</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
