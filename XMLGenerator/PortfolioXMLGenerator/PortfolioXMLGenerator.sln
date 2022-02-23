@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.31129.286
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PortfolioXMLGenerator", "PortfolioXMLGenerator\PortfolioXMLGenerator.csproj", "{1084C215-383C-4331-806D-54A3F1F01E86}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XMLGeneratorBackend", "XMLGeneratorBackend\XMLGeneratorBackend.csproj", "{993C5795-AA77-4211-BB99-E7D8292CA20D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PortfolioGeneratorBackend", "PortfolioGeneratorBackend\PortfolioGeneratorBackend.csproj", "{D77388A6-25BF-4EE7-90C0-73ECD60A0262}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,10 +17,10 @@ Global
 		{1084C215-383C-4331-806D-54A3F1F01E86}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1084C215-383C-4331-806D-54A3F1F01E86}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1084C215-383C-4331-806D-54A3F1F01E86}.Release|Any CPU.Build.0 = Release|Any CPU
-		{993C5795-AA77-4211-BB99-E7D8292CA20D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{993C5795-AA77-4211-BB99-E7D8292CA20D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{993C5795-AA77-4211-BB99-E7D8292CA20D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{993C5795-AA77-4211-BB99-E7D8292CA20D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D77388A6-25BF-4EE7-90C0-73ECD60A0262}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D77388A6-25BF-4EE7-90C0-73ECD60A0262}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D77388A6-25BF-4EE7-90C0-73ECD60A0262}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D77388A6-25BF-4EE7-90C0-73ECD60A0262}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

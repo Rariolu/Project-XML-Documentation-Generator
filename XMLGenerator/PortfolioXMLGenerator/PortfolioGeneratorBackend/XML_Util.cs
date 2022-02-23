@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.Xml;
 using System.Xml.Serialization;
 
-namespace PortfolioXMLGenerator
+namespace PortfolioGeneratorBackend
 {
     public static class XML_Util
     {

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace XMLGeneratorBackend
+namespace PortfolioGeneratorBackend
 {
     public class ParsedVariable : ParseMemberParent
     {

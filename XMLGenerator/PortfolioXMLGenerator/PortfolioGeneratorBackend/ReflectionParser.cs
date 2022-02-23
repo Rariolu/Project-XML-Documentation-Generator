@@ -6,7 +6,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PortfolioXMLGenerator
+namespace PortfolioGeneratorBackend
 {
     /// <summary>
     /// A utility for "parsing" assemblies.

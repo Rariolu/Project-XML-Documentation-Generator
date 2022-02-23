@@ -8,7 +8,7 @@
     <OutputType>WinExe</OutputType>
     <RootNamespace>PortfolioXMLGenerator</RootNamespace>
     <AssemblyName>PortfolioXMLGenerator</AssemblyName>
-    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
@@ -37,8 +37,13 @@
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>PortfolioXMLGenerator.Program</StartupObject>
+  </PropertyGroup>
   <ItemGroup>
-    <Reference Include="System" />
+    <Reference Include="System">
+      <HintPath>C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\System.dll</HintPath>
+    </Reference>
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -54,30 +59,14 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="LogAlert.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="LogAlert.Designer.cs">
-      <DependentUpon>LogAlert.cs</DependentUpon>
-    </Compile>
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="ParseTemplates.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ReflectionParser.cs" />
-    <Compile Include="Util.cs" />
-    <Compile Include="XMLDocumentationParser.cs" />
-    <Compile Include="XMLPortfolioParser.cs" />
-    <Compile Include="XMLPortfolioSerialiser.cs" />
-    <Compile Include="XML_Util.cs" />
-    <EmbeddedResource Include="LogAlert.resx">
-      <DependentUpon>LogAlert.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -105,9 +94,9 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\XMLGeneratorBackend\XMLGeneratorBackend.csproj">
-      <Project>{993c5795-aa77-4211-bb99-e7d8292ca20d}</Project>
-      <Name>XMLGeneratorBackend</Name>
+    <ProjectReference Include="..\PortfolioGeneratorBackend\PortfolioGeneratorBackend.csproj">
+      <Project>{d77388a6-25bf-4ee7-90c0-73ecd60a0262}</Project>
+      <Name>PortfolioGeneratorBackend</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

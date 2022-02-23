@@ -1,5 +1,5 @@
 ﻿
-namespace PortfolioXMLGenerator
+namespace PortfolioGeneratorBackend
 {
     partial class LogAlert
     {

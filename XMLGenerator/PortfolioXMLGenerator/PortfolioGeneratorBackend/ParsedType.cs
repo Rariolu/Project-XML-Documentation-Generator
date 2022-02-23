@@ -4,14 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace XMLGeneratorBackend
+namespace PortfolioGeneratorBackend
 {
     public class ParsedType : ParseMemberParent
     {
         /// <summary>
         /// The full type name including both the literal name its namespace.
         /// </summary>
-        public override string FullName
+        public string FullName
         {
             get
             {

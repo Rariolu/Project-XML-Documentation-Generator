@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PortfolioXMLGenerator
+namespace PortfolioGeneratorBackend
 {
     public static class Util
     {
@@ -65,7 +65,7 @@ namespace PortfolioXMLGenerator
             }
 
             Array enumValues = Enum.GetValues(type);
-            foreach(T enumVal in enumValues)
+            foreach (T enumVal in enumValues)
             {
                 if (str.NormaliseString() == enumVal.NormaliseString())
                 {

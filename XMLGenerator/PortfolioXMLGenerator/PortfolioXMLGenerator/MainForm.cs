@@ -9,6 +9,7 @@ using System.Reflection;
 using System.Text;
 //using System.Threading.Tasks;
 using System.Windows.Forms;
+using PortfolioGeneratorBackend;
 
 namespace PortfolioXMLGenerator
 {
@@ -213,7 +214,15 @@ namespace PortfolioXMLGenerator
                     }
                 }
             }
-            XMLPortfolioSerialiser.SerialiseParsedElements(assembly, tbAssemblyOutputPath.Text);
+            Exception errors;
+            if (XMLPortfolioSerialiser.SerialiseParsedElements(assembly, tbAssemblyOutputPath.Text, out errors))
+            {
+                MessageBox.Show("Saved.");
+            }
+            else
+            {
+                LogAlert.Show(errors.Message);
+            }
         }
 
         private void btnBrowseAssemblyDir_Click(object sender, EventArgs e)

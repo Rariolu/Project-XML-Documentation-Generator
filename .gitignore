@@ -13,3 +13,8 @@ xmlConfigManager.js
 .env
 .vs
 /XMLGenerator/PortfolioXMLGenerator/XMLGeneratorBackend/obj
+*.exe
+*.obj
+*.dll
+/XMLGenerator/PortfolioXMLGenerator/PortfolioGeneratorBackend/obj/Debug
+/XMLGenerator/PortfolioXMLGenerator/PortfolioGeneratorBackend/bin/Debug
