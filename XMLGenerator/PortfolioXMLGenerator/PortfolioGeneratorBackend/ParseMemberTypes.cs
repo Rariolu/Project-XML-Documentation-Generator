@@ -25,7 +25,7 @@ namespace PortfolioGeneratorBackend
         public static bool operator ==(ParsedVariable pv1, ParsedVariable pv2)
         {
             bool namesUnequal = pv1.Name != pv2.Name;
-            bool typesUnequal = pv1.Type == pv2.Type;
+            bool typesUnequal = pv1.Type != pv2.Type;
             bool protectionUnequal = pv1.ProtectionLevel != pv2.ProtectionLevel;
             bool staticnessUnequal = pv1.IsStatic != pv2.IsStatic;
             if (namesUnequal || typesUnequal || protectionUnequal || staticnessUnequal)
