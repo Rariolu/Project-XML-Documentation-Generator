@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PortfolioXMLGenerator", "Po
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PortfolioGeneratorBackend", "PortfolioGeneratorBackend\PortfolioGeneratorBackend.csproj", "{D77388A6-25BF-4EE7-90C0-73ECD60A0262}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests", "UnitTests\UnitTests.csproj", "{1881E1FF-9BBC-47EB-BD4B-1FC963E22892}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{D77388A6-25BF-4EE7-90C0-73ECD60A0262}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D77388A6-25BF-4EE7-90C0-73ECD60A0262}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D77388A6-25BF-4EE7-90C0-73ECD60A0262}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1881E1FF-9BBC-47EB-BD4B-1FC963E22892}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1881E1FF-9BBC-47EB-BD4B-1FC963E22892}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1881E1FF-9BBC-47EB-BD4B-1FC963E22892}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1881E1FF-9BBC-47EB-BD4B-1FC963E22892}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

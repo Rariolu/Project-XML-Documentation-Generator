@@ -18,3 +18,5 @@ xmlConfigManager.js
 *.dll
 /XMLGenerator/PortfolioXMLGenerator/PortfolioGeneratorBackend/obj/Debug
 /XMLGenerator/PortfolioXMLGenerator/PortfolioGeneratorBackend/bin/Debug
+/XMLGenerator/PortfolioXMLGenerator/UnitTests/obj/Debug
+/XMLGenerator/PortfolioXMLGenerator/UnitTests/bin/Debug
