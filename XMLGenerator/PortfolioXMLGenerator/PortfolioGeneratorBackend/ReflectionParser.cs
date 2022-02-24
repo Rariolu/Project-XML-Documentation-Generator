@@ -19,6 +19,7 @@ namespace PortfolioGeneratorBackend
             error = null;
             if (!File.Exists(file))
             {
+                error = new FileNotFoundException(string.Format("\"{0}\" doesn't exist.", file));
                 return false;
             }
             
