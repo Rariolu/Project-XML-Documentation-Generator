@@ -173,31 +173,105 @@ namespace PortfolioGeneratorBackend
             type = t;
         }
 
-        public static PROTECTION GetProtectionLevel(this MethodInfo method)
+        public static PROTECTION GetProtectionLevel(this MethodInfo member)
         {
-            PROTECTION protection = method.IsPublic ? PROTECTION.PUBLIC :
-            (
-                method.IsPrivate ? PROTECTION.PRIVATE : PROTECTION.PROTECTED
-            );
-            return protection;
+            if (member.IsFamilyAndAssembly)
+            {
+                return PROTECTION.PRIVATE_PROTECTED;
+            }
+
+            if (member.IsFamilyOrAssembly)
+            {
+                return PROTECTION.PROTECTED_INTERNAL;
+            }
+
+            if (member.IsPublic)
+            {
+                return PROTECTION.PUBLIC;
+            }
+
+            if (member.IsAssembly)
+            {
+                return PROTECTION.INTERNAL;
+            }
+
+            if (member.IsFamily)
+            {
+                return PROTECTION.PROTECTED;
+            }
+
+            return PROTECTION.PRIVATE;
+
+            //PROTECTION protection = method.IsPublic ? PROTECTION.PUBLIC :
+            //(
+            //    method.IsPrivate ? PROTECTION.PRIVATE : PROTECTION.PROTECTED
+            //);
+            //return protection;
         }
 
-        public static PROTECTION GetProtectionLevel(this FieldInfo field)
+        public static PROTECTION GetProtectionLevel(this FieldInfo member)
         {
-            PROTECTION protection = field.IsPublic ? PROTECTION.PUBLIC :
-            (
-                field.IsPrivate ? PROTECTION.PRIVATE : PROTECTION.PROTECTED
-            );
-            return protection;
+            if (member.IsFamilyAndAssembly)
+            {
+                return PROTECTION.PRIVATE_PROTECTED;
+            }
+
+            if (member.IsFamilyOrAssembly)
+            {
+                return PROTECTION.PROTECTED_INTERNAL;
+            }
+
+            if (member.IsPublic)
+            {
+                return PROTECTION.PUBLIC;
+            }
+
+            if (member.IsAssembly)
+            {
+                return PROTECTION.INTERNAL;
+            }
+
+            if (member.IsFamily)
+            {
+                return PROTECTION.PROTECTED;
+            }
+
+            return PROTECTION.PRIVATE;
+            //PROTECTION protection = field.IsPublic ? PROTECTION.PUBLIC :
+            //(
+            //    field.IsPrivate ? PROTECTION.PRIVATE : PROTECTION.PROTECTED
+            //);
+            //return protection;
         }
 
-        public static PROTECTION GetProtectionLevel(this ConstructorInfo constructor)
+        public static PROTECTION GetProtectionLevel(this ConstructorInfo member)
         {
-            PROTECTION protection = constructor.IsPublic ? PROTECTION.PUBLIC :
-            (
-                constructor.IsPrivate ? PROTECTION.PRIVATE : PROTECTION.PROTECTED
-            );
-            return protection;
+            if (member.IsFamilyAndAssembly)
+            {
+                return PROTECTION.PRIVATE_PROTECTED;
+            }
+
+            if (member.IsFamilyOrAssembly)
+            {
+                return PROTECTION.PROTECTED_INTERNAL;
+            }
+
+            if (member.IsPublic)
+            {
+                return PROTECTION.PUBLIC;
+            }
+
+            if (member.IsAssembly)
+            {
+                return PROTECTION.INTERNAL;
+            }
+
+            if (member.IsFamily)
+            {
+                return PROTECTION.PROTECTED;
+            }
+
+            return PROTECTION.PRIVATE;
         }
     }
 }
