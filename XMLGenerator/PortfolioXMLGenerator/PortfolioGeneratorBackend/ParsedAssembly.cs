@@ -37,6 +37,17 @@ namespace PortfolioGeneratorBackend
             parsedTypes.Add(type.FullName, type);
         }
 
+        public bool HasType(string typeName, out ParsedType parsedType)
+        {
+            if (parsedTypes.ContainsKey(typeName))
+            {
+                parsedType = parsedTypes[typeName];
+                return true;
+            }
+            parsedType = null;
+            return false;
+        }
+
         public static bool operator ==(ParsedAssembly parsedAssembly1, ParsedAssembly parsedAssembly2)
         {
             if (parsedAssembly1.Name != parsedAssembly2.Name)
