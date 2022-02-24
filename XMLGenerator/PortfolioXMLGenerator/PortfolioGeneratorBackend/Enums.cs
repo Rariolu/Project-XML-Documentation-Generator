@@ -11,6 +11,16 @@ namespace PortfolioGeneratorBackend
         PRIVATE,
         PROTECTED,
         PUBLIC,
-        INTERNAL
+        INTERNAL,
+        PROTECTED_INTERNAL,
+        PRIVATE_PROTECTED
+    }
+
+    public enum MEMBER_TYPE
+    {
+        VARIABLE,
+        METHOD,
+        PROPERTY,
+        CONSTRUCTOR
     }
 }
