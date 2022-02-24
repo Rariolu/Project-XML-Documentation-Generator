@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace PortfolioGeneratorBackend
 {
     /// <summary>
-    /// A utility for "parsing" assemblies.
+    /// A utility for "parsing" assemblies using the tools in System.Reflection.
     /// </summary>
     public static class ReflectionParser
     {
