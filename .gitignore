@@ -20,3 +20,5 @@ xmlConfigManager.js
 /XMLGenerator/PortfolioXMLGenerator/PortfolioGeneratorBackend/bin/Debug
 /XMLGenerator/PortfolioXMLGenerator/UnitTests/obj/Debug
 /XMLGenerator/PortfolioXMLGenerator/UnitTests/bin/Debug
+/XMLGenerator/PortfolioXMLGenerator/DemoAssembly/obj/Debug
+/XMLGenerator/PortfolioXMLGenerator/DemoAssembly/bin/Debug
