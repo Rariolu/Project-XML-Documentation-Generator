@@ -87,6 +87,17 @@ namespace PortfolioGeneratorBackend
             //properties.Add(property);
         }
 
+        public bool HasVariable(string variableName, out ParsedVariable parsedVariable)
+        {
+            if (variables.ContainsKey(variableName))
+            {
+                parsedVariable = variables[variableName];
+                return true;
+            }
+            parsedVariable = null;
+            return false;
+        }
+
         public static bool operator ==(ParsedType parsedType1, ParsedType parsedType2)
         {
             //Check if names are the same
