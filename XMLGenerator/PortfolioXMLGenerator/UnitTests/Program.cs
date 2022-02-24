@@ -10,8 +10,12 @@ namespace UnitTests
     {
         static void Main(string[] args)
         {
+            //Testing the robustness of the types used to contain parsed information.
             PerformCheck(ParsedTypeCompetency.TrueComparisons, "TrueComparisons");
             PerformCheck(ParsedTypeCompetency.FalseComparisons, "FalseComparisons");
+
+            //Checking that the reflection parsing module works as expected.
+            PerformCheck(ReflectionParsing.ClassParsing, "Reflection Class Parsing");
             Console.ReadKey();
         }
 
