@@ -119,6 +119,24 @@ namespace PortfolioGeneratorBackend
 
                         parsedAssembly.AddType(parsedType);
                     }
+                    else
+                    {
+                        string typeName;
+                        string typeNamespace;
+                        GetNamespaceAndType(type.FullName, out typeNamespace, out typeName);
+                        ParsedEnum parsedEnum = new ParsedEnum(typeName, typeNamespace);
+
+                        Array enumValues = Enum.GetValues(type);
+
+                        foreach(object val in enumValues)
+                        {
+                            string name = val.ToString();
+                            int numVal = Enum.Parse(type, name).GetHashCode();
+                            parsedEnum.AddValue(name, numVal);
+                        }
+
+                        parsedAssembly.AddEnum(parsedEnum);
+                    }
                 }
 
                 return true;
