@@ -52,6 +52,7 @@
       <DependentUpon>LogAlert.cs</DependentUpon>
     </Compile>
     <Compile Include="ParsedAssembly.cs" />
+    <Compile Include="ParsedEnum.cs" />
     <Compile Include="ParsedType.cs" />
     <Compile Include="ParseMemberParent.cs" />
     <Compile Include="ParseMemberTypes.cs" />
