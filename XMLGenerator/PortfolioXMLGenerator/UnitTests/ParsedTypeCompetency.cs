@@ -42,6 +42,34 @@ namespace UnitTests
             {
                 throw new Exception("ParsedProperty comparison failed.");
             }
+
+            ParsedType pt1 = new ParsedType("Misc", "System");
+            pt1.AddVariable(pv1);
+            pt1.AddMethod(pm1);
+            pt1.AddMethod(pc1, true);
+            pt1.AddProperty(pp1);
+
+            ParsedType pt2 = new ParsedType("Misc", "System");
+            pt2.AddVariable(pv2);
+            pt2.AddMethod(pm2);
+            pt2.AddMethod(pm2, true);
+            pt2.AddProperty(pp2);
+
+            if (pt1 != pt2)
+            {
+                throw new Exception("ParsedType comparison failed.");
+            }
+
+            ParsedAssembly pa1 = new ParsedAssembly("BleepBloop");
+            pa1.AddType(pt1);
+
+            ParsedAssembly pa2 = new ParsedAssembly("BleepBloop");
+            pa2.AddType(pt2);
+
+            if (pa1 != pa2)
+            {
+                throw new Exception("ParsedAssembly comparison failed.");
+            }
         }
         public static void FalseComparisons()
         {
@@ -75,6 +103,34 @@ namespace UnitTests
             if (pp1 == pp2)
             {
                 throw new Exception("ParsedProperty comparison failed.");
+            }
+
+            ParsedType pt1 = new ParsedType("Misc", "System");
+            pt1.AddVariable(pv1);
+            pt1.AddMethod(pm1);
+            pt1.AddMethod(pc1, true);
+            pt1.AddProperty(pp1);
+
+            ParsedType pt2 = new ParsedType("Misc", "System");
+            pt2.AddVariable(pv2);
+            pt2.AddMethod(pm2);
+            pt2.AddMethod(pm2, true);
+            pt2.AddProperty(pp2);
+
+            if (pt1 == pt2)
+            {
+                throw new Exception("ParsedType comparison failed.");
+            }
+
+            ParsedAssembly pa1 = new ParsedAssembly("BleepBloop");
+            pa1.AddType(pt1);
+
+            ParsedAssembly pa2 = new ParsedAssembly("BleepBloop");
+            pa2.AddType(pt2);
+
+            if (pa1 == pa2)
+            {
+                throw new Exception("ParsedAssembly comparison failed.");
             }
         }
     }
