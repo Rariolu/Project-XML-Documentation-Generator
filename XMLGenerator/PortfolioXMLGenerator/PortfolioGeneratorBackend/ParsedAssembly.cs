@@ -17,7 +17,7 @@ namespace PortfolioGeneratorBackend
             }
         }
 
-        Dictionary<string, ParsedType> parsedTypes;
+        Dictionary<string, ParsedType> parsedTypes = new Dictionary<string, ParsedType>();
         public ParsedType[] ParsedTypes
         {
             get
@@ -26,15 +26,28 @@ namespace PortfolioGeneratorBackend
             }
         }
 
+        Dictionary<string, ParsedEnum> parsedEnums = new Dictionary<string, ParsedEnum>();
+        public ParsedEnum[] ParsedEnums
+        {
+            get
+            {
+                return parsedEnums.Values.ToArray();
+            }
+        }
+
         public ParsedAssembly(string _name)
         {
             name = _name;
-            parsedTypes = new Dictionary<string, ParsedType>();
         }
 
         public void AddType(ParsedType type)
         {
             parsedTypes.Add(type.FullName, type);
+        }
+
+        public void AddEnum(ParsedEnum parsedEnum)
+        {
+            parsedEnums.Add(parsedEnum.Type.FullName, parsedEnum);
         }
 
         public bool HasType(string typeName, out ParsedType parsedType)
@@ -45,6 +58,17 @@ namespace PortfolioGeneratorBackend
                 return true;
             }
             parsedType = null;
+            return false;
+        }
+
+        public bool HasEnum(string enumName, out ParsedEnum parsedEnum)
+        {
+            if (parsedEnums.ContainsKey(enumName))
+            {
+                parsedEnum = parsedEnums[enumName];
+                return true;
+            }
+            parsedEnum = null;
             return false;
         }
 
