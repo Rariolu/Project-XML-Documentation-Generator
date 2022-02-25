@@ -45,6 +45,36 @@ namespace UnitTests
                 {
                     throw new Exception("An expected class type is not present in the parsed assembly.");
                 }
+
+                ParsedEnum bloop;
+                if (parsedAssembly.HasEnum("DemoAssembly.BLOOP", out bloop))
+                {
+                    int valTwo;
+                    if (bloop.HasValue("TWO",out valTwo))
+                    {
+                        if (valTwo != 2)
+                        {
+                            throw new Exception("A parsed enum had an unexpected int value.");
+                        }
+                    }
+                    else
+                    {
+                        throw new Exception("Expected enum value not found.");
+                    }
+
+                    int valThree;
+                    if (bloop.HasValue("THREE", out valThree))
+                    {
+                        if (valThree != 3)
+                        {
+                            throw new Exception("A parsed enum had an unexpected int value.");
+                        }
+                    }
+                    else
+                    {
+                        throw new Exception("Expected enum value not found.");
+                    }
+                }
             }
             else
             {
