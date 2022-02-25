@@ -182,6 +182,42 @@ namespace PortfolioGeneratorBackend
             propertyAccessor = default(ParsedPropertyAccessor);
             return false;
         }
+
+        public static bool operator==(ParsedProperty pp1, ParsedProperty pp2)
+        {
+            bool namesUnequal = pp1.Name != pp2.Name;
+            bool typesUnequal = pp1.Type != pp2.Type;
+
+            if (namesUnequal || typesUnequal)
+            {
+                return false;
+            }
+
+            if (pp1.accessors.Count != pp2.accessors.Count)
+            {
+                return false;
+            }
+
+            foreach(ACCESSOR_TYPE pp1Key in pp1.accessors.Keys)
+            {
+                if (!pp2.accessors.ContainsKey(pp1Key))
+                {
+                    return false;
+                }
+
+                if (pp1.accessors[pp1Key] != pp2.accessors[pp1Key])
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        public static bool operator!=(ParsedProperty pp1, ParsedProperty pp2)
+        {
+            return !(pp1 == pp2);
+        }
     }
 
     public struct ParsedPropertyAccessor
@@ -218,6 +254,20 @@ namespace PortfolioGeneratorBackend
             type = _type;
             protectionLevel = _protectionLevel;
             isStatic = _isStatic;
+        }
+
+        public static bool operator==(ParsedPropertyAccessor accessor1, ParsedPropertyAccessor accessor2)
+        {
+            bool typesUnequal = accessor1.Type != accessor2.Type;
+            bool protectionUnequal = accessor1.ProtectionLevel != accessor2.ProtectionLevel;
+            bool staticUnequal = accessor1.IsStatic != accessor2.IsStatic;
+
+            return !(typesUnequal || protectionUnequal || staticUnequal);
+        }
+
+        public static bool operator!=(ParsedPropertyAccessor accessor1, ParsedPropertyAccessor accessor2)
+        {
+            return !(accessor1 == accessor2);
         }
     }
 
