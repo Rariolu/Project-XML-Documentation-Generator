@@ -275,6 +275,13 @@ namespace PortfolioGeneratorBackend
     {
         public string TypeName { get; set; }
         public string Namespace { get; set; }
+        public string FullName
+        {
+            get
+            {
+                return Namespace + "." + TypeName;
+            }
+        }
         public override string ToString()
         {
             return TypeName;
