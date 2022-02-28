@@ -228,7 +228,7 @@ namespace PortfolioXMLGenerator
                 }
             }
             Exception errors;
-            if (XMLPortfolioSerialiser.SerialiseParsedElements(assembly, tbAssemblyOutputPath.Text, out errors))
+            if (XMLPortfolioSerialiser.SerialiseParsedElements(assembly, tbAssemblyOutputPath.Text, out errors, tbAssemblyName.Text))
             {
                 MessageBox.Show("Saved.");
             }

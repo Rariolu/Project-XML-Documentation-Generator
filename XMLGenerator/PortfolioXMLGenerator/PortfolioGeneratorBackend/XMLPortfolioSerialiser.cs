@@ -11,7 +11,7 @@ namespace PortfolioGeneratorBackend
 {
     public static class XMLPortfolioSerialiser
     {
-        public static bool SerialiseParsedElements(this ParsedAssembly assembly, string dir, out Exception errors)
+        public static bool SerialiseParsedElements(this ParsedAssembly assembly, string dir, out Exception errors, string preferredAssemblyName="")
         {
             if (!Directory.Exists(dir))
             {
@@ -247,7 +247,10 @@ namespace PortfolioGeneratorBackend
                     xmlWriter.Close();
                 }
 
-                string mainFileName = assembly.Name.RemoveInvalidPathChars()+".xml";
+                string mainName = string.IsNullOrEmpty(preferredAssemblyName) ? assembly.Name : preferredAssemblyName;
+
+                //string mainFileName = assembly.Name.RemoveInvalidPathChars()+".xml";
+                string mainFileName = mainName.RemoveInvalidPathChars()+".xml";
 
                 string mainFilePath = Path.Combine(dir, mainFileName);
 
@@ -261,7 +264,7 @@ namespace PortfolioGeneratorBackend
                 //<name>
                 mainXmlWriter.WriteStartElementEnum(PORTFOLIO_XML_ELEMENT.name);
 
-                mainXmlWriter.WriteValue(assembly.Name);
+                mainXmlWriter.WriteValue(mainName);
 
                 //</name>
                 mainXmlWriter.WriteEndElement();
