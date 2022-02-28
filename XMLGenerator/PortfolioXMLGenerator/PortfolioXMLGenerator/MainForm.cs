@@ -25,6 +25,15 @@ namespace PortfolioXMLGenerator
             {PROTECTION.PUBLIC, "+"}
         };
 
+        string GetProtectionLevel(PROTECTION protLevel)
+        {
+            if (protectionSymbols.ContainsKey(protLevel))
+            {
+                return protectionSymbols[protLevel];
+            }
+            return "?";
+        }
+
         public MainForm()
         {
             InitializeComponent();
@@ -63,6 +72,10 @@ namespace PortfolioXMLGenerator
 
                     LogAlert.Show(sb.ToString());
                 }
+                else
+                {
+                    LogAlert.Show(err.Message);
+                }
             }
         }
 
@@ -74,7 +87,7 @@ namespace PortfolioXMLGenerator
 
                 foreach (ParsedVariable variable in type.Variables)
                 {
-                    rtb.Text += "\n\t" + string.Format("{0} {1}", protectionSymbols[variable.ProtectionLevel], variable.Name);
+                    rtb.Text += "\n\t" + string.Format("{0} {1}", GetProtectionLevel(variable.ProtectionLevel), variable.Name);
                 }
 
                 foreach (ParsedProperty property in type.Properties)
@@ -97,12 +110,12 @@ namespace PortfolioXMLGenerator
 
                 foreach(ParsedMethod constructor in type.Constructors)
                 {
-                    rtb.Text += "\n\t" + string.Format("{0} {1}", protectionSymbols[constructor.ProtectionLevel], constructor.CompleteName);
+                    rtb.Text += "\n\t" + string.Format("{0} {1}", GetProtectionLevel(constructor.ProtectionLevel), constructor.CompleteName);
                 }
 
                 foreach (ParsedMethod method in type.Methods)
                 {
-                    rtb.Text += "\n\t" + string.Format("{0} {1}", protectionSymbols[method.ProtectionLevel], method.CompleteName);
+                    rtb.Text += "\n\t" + string.Format("{0} {1}", GetProtectionLevel(method.ProtectionLevel), method.CompleteName);
                 }
 
 
