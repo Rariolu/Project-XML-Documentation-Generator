@@ -49,6 +49,8 @@ namespace PortfolioXMLGenerator
             this.tbPortfolioDir = new System.Windows.Forms.TextBox();
             this.gbSaveParsedAssembly = new System.Windows.Forms.GroupBox();
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
+            this.tbAssemblyName = new System.Windows.Forms.TextBox();
+            this.lblAssemblyName = new System.Windows.Forms.Label();
             this.gbAssembly.SuspendLayout();
             this.gbDocumentation.SuspendLayout();
             this.gbPortfolio.SuspendLayout();
@@ -57,20 +59,18 @@ namespace PortfolioXMLGenerator
             // 
             // tbAssemblyPath
             // 
-            this.tbAssemblyPath.Location = new System.Drawing.Point(8, 36);
-            this.tbAssemblyPath.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tbAssemblyPath.Location = new System.Drawing.Point(6, 29);
             this.tbAssemblyPath.Name = "tbAssemblyPath";
-            this.tbAssemblyPath.Size = new System.Drawing.Size(257, 22);
+            this.tbAssemblyPath.Size = new System.Drawing.Size(194, 20);
             this.tbAssemblyPath.TabIndex = 0;
             this.tbAssemblyPath.Text = "D:\\PortfolioProject\\XMLGenerator\\PortfolioXMLGenerator\\PortfolioXMLGenerator\\bin\\" +
     "Debug\\PortfolioXMLGenerator.exe";
             // 
             // btnBrowse
             // 
-            this.btnBrowse.Location = new System.Drawing.Point(275, 36);
-            this.btnBrowse.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnBrowse.Location = new System.Drawing.Point(206, 29);
             this.btnBrowse.Name = "btnBrowse";
-            this.btnBrowse.Size = new System.Drawing.Size(100, 28);
+            this.btnBrowse.Size = new System.Drawing.Size(75, 23);
             this.btnBrowse.TabIndex = 1;
             this.btnBrowse.Text = "Browse";
             this.btnBrowse.UseVisualStyleBackColor = true;
@@ -78,10 +78,9 @@ namespace PortfolioXMLGenerator
             // 
             // btnProcessAssembly
             // 
-            this.btnProcessAssembly.Location = new System.Drawing.Point(8, 79);
-            this.btnProcessAssembly.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnProcessAssembly.Location = new System.Drawing.Point(6, 64);
             this.btnProcessAssembly.Name = "btnProcessAssembly";
-            this.btnProcessAssembly.Size = new System.Drawing.Size(155, 49);
+            this.btnProcessAssembly.Size = new System.Drawing.Size(116, 40);
             this.btnProcessAssembly.TabIndex = 2;
             this.btnProcessAssembly.Text = "Process Assembly";
             this.btnProcessAssembly.UseVisualStyleBackColor = true;
@@ -89,10 +88,9 @@ namespace PortfolioXMLGenerator
             // 
             // rtbLog
             // 
-            this.rtbLog.Location = new System.Drawing.Point(8, 153);
-            this.rtbLog.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.rtbLog.Location = new System.Drawing.Point(6, 124);
             this.rtbLog.Name = "rtbLog";
-            this.rtbLog.Size = new System.Drawing.Size(432, 281);
+            this.rtbLog.Size = new System.Drawing.Size(325, 229);
             this.rtbLog.TabIndex = 3;
             this.rtbLog.Text = "";
             // 
@@ -102,21 +100,18 @@ namespace PortfolioXMLGenerator
             this.gbAssembly.Controls.Add(this.rtbLog);
             this.gbAssembly.Controls.Add(this.btnBrowse);
             this.gbAssembly.Controls.Add(this.btnProcessAssembly);
-            this.gbAssembly.Location = new System.Drawing.Point(16, 33);
-            this.gbAssembly.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.gbAssembly.Location = new System.Drawing.Point(12, 27);
             this.gbAssembly.Name = "gbAssembly";
-            this.gbAssembly.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.gbAssembly.Size = new System.Drawing.Size(456, 454);
+            this.gbAssembly.Size = new System.Drawing.Size(342, 369);
             this.gbAssembly.TabIndex = 4;
             this.gbAssembly.TabStop = false;
             this.gbAssembly.Text = "Assembly";
             // 
             // btnBrowseAssemblyDir
             // 
-            this.btnBrowseAssemblyDir.Location = new System.Drawing.Point(332, 33);
-            this.btnBrowseAssemblyDir.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnBrowseAssemblyDir.Location = new System.Drawing.Point(249, 27);
             this.btnBrowseAssemblyDir.Name = "btnBrowseAssemblyDir";
-            this.btnBrowseAssemblyDir.Size = new System.Drawing.Size(100, 28);
+            this.btnBrowseAssemblyDir.Size = new System.Drawing.Size(75, 23);
             this.btnBrowseAssemblyDir.TabIndex = 6;
             this.btnBrowseAssemblyDir.Text = "Browse";
             this.btnBrowseAssemblyDir.UseVisualStyleBackColor = true;
@@ -124,20 +119,18 @@ namespace PortfolioXMLGenerator
             // 
             // tbAssemblyOutputPath
             // 
-            this.tbAssemblyOutputPath.Location = new System.Drawing.Point(7, 36);
-            this.tbAssemblyOutputPath.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tbAssemblyOutputPath.Location = new System.Drawing.Point(5, 29);
             this.tbAssemblyOutputPath.Name = "tbAssemblyOutputPath";
-            this.tbAssemblyOutputPath.Size = new System.Drawing.Size(304, 22);
+            this.tbAssemblyOutputPath.Size = new System.Drawing.Size(229, 20);
             this.tbAssemblyOutputPath.TabIndex = 5;
             this.tbAssemblyOutputPath.Text = "C:\\Users\\maxr1\\Documents\\Bloop";
             // 
             // btnSaveAssembly
             // 
             this.btnSaveAssembly.Enabled = false;
-            this.btnSaveAssembly.Location = new System.Drawing.Point(7, 306);
-            this.btnSaveAssembly.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnSaveAssembly.Location = new System.Drawing.Point(5, 285);
             this.btnSaveAssembly.Name = "btnSaveAssembly";
-            this.btnSaveAssembly.Size = new System.Drawing.Size(155, 57);
+            this.btnSaveAssembly.Size = new System.Drawing.Size(116, 46);
             this.btnSaveAssembly.TabIndex = 4;
             this.btnSaveAssembly.Text = "Save";
             this.btnSaveAssembly.UseVisualStyleBackColor = true;
@@ -149,30 +142,26 @@ namespace PortfolioXMLGenerator
             this.gbDocumentation.Controls.Add(this.btnParse);
             this.gbDocumentation.Controls.Add(this.btnBrowseDocumentation);
             this.gbDocumentation.Controls.Add(this.tbDocumentationPath);
-            this.gbDocumentation.Location = new System.Drawing.Point(480, 26);
-            this.gbDocumentation.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.gbDocumentation.Location = new System.Drawing.Point(360, 21);
             this.gbDocumentation.Name = "gbDocumentation";
-            this.gbDocumentation.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.gbDocumentation.Size = new System.Drawing.Size(567, 461);
+            this.gbDocumentation.Size = new System.Drawing.Size(425, 375);
             this.gbDocumentation.TabIndex = 5;
             this.gbDocumentation.TabStop = false;
             this.gbDocumentation.Text = "Documentation";
             // 
             // rtbParseLog
             // 
-            this.rtbParseLog.Location = new System.Drawing.Point(8, 153);
-            this.rtbParseLog.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.rtbParseLog.Location = new System.Drawing.Point(6, 124);
             this.rtbParseLog.Name = "rtbParseLog";
-            this.rtbParseLog.Size = new System.Drawing.Size(485, 281);
+            this.rtbParseLog.Size = new System.Drawing.Size(365, 229);
             this.rtbParseLog.TabIndex = 3;
             this.rtbParseLog.Text = "";
             // 
             // btnParse
             // 
-            this.btnParse.Location = new System.Drawing.Point(8, 79);
-            this.btnParse.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnParse.Location = new System.Drawing.Point(6, 64);
             this.btnParse.Name = "btnParse";
-            this.btnParse.Size = new System.Drawing.Size(157, 59);
+            this.btnParse.Size = new System.Drawing.Size(118, 48);
             this.btnParse.TabIndex = 2;
             this.btnParse.Text = "Parse";
             this.btnParse.UseVisualStyleBackColor = true;
@@ -180,10 +169,9 @@ namespace PortfolioXMLGenerator
             // 
             // btnBrowseDocumentation
             // 
-            this.btnBrowseDocumentation.Location = new System.Drawing.Point(359, 36);
-            this.btnBrowseDocumentation.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnBrowseDocumentation.Location = new System.Drawing.Point(269, 29);
             this.btnBrowseDocumentation.Name = "btnBrowseDocumentation";
-            this.btnBrowseDocumentation.Size = new System.Drawing.Size(100, 28);
+            this.btnBrowseDocumentation.Size = new System.Drawing.Size(75, 23);
             this.btnBrowseDocumentation.TabIndex = 1;
             this.btnBrowseDocumentation.Text = "Browse";
             this.btnBrowseDocumentation.UseVisualStyleBackColor = true;
@@ -191,10 +179,9 @@ namespace PortfolioXMLGenerator
             // 
             // tbDocumentationPath
             // 
-            this.tbDocumentationPath.Location = new System.Drawing.Point(8, 38);
-            this.tbDocumentationPath.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tbDocumentationPath.Location = new System.Drawing.Point(6, 31);
             this.tbDocumentationPath.Name = "tbDocumentationPath";
-            this.tbDocumentationPath.Size = new System.Drawing.Size(327, 22);
+            this.tbDocumentationPath.Size = new System.Drawing.Size(246, 20);
             this.tbDocumentationPath.TabIndex = 0;
             this.tbDocumentationPath.Text = "D:\\PortfolioProject\\XMLGenerator\\PortfolioXMLGenerator\\PortfolioXMLGenerator\\bin\\" +
     "Debug\\PortfolioXMLGenerator.xml";
@@ -205,21 +192,18 @@ namespace PortfolioXMLGenerator
             this.gbPortfolio.Controls.Add(this.rtbPortfolioParse);
             this.gbPortfolio.Controls.Add(this.btnBrowsePortfolioXML);
             this.gbPortfolio.Controls.Add(this.tbPortfolioDir);
-            this.gbPortfolio.Location = new System.Drawing.Point(1055, 33);
-            this.gbPortfolio.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.gbPortfolio.Location = new System.Drawing.Point(791, 27);
             this.gbPortfolio.Name = "gbPortfolio";
-            this.gbPortfolio.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.gbPortfolio.Size = new System.Drawing.Size(688, 454);
+            this.gbPortfolio.Size = new System.Drawing.Size(516, 369);
             this.gbPortfolio.TabIndex = 6;
             this.gbPortfolio.TabStop = false;
             this.gbPortfolio.Text = "Portfolio";
             // 
             // btnParsePortfolio
             // 
-            this.btnParsePortfolio.Location = new System.Drawing.Point(8, 79);
-            this.btnParsePortfolio.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnParsePortfolio.Location = new System.Drawing.Point(6, 64);
             this.btnParsePortfolio.Name = "btnParsePortfolio";
-            this.btnParsePortfolio.Size = new System.Drawing.Size(157, 59);
+            this.btnParsePortfolio.Size = new System.Drawing.Size(118, 48);
             this.btnParsePortfolio.TabIndex = 10;
             this.btnParsePortfolio.Text = "Parse";
             this.btnParsePortfolio.UseVisualStyleBackColor = true;
@@ -227,19 +211,17 @@ namespace PortfolioXMLGenerator
             // 
             // rtbPortfolioParse
             // 
-            this.rtbPortfolioParse.Location = new System.Drawing.Point(8, 153);
-            this.rtbPortfolioParse.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.rtbPortfolioParse.Location = new System.Drawing.Point(6, 124);
             this.rtbPortfolioParse.Name = "rtbPortfolioParse";
-            this.rtbPortfolioParse.Size = new System.Drawing.Size(485, 281);
+            this.rtbPortfolioParse.Size = new System.Drawing.Size(365, 229);
             this.rtbPortfolioParse.TabIndex = 9;
             this.rtbPortfolioParse.Text = "";
             // 
             // btnBrowsePortfolioXML
             // 
-            this.btnBrowsePortfolioXML.Location = new System.Drawing.Point(471, 36);
-            this.btnBrowsePortfolioXML.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnBrowsePortfolioXML.Location = new System.Drawing.Point(353, 29);
             this.btnBrowsePortfolioXML.Name = "btnBrowsePortfolioXML";
-            this.btnBrowsePortfolioXML.Size = new System.Drawing.Size(100, 28);
+            this.btnBrowsePortfolioXML.Size = new System.Drawing.Size(75, 23);
             this.btnBrowsePortfolioXML.TabIndex = 8;
             this.btnBrowsePortfolioXML.Text = "Browse";
             this.btnBrowsePortfolioXML.UseVisualStyleBackColor = true;
@@ -247,44 +229,63 @@ namespace PortfolioXMLGenerator
             // 
             // tbPortfolioDir
             // 
-            this.tbPortfolioDir.Location = new System.Drawing.Point(8, 36);
-            this.tbPortfolioDir.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tbPortfolioDir.Location = new System.Drawing.Point(6, 29);
             this.tbPortfolioDir.Name = "tbPortfolioDir";
-            this.tbPortfolioDir.Size = new System.Drawing.Size(453, 22);
+            this.tbPortfolioDir.Size = new System.Drawing.Size(341, 20);
             this.tbPortfolioDir.TabIndex = 7;
             this.tbPortfolioDir.Text = "C:\\Users\\maxr1\\Documents\\Bloop";
             // 
             // gbSaveParsedAssembly
             // 
+            this.gbSaveParsedAssembly.Controls.Add(this.lblAssemblyName);
+            this.gbSaveParsedAssembly.Controls.Add(this.tbAssemblyName);
             this.gbSaveParsedAssembly.Controls.Add(this.richTextBox1);
             this.gbSaveParsedAssembly.Controls.Add(this.tbAssemblyOutputPath);
             this.gbSaveParsedAssembly.Controls.Add(this.btnBrowseAssemblyDir);
             this.gbSaveParsedAssembly.Controls.Add(this.btnSaveAssembly);
-            this.gbSaveParsedAssembly.Location = new System.Drawing.Point(24, 494);
+            this.gbSaveParsedAssembly.Location = new System.Drawing.Point(18, 401);
+            this.gbSaveParsedAssembly.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.gbSaveParsedAssembly.Name = "gbSaveParsedAssembly";
-            this.gbSaveParsedAssembly.Size = new System.Drawing.Size(448, 370);
+            this.gbSaveParsedAssembly.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.gbSaveParsedAssembly.Size = new System.Drawing.Size(336, 336);
             this.gbSaveParsedAssembly.TabIndex = 7;
             this.gbSaveParsedAssembly.TabStop = false;
             this.gbSaveParsedAssembly.Text = "Save Parsed Assembly";
             // 
             // richTextBox1
             // 
-            this.richTextBox1.Location = new System.Drawing.Point(6, 65);
+            this.richTextBox1.Location = new System.Drawing.Point(5, 97);
+            this.richTextBox1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.Size = new System.Drawing.Size(305, 224);
+            this.richTextBox1.Size = new System.Drawing.Size(319, 183);
             this.richTextBox1.TabIndex = 7;
             this.richTextBox1.Text = "";
             // 
+            // tbAssemblyName
+            // 
+            this.tbAssemblyName.Location = new System.Drawing.Point(139, 69);
+            this.tbAssemblyName.Name = "tbAssemblyName";
+            this.tbAssemblyName.Size = new System.Drawing.Size(185, 20);
+            this.tbAssemblyName.TabIndex = 8;
+            // 
+            // lblAssemblyName
+            // 
+            this.lblAssemblyName.AutoSize = true;
+            this.lblAssemblyName.Location = new System.Drawing.Point(2, 72);
+            this.lblAssemblyName.Name = "lblAssemblyName";
+            this.lblAssemblyName.Size = new System.Drawing.Size(131, 13);
+            this.lblAssemblyName.TabIndex = 9;
+            this.lblAssemblyName.Text = "Preferred Assembly Name:";
+            // 
             // MainForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1759, 876);
+            this.ClientSize = new System.Drawing.Size(1319, 748);
             this.Controls.Add(this.gbSaveParsedAssembly);
             this.Controls.Add(this.gbPortfolio);
             this.Controls.Add(this.gbDocumentation);
             this.Controls.Add(this.gbAssembly);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "MainForm";
             this.Text = "PortfolioXMLGenerator";
             this.gbAssembly.ResumeLayout(false);
@@ -321,6 +322,8 @@ namespace PortfolioXMLGenerator
         private System.Windows.Forms.RichTextBox rtbPortfolioParse;
         private System.Windows.Forms.GroupBox gbSaveParsedAssembly;
         private System.Windows.Forms.RichTextBox richTextBox1;
+        private System.Windows.Forms.Label lblAssemblyName;
+        private System.Windows.Forms.TextBox tbAssemblyName;
     }
 }
 
