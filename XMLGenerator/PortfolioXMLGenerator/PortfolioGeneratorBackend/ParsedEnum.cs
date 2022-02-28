@@ -22,7 +22,7 @@ namespace PortfolioGeneratorBackend
         {
             get
             {
-                return values.Select(p => p).ToArray();
+                return values.ToArray();
             }
         }
 
