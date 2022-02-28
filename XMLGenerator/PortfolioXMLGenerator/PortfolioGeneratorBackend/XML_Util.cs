@@ -63,7 +63,10 @@ namespace PortfolioGeneratorBackend
         properties,
         property,
         classconst,
-        NAMESPACE
+        NAMESPACE,
+        documentation,
+        ENUM,
+        value
     }
     public enum PORTFOLIO_XML_ATTRIBUTE
     {
@@ -76,6 +79,7 @@ namespace PortfolioGeneratorBackend
         is_static,
         getterStatic,
         setterStatic,
-        NAMESPACE
+        NAMESPACE,
+        INT
     }
 }
