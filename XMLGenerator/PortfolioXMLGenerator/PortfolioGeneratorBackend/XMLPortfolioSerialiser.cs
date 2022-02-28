@@ -20,6 +20,9 @@ namespace PortfolioGeneratorBackend
                 return false;
             }
 
+            XmlWriterSettings xmlWriterSettings = new XmlWriterSettings();
+            xmlWriterSettings.Indent = true;
+            xmlWriterSettings.IndentChars = "\t";
             try
             {
                 foreach (ParsedType parsedType in assembly.ParsedTypes)
@@ -27,10 +30,6 @@ namespace PortfolioGeneratorBackend
                     string formattedTypeName = parsedType.Name.RemoveInvalidPathChars();
 
                     string path = Path.Combine(dir, formattedTypeName + ".xml");
-
-                    XmlWriterSettings xmlWriterSettings = new XmlWriterSettings();
-                    xmlWriterSettings.Indent = true;
-                    xmlWriterSettings.IndentChars = "\t";
 
                     XmlWriter xmlWriter = XmlWriter.Create(path, xmlWriterSettings);
 
@@ -247,6 +246,65 @@ namespace PortfolioGeneratorBackend
 
                     xmlWriter.Close();
                 }
+
+                string mainFileName = assembly.Name.RemoveInvalidPathChars()+".xml";
+
+                string mainFilePath = Path.Combine(dir, mainFileName);
+
+                XmlWriter mainXmlWriter = XmlWriter.Create(mainFilePath, xmlWriterSettings);
+
+                mainXmlWriter.WriteStartDocument();
+
+                //<root>
+                mainXmlWriter.WriteStartElementEnum(PORTFOLIO_XML_ELEMENT.root);
+
+                //<name>
+                mainXmlWriter.WriteStartElementEnum(PORTFOLIO_XML_ELEMENT.name);
+
+                mainXmlWriter.WriteValue(assembly.Name);
+
+                //</name>
+                mainXmlWriter.WriteEndElement();
+
+                //<documentation>
+                mainXmlWriter.WriteStartElementEnum(PORTFOLIO_XML_ELEMENT.documentation);
+
+                mainXmlWriter.WriteAttributeEnum(PORTFOLIO_XML_ATTRIBUTE.name, "Enumerations");
+
+                foreach (ParsedEnum parsedEnum in assembly.ParsedEnums)
+                {
+                    //<enum>
+                    mainXmlWriter.WriteStartElementEnum(PORTFOLIO_XML_ELEMENT.ENUM);
+
+                    mainXmlWriter.WriteAttributeEnum(PORTFOLIO_XML_ATTRIBUTE.name, parsedEnum.Type.TypeName);
+
+                    foreach(KeyValuePair<string, int> enumVal in parsedEnum.Values)
+                    {
+                        //<value>
+                        mainXmlWriter.WriteStartElementEnum(PORTFOLIO_XML_ELEMENT.value);
+
+                        mainXmlWriter.WriteAttributeEnum(PORTFOLIO_XML_ATTRIBUTE.name, enumVal.Key);
+
+                        mainXmlWriter.WriteAttributeEnum(PORTFOLIO_XML_ATTRIBUTE.INT, enumVal.Value);
+
+                        //</value>
+                        mainXmlWriter.WriteEndElement();
+                    }
+
+                    //</enum>
+                    mainXmlWriter.WriteEndElement();
+                }
+
+                //</documentation>
+                mainXmlWriter.WriteEndElement();
+
+                //</root>
+                mainXmlWriter.WriteEndElement();
+
+                mainXmlWriter.WriteEndDocument();
+
+                mainXmlWriter.Close();
+
                 errors = null;
                 return true;
             }
