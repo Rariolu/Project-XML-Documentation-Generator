@@ -38,13 +38,23 @@ namespace PortfolioGeneratorBackend
                         string typeName;
                         string typeNamespace;
                         GetNamespaceAndType(type.FullName, out typeNamespace, out typeName);
-                        ParsedType parsedType = new ParsedType(typeName, typeNamespace);
-                        
+
                         if (typeName.Contains("<"))
                         {
                             Console.WriteLine("Skipped {0}.", typeName);
                             continue;
                         }
+
+                        if (typeName.Contains("`"))
+                        {
+                            int backtickIndex = typeName.IndexOf("`");
+                            int length = typeName.Length - backtickIndex;
+                            typeName = typeName.Remove(backtickIndex, length);
+                        }
+
+
+                        ParsedType parsedType = new ParsedType(typeName, typeNamespace);
+                        
 
                         foreach (FieldInfo field in type.GetFields(BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Public | BindingFlags.DeclaredOnly | BindingFlags.Static))
                         {
