@@ -82,7 +82,14 @@ namespace PortfolioGeneratorBackend
             string paramms = "";
             for (int i = 0; i < Parameters.Length; i++)
             {
-                paramms += Parameters[i].Type.Namespace + "." + Parameters[i].Type.TypeName;
+                if (string.IsNullOrEmpty(Parameters[i].Type.Namespace))
+                {
+                    paramms += Parameters[i].Type.TypeName;
+                }
+                else
+                {
+                    paramms += Parameters[i].Type.Namespace + "." + Parameters[i].Type.TypeName;
+                }
                 if (i < Parameters.Length - 1)
                 {
                     paramms += ",";
