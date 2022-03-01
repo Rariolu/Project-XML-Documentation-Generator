@@ -45,16 +45,26 @@ namespace PortfolioGeneratorBackend
                             continue;
                         }
 
+                        IEnumerable<string> genericParameterNames = new List<string>();
+
                         if (typeName.Contains("`"))
                         {
                             int backtickIndex = typeName.IndexOf("`");
                             int length = typeName.Length - backtickIndex;
                             typeName = typeName.Remove(backtickIndex, length);
+
+                             genericParameterNames = type
+                            .GetGenericTypeDefinition()
+                            .GetGenericArguments()
+                            .Select(t => t.Name);
                         }
 
-
                         ParsedType parsedType = new ParsedType(typeName, typeNamespace);
-                        
+
+                        foreach (string genericTypeName in genericParameterNames)
+                        {
+                            parsedType.AddGenericParameterType(genericTypeName);
+                        }
 
                         foreach (FieldInfo field in type.GetFields(BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Public | BindingFlags.DeclaredOnly | BindingFlags.Static))
                         {

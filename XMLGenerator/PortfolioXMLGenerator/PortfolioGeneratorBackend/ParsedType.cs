@@ -19,7 +19,7 @@ namespace PortfolioGeneratorBackend
             }
         }
 
-        Dictionary<string, ParsedMethod> methods;
+        Dictionary<string, ParsedMethod> methods = new Dictionary<string, ParsedMethod>();
         public ParsedMethod[] Methods
         {
             get
@@ -28,7 +28,7 @@ namespace PortfolioGeneratorBackend
             }
         }
 
-        Dictionary<string, ParsedVariable> variables;
+        Dictionary<string, ParsedVariable> variables = new Dictionary<string, ParsedVariable>();
         public ParsedVariable[] Variables
         {
             get
@@ -37,7 +37,7 @@ namespace PortfolioGeneratorBackend
             }
         }
 
-        Dictionary<string, ParsedProperty> properties;
+        Dictionary<string, ParsedProperty> properties = new Dictionary<string, ParsedProperty>();
         public ParsedProperty[] Properties
         {
             get
@@ -46,7 +46,7 @@ namespace PortfolioGeneratorBackend
             }
         }
 
-        Dictionary<string, ParsedMethod> constructors;
+        Dictionary<string, ParsedMethod> constructors = new Dictionary<string, ParsedMethod>();
         public ParsedMethod[] Constructors
         {
             get
@@ -55,13 +55,19 @@ namespace PortfolioGeneratorBackend
             }
         }
 
+        List<string> genericTypeParameters = new List<string>();
+        public string[] GenericTypeParameters
+        {
+            get
+            {
+                return genericTypeParameters.ToArray();
+            }
+        }
+
         public ParsedType(string _name, string _namespace, bool _isStatic = false)
             : base(_name, _name, _namespace, _isStatic)
         {
-            methods = new Dictionary<string, ParsedMethod>();
-            variables = new Dictionary<string, ParsedVariable>();
-            properties = new Dictionary<string, ParsedProperty>();
-            constructors = new Dictionary<string, ParsedMethod>();
+            
         }
 
         public void AddMethod(ParsedMethod method, bool isConstructor = false)
@@ -96,6 +102,11 @@ namespace PortfolioGeneratorBackend
             }
             parsedVariable = null;
             return false;
+        }
+
+        public void AddGenericParameterType(string typeName)
+        {
+            genericTypeParameters.Add(typeName);
         }
 
         public static bool operator ==(ParsedType parsedType1, ParsedType parsedType2)
