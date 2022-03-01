@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,7 +20,20 @@ namespace DemoAssembly
         protected internal static string protInternStatic = "24";
     }
 
-    public class ClassB
+    public class ClassB<T>
+    {
+        IEnumerator Enumerator()
+        {
+            throw new NotImplementedException();
+        }
+    }
+
+    public class ClassC<T, U>
+    {
+
+    }
+
+    public class ClassD<T, U, V>
     {
 
     }
