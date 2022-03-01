@@ -42,7 +42,13 @@ namespace DemoAssembly
 
     public class ClassD<T, U, V>
     {
-
+        public T Bloopy
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+        }
     }
 
     public class ClassE<T, U, V, W, X, Y, Z, A, B, C>
