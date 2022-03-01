@@ -26,6 +26,16 @@ namespace DemoAssembly
         {
             throw new NotImplementedException();
         }
+
+        public void ListTest(List<int> list)
+        {
+
+        }
+
+        public void DictTest(Dictionary<int, string> dict)
+        {
+
+        }
     }
 
     public class ClassC<T, U>
