@@ -40,6 +40,11 @@ namespace PortfolioGeneratorBackend
                         GetNamespaceAndType(type.FullName, out typeNamespace, out typeName);
                         ParsedType parsedType = new ParsedType(typeName, typeNamespace);
                         
+                        if (typeName.Contains("<"))
+                        {
+                            Console.WriteLine("Skipped {0}.", typeName);
+                            continue;
+                        }
 
                         foreach (FieldInfo field in type.GetFields(BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Public | BindingFlags.DeclaredOnly | BindingFlags.Static))
                         {
