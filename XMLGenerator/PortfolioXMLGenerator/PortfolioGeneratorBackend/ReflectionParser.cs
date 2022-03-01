@@ -93,6 +93,7 @@ namespace PortfolioGeneratorBackend
                                 string parameterType;
                                 string parameterNamespace;
                                 GetNamespaceAndType(parameter.ParameterType.ToString(), out parameterNamespace, out parameterType);
+
                                 ParsedParameter parsedParameter = new ParsedParameter(parameter.Name,parameterType, parameterNamespace);
                                 parsedMethod.AddParameter(parsedParameter);
                             }
@@ -202,6 +203,39 @@ namespace PortfolioGeneratorBackend
 
         public static void GetNamespaceAndType(this string str, out string nameSpace, out string type)
         {
+            bool genericParam = false;
+            string ogParamText = "";
+            string paramSubStr = "";
+            if (str.Contains("["))
+            {
+                int openSquare = str.IndexOf("[");
+                int closeSquare = str.IndexOf("]");
+                if ((closeSquare - openSquare) > 1)
+                {
+                    str = str.Replace("[", "<");
+                    str = str.Replace("]", ">");
+
+                    genericParam = true;
+
+
+                    int backtickIndex = str.IndexOf('`');
+                    str = str.Remove(backtickIndex, str.IndexOf('<') - backtickIndex);
+                    int openBracketIndex = str.IndexOf("<") + 1;
+                    int closedBracketIndex = str.IndexOf(">");
+
+                    int length = (closedBracketIndex - openBracketIndex);
+                    if (length > 0)
+                    {
+                        paramSubStr = ogParamText = str.Substring(openBracketIndex, length);
+                        paramSubStr = paramSubStr.Replace(".", "?");
+                        str = str.Replace(ogParamText, paramSubStr);
+                    }
+                    else
+                    {
+                        int e = 4;
+                    }
+                }
+            }
             int dotIndex = str.LastIndexOf('.');
             if (dotIndex < 0)
             {
@@ -213,6 +247,10 @@ namespace PortfolioGeneratorBackend
             nameSpace = n;
 
             string t = str.Substring(dotIndex + 1, str.Length - (dotIndex+1));
+            if (genericParam)
+            {
+                t = t.Replace(paramSubStr, ogParamText);
+            }
             type = t;
         }
 
