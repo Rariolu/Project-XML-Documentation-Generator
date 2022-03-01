@@ -30,10 +30,22 @@ namespace DemoAssembly
 
     public class ClassC<T, U>
     {
-
+        public T DemoTFunction()
+        {
+            throw new NotImplementedException();
+        }
+        public U DemoUFunction()
+        {
+            throw new NotImplementedException();
+        }
     }
 
     public class ClassD<T, U, V>
+    {
+
+    }
+
+    public class ClassE<T, U, V, W, X, Y, Z, A, B, C>
     {
 
     }
