@@ -70,11 +70,13 @@ namespace PortfolioXMLGenerator
                         sb.AppendLine(loaderExc.Message);
                     }
 
+                    sb.AppendLine("\n" + err.StackTrace);
+
                     LogAlert.Show(sb.ToString());
                 }
                 else
                 {
-                    LogAlert.Show(err.Message);
+                    LogAlert.Show(err.Message+"\n\n"+err.StackTrace);
                 }
             }
         }
