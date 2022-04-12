@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace PortfolioGeneratorBackend
 {
+    /// <summary>
+    /// An enum representing the protection level of a member or data type.
+    /// </summary>
     public enum PROTECTION
     {
         PRIVATE,
@@ -16,6 +19,9 @@ namespace PortfolioGeneratorBackend
         PRIVATE_PROTECTED
     }
 
+    /// <summary>
+    /// An enumeration of the different kinds of members in a class or struct.
+    /// </summary>
     public enum MEMBER_TYPE
     {
         VARIABLE,

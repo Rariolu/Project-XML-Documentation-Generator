@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace PortfolioGeneratorBackend
 {
+    /// <summary>
+    /// The information regarding a parsed class, storing members and descriptions.
+    /// </summary>
     public class ParsedType : ParseMemberParent
     {
         /// <summary>
@@ -20,6 +23,9 @@ namespace PortfolioGeneratorBackend
         }
 
         Dictionary<string, ParsedMethod> methods = new Dictionary<string, ParsedMethod>();
+        /// <summary>
+        /// The (non-constructor) methods of this parsed type.
+        /// </summary>
         public ParsedMethod[] Methods
         {
             get
@@ -29,6 +35,9 @@ namespace PortfolioGeneratorBackend
         }
 
         Dictionary<string, ParsedVariable> variables = new Dictionary<string, ParsedVariable>();
+        /// <summary>
+        /// The variables of this parsed type.
+        /// </summary>
         public ParsedVariable[] Variables
         {
             get
@@ -38,6 +47,9 @@ namespace PortfolioGeneratorBackend
         }
 
         Dictionary<string, ParsedProperty> properties = new Dictionary<string, ParsedProperty>();
+        /// <summary>
+        /// The properties of this parsed type.
+        /// </summary>
         public ParsedProperty[] Properties
         {
             get
@@ -47,6 +59,9 @@ namespace PortfolioGeneratorBackend
         }
 
         Dictionary<string, ParsedMethod> constructors = new Dictionary<string, ParsedMethod>();
+        /// <summary>
+        /// The constructors of this parsed type.
+        /// </summary>
         public ParsedMethod[] Constructors
         {
             get
@@ -56,6 +71,9 @@ namespace PortfolioGeneratorBackend
         }
 
         List<string> genericTypeParameters = new List<string>();
+        /// <summary>
+        /// The names of the generic types that are incorporated in this type.
+        /// </summary>
         public string[] GenericTypeParameters
         {
             get
