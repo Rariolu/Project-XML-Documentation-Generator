@@ -7,7 +7,7 @@ using System.Text;
 //using System.Threading.Tasks;
 using System.Xml;
 
-namespace PortfolioXMLGenerator
+namespace PortfolioGeneratorBackend
 {
     /// <summary>
     /// A utility for parsing XML documentation created by Visual Studio.
