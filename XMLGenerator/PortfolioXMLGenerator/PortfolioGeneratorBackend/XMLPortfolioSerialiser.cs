@@ -15,9 +15,10 @@ namespace PortfolioGeneratorBackend
         {
             if (!Directory.Exists(dir))
             {
-                string message = string.Format("Directory {0} does not exist.", dir);
-                errors = new Exception(message);
-                return false;
+                Directory.CreateDirectory(dir);
+                //string message = string.Format("Directory {0} does not exist.", dir);
+                //errors = new Exception(message);
+                //return false;
             }
 
             XmlWriterSettings xmlWriterSettings = new XmlWriterSettings();
