@@ -9,6 +9,16 @@ using System.Xml;
 
 namespace PortfolioGeneratorBackend
 {
+    public enum MemberType
+    {
+        Variable,
+        Property,
+        Method,
+        Constructor,
+        Type,
+        Other
+    }
+
     /// <summary>
     /// A utility for parsing XML documentation created by Visual Studio.
     /// </summary>
@@ -43,9 +53,10 @@ namespace PortfolioGeneratorBackend
                 {
                     string name = xmlReader["name"];
                     string memberName = name.GetMemberName();
-                    MemberTypes memberType = name.GetMemberType();
+                    //MemberTypes memberType = name.GetMemberType();
+                    MemberType memberType = name.GetMemberType();
 
-                    bool isMethod = memberType == MemberTypes.Method || memberType == MemberTypes.Constructor;
+                    bool isMethod = memberType == MemberType.Method || memberType == MemberType.Constructor;
 
                     ParsedMember member = isMethod ? new ParsedMemberMethod(memberName, memberType) : new ParsedMember(memberName, memberType);
 
@@ -84,23 +95,50 @@ namespace PortfolioGeneratorBackend
             return members;
         }
 
-        static MemberTypes GetMemberType(this string nameStr)
+        static MemberType GetMemberType(this string nameStr)
         {
             char c = nameStr[0];
             switch(c)
             {
-                case 'T':
-                    return MemberTypes.TypeInfo;
                 case 'M':
-                    return MemberTypes.Method;
+                {
+                    string memberName = nameStr.GetMemberName();
+                    if (memberName.Contains("#ctor"))
+                    {
+                        return MemberType.Constructor;
+                    }
+                    return MemberType.Method;
+                    //return MemberType.Method;
+                }
                 case 'F':
-                    return MemberTypes.Field;
+                    return MemberType.Variable;
                 case 'P':
-                    return MemberTypes.Property;
+                    return MemberType.Property;
+                case 'T':
+                    return MemberType.Type;
                 default:
-                    return MemberTypes.Custom;
+                    Console.WriteLine("Identifying character was {0}. Text was {1}.", c, nameStr);
+                    return MemberType.Other;
             }
         }
+
+        //static MemberTypes GetMemberType(this string nameStr)
+        //{
+        //    char c = nameStr[0];
+        //    switch(c)
+        //    {
+        //        case 'T':
+        //            return MemberTypes.TypeInfo;
+        //        case 'M':
+        //            return MemberTypes.Method;
+        //        case 'F':
+        //            return MemberTypes.Field;
+        //        case 'P':
+        //            return MemberTypes.Property;
+        //        default:
+        //            return MemberTypes.Custom;
+        //    }
+        //}
         static string GetMemberName(this string nameStr)
         {
             nameStr = nameStr.Remove(0, 2);
@@ -157,18 +195,32 @@ namespace PortfolioGeneratorBackend
             }
         }
 
-        MemberTypes type;
-        public MemberTypes MemberType
+        MemberType type;
+        public MemberType MemberType
         {
             get
             {
                 return type;
             }
         }
-        
+        //MemberTypes type;
+        //public MemberTypes MemberType
+        //{
+        //    get
+        //    {
+        //        return type;
+        //    }
+        //}
+
         public string Description { get; set; }
 
-        public ParsedMember(string name, MemberTypes memberType)
+        /// <summary>
+        /// Temp
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="memberType"></param>
+        //public ParsedMember(string name, MemberTypes memberType)
+        public ParsedMember(string name, MemberType memberType)
         {
             fullName = name;
             type = memberType;
@@ -185,7 +237,8 @@ namespace PortfolioGeneratorBackend
                 return parameters.ToArray();
             }
         }
-        public ParsedMemberMethod(string name, MemberTypes memberType)
+        //public ParsedMemberMethod(string name, MemberTypes memberType)
+        public ParsedMemberMethod(string name, MemberType memberType)
             : base(name, memberType)
         {
 
