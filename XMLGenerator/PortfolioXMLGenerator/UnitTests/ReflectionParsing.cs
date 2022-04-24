@@ -49,10 +49,10 @@ namespace UnitTests
                 ParsedEnum bloop;
                 if (parsedAssembly.HasEnum("DemoAssembly.BLOOP", out bloop))
                 {
-                    int valTwo;
+                    EnumValue valTwo;
                     if (bloop.HasValue("TWO",out valTwo))
                     {
-                        if (valTwo != 2)
+                        if (valTwo.Value != 2)
                         {
                             throw new Exception("A parsed enum had an unexpected int value.");
                         }
@@ -62,10 +62,10 @@ namespace UnitTests
                         throw new Exception("Expected enum value not found.");
                     }
 
-                    int valThree;
+                    EnumValue valThree;
                     if (bloop.HasValue("THREE", out valThree))
                     {
-                        if (valThree != 3)
+                        if (valThree.Value != 3)
                         {
                             throw new Exception("A parsed enum had an unexpected int value.");
                         }
