@@ -122,6 +122,39 @@ namespace PortfolioGeneratorBackend
             return false;
         }
 
+        public bool HasMethod(string methodName, out ParsedMethod parsedMethod)
+        {
+            if (methods.ContainsKey(methodName))
+            {
+                parsedMethod = methods[methodName];
+                return true;
+            }
+            parsedMethod = null;
+            return false;
+        }
+
+        public bool HasConstructor(string constructorName, out ParsedConstructor parsedConstructor)
+        {
+            if (constructors.ContainsKey(constructorName))
+            {
+                parsedConstructor = constructors[constructorName] as ParsedConstructor;
+                return true;
+            }
+            parsedConstructor = null;
+            return false;
+        }
+
+        public bool HasProperty(string propertyName, out ParsedProperty parsedProperty)
+        {
+            if (properties.ContainsKey(propertyName))
+            {
+                parsedProperty = properties[propertyName];
+                return true;
+            }
+            parsedProperty = null;
+            return false;
+        }
+
         public void AddGenericParameterType(string typeName)
         {
             genericTypeParameters.Add(typeName);
