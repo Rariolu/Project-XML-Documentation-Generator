@@ -44,6 +44,7 @@ namespace PortfolioGeneratorBackend
             type.TypeName = _type;
             type.Namespace = _namespace;
             isStatic = _isStatic;
+            Description = "";
         }
     }
 }
