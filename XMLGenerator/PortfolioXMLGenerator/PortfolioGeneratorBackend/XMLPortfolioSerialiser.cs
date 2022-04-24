@@ -282,14 +282,16 @@ namespace PortfolioGeneratorBackend
 
                     mainXmlWriter.WriteAttributeEnum(PORTFOLIO_XML_ATTRIBUTE.name, parsedEnum.Type.TypeName);
 
-                    foreach(KeyValuePair<string, int> enumVal in parsedEnum.Values)
+                    foreach(KeyValuePair<string, EnumValue> enumVal in parsedEnum.Values)
                     {
                         //<value>
                         mainXmlWriter.WriteStartElementEnum(PORTFOLIO_XML_ELEMENT.value);
 
                         mainXmlWriter.WriteAttributeEnum(PORTFOLIO_XML_ATTRIBUTE.name, enumVal.Key);
 
-                        mainXmlWriter.WriteAttributeEnum(PORTFOLIO_XML_ATTRIBUTE.INT, enumVal.Value);
+                        mainXmlWriter.WriteAttributeEnum(PORTFOLIO_XML_ATTRIBUTE.INT, enumVal.Value.Value);
+
+                        //TODO: description
 
                         //</value>
                         mainXmlWriter.WriteEndElement();
