@@ -14,6 +14,11 @@ namespace PortfolioGeneratorBackend
             return obj.ToString().ToLower().Trim();
         }
 
+        public static string RemoveIndentsAndNewLines(this string str)
+        {
+            return str.Trim().Replace("\t", "").Replace("\n", "");
+        }
+
         /// <summary>
         /// Remove invalid characters from a path string.
         /// Taken almost verbatim from a StackOverflow answer:
