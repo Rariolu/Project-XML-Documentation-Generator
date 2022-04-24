@@ -33,12 +33,20 @@ namespace PortfolioGeneratorBackend
 
                 foreach(Type type in types)
                 {
+                    string typeName;
+                    string typeNamespace;
+                    GetNamespaceAndType(type.FullName, out typeNamespace, out typeName);
+
+                    Console.WriteLine("Parsed namespace: {0}; Reflection namespace: {1};", typeNamespace, type.Namespace);
+                    
+                    if (!string.IsNullOrWhiteSpace(typeNamespace))
+                    {
+                        //parsedAssembly.AddDeclaredNamespace(type.Namespace);
+                        parsedAssembly.AddDeclaredNamespace(typeNamespace);
+                    }
+
                     if (!type.IsEnum)
                     {
-                        string typeName;
-                        string typeNamespace;
-                        GetNamespaceAndType(type.FullName, out typeNamespace, out typeName);
-
                         if (typeName.Contains("<"))
                         {
                             Console.WriteLine("Skipped {0}.", typeName);
@@ -147,9 +155,6 @@ namespace PortfolioGeneratorBackend
                     }
                     else
                     {
-                        string typeName;
-                        string typeNamespace;
-                        GetNamespaceAndType(type.FullName, out typeNamespace, out typeName);
                         ParsedEnum parsedEnum = new ParsedEnum(typeName, typeNamespace);
 
                         Array enumValues = Enum.GetValues(type);
