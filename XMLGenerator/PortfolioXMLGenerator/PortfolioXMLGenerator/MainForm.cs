@@ -150,6 +150,15 @@ namespace PortfolioXMLGenerator
             {
                 string message = string.Format("\nName: {0}; Description: {1}; Type: {2};", member.FullName, member.Description, member.MemberType);
                 rtbParseLog.AppendText(message);
+                if (member.MemberType == MemberType.Constructor || member.MemberType == MemberType.Method)
+                {
+                    ParsedMemberMethod memberMethod = member as ParsedMemberMethod;
+                    foreach(ParsedMemberMethodParam param in memberMethod.Parameters)
+                    {
+                        string paramStr = string.Format("\n\t{0}: {1};", param.Name, param.Description);
+                        rtbParseLog.AppendText(paramStr);
+                    }
+                }
             }
         }
 
@@ -306,6 +315,12 @@ namespace PortfolioXMLGenerator
                 {
                     string constructor = string.Format("\t\t{0}: {1};\n", parsedConstructor.CompleteName, parsedConstructor.Description.RemoveIndentsAndNewLines());
                     rtbIntegrationTest.AppendText(constructor);
+
+                    foreach (ParsedParameter parsedParameter in parsedConstructor.Parameters)
+                    {
+                        string param = string.Format("\t\t\t{0}: {1};\n", parsedParameter.Name, parsedParameter.Description.RemoveIndentsAndNewLines());
+                        rtbIntegrationTest.AppendText(param);
+                    }
                 }
 
                 rtbIntegrationTest.AppendText("\tMethods:\n");
@@ -315,6 +330,12 @@ namespace PortfolioXMLGenerator
                 {
                     string method = string.Format("\t\t{0}: {1};\n", parsedMethod.Name, parsedMethod.Description.RemoveIndentsAndNewLines());
                     rtbIntegrationTest.AppendText(method);
+
+                    foreach(ParsedParameter parsedParameter in parsedMethod.Parameters)
+                    {
+                        string param = string.Format("\t\t\t{0}: {1};\n", parsedParameter.Name, parsedParameter.Description.RemoveIndentsAndNewLines());
+                        rtbIntegrationTest.AppendText(param);
+                    }
                 }
 
                 rtbIntegrationTest.AppendText("\tProperties:\n");
