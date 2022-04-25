@@ -13,6 +13,14 @@ namespace PortfolioGeneratorBackend
     /// </summary>
     public static class ReflectionParser
     {
+        /// <summary>
+        /// Use System.Reflection to enumerate the types of an assembly and their members and store that information
+        /// as a ParsedAssembly instance.
+        /// </summary>
+        /// <param name="file">The .NET assembly file path</param>
+        /// <param name="parsedAssembly"></param>
+        /// <param name="error"></param>
+        /// <returns></returns>
         public static bool ParseAssembly(string file, out ParsedAssembly parsedAssembly, out Exception error)
         {
             parsedAssembly = null;
