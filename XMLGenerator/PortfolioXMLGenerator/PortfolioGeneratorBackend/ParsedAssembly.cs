@@ -51,7 +51,7 @@ namespace PortfolioGeneratorBackend
         /// <summary>
         /// ParsedAssembly constructor
         /// </summary>
-        /// <param name="_name"></param>
+        /// <param name="_name">The name of the assembly.</param>
         public ParsedAssembly(string _name)
         {
             name = _name;
@@ -116,6 +116,7 @@ namespace PortfolioGeneratorBackend
                     int typeIndex = partIndex + 1;
                     string typeName = parts[typeIndex];
                     string completeTypeName = potentialNamespace;
+
                     Console.WriteLine("typeName: {0};", typeName);
 
                     if (HasType(completeTypeName, out ParsedType parsedType))
@@ -181,7 +182,10 @@ namespace PortfolioGeneratorBackend
                                         int reflectionParams = parsedMethod.Parameters.Length;
                                         for (int i = 0; i < documentationParams && i < reflectionParams; i++)
                                         {
-                                            parsedMethod.Parameters[i].Description = memberMethod.Parameters[i].Description;
+                                            if (!string.IsNullOrEmpty(memberMethod.Parameters[i].Description))
+                                            {
+                                                parsedMethod.Parameters[i].Description = memberMethod.Parameters[i].Description;
+                                            }
                                         }
                                     }
                                 }
