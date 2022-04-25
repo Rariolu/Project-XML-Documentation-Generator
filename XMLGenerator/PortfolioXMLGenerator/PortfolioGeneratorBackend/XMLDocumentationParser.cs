@@ -143,6 +143,8 @@ namespace PortfolioGeneratorBackend
         {
             nameStr = nameStr.Remove(0, 2);
 
+            nameStr = nameStr.Replace("@", "&");
+
             return nameStr;
         }
 
