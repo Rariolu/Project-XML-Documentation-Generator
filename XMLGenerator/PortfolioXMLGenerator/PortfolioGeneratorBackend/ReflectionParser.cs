@@ -82,47 +82,16 @@ namespace PortfolioGeneratorBackend
                             parsedType.AddGenericParameterType(genericTypeName);
                         }
 
-                        foreach (FieldInfo field in type.GetFields(BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Public | BindingFlags.DeclaredOnly | BindingFlags.Static))
-                        {
-                            string fieldType;
-                            string fieldNamespace;
-                            GetNamespaceAndType(field.FieldType.ToString(), out fieldNamespace, out fieldType);
+                        List<string> ignoredFields = new List<string>();
+                        List<string> ignoredMethods = new List<string>();
+                        
 
-                            ParsedVariable parsedVariable = new ParsedVariable(field.Name, fieldType, fieldNamespace, field.GetProtectionLevel(), field.IsStatic);
-
-                            parsedType.AddVariable(parsedVariable);
-                        }
-
-                        foreach (MethodInfo method in type.GetMethods(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly | BindingFlags.Static))
-                        {
-                            string methodType;
-                            string methodNamespace;
-                            GetNamespaceAndType(method.ReturnType.ToString(), out methodNamespace, out methodType);
-                            ParsedMethod parsedMethod = new ParsedMethod(method.Name, methodType, methodNamespace, method.GetProtectionLevel(), method.IsStatic);
-
-                            ParameterInfo[] parameters = method.GetParameters();
-
-
-
-                            foreach (ParameterInfo parameter in parameters)
-                            {
-                                string parameterType;
-                                string parameterNamespace;
-                                GetNamespaceAndType(parameter.ParameterType.ToString(), out parameterNamespace, out parameterType);
-
-                                ParsedParameter parsedParameter = new ParsedParameter(parameter.Name,parameterType, parameterNamespace);
-                                parsedMethod.AddParameter(parsedParameter);
-                            }
-
-                            parsedType.AddMethod(parsedMethod);
-                        }
-
-                        foreach(PropertyInfo property in type.GetProperties(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly | BindingFlags.Static))
+                        foreach (PropertyInfo property in type.GetProperties(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly | BindingFlags.Static))
                         {
                             string propertyType;
                             string propertyNamespace;
                             GetNamespaceAndType(property.PropertyType.ToString(), out propertyNamespace, out propertyType);
-                            ParsedProperty parsedProperty = new ParsedProperty(property.Name, propertyType,propertyNamespace);
+                            ParsedProperty parsedProperty = new ParsedProperty(property.Name, propertyType, propertyNamespace);
 
                             MethodInfo getter = property.GetGetMethod(true);
 
@@ -139,7 +108,54 @@ namespace PortfolioGeneratorBackend
                             }
 
                             parsedType.AddProperty(parsedProperty);
+
+                            ignoredFields.Add(string.Format("<{0}>k__BackingField", parsedProperty.Name));
+                            ignoredMethods.Add("get_" + parsedProperty.Name);
+                            ignoredMethods.Add("set_" + parsedProperty.Name);
                         }
+
+                        foreach (FieldInfo field in type.GetFields(BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Public | BindingFlags.DeclaredOnly | BindingFlags.Static))
+                        {
+                            if (!ignoredFields.Contains(field.Name))
+                            {
+                                string fieldType;
+                                string fieldNamespace;
+                                GetNamespaceAndType(field.FieldType.ToString(), out fieldNamespace, out fieldType);
+
+                                ParsedVariable parsedVariable = new ParsedVariable(field.Name, fieldType, fieldNamespace, field.GetProtectionLevel(), field.IsStatic);
+
+                                parsedType.AddVariable(parsedVariable);
+                            }
+                        }
+
+                        foreach (MethodInfo method in type.GetMethods(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly | BindingFlags.Static))
+                        {
+                            if (!ignoredMethods.Contains(method.Name))
+                            {
+                                string methodType;
+                                string methodNamespace;
+                                GetNamespaceAndType(method.ReturnType.ToString(), out methodNamespace, out methodType);
+                                ParsedMethod parsedMethod = new ParsedMethod(method.Name, methodType, methodNamespace, method.GetProtectionLevel(), method.IsStatic);
+
+                                ParameterInfo[] parameters = method.GetParameters();
+
+
+
+                                foreach (ParameterInfo parameter in parameters)
+                                {
+                                    string parameterType;
+                                    string parameterNamespace;
+                                    GetNamespaceAndType(parameter.ParameterType.ToString(), out parameterNamespace, out parameterType);
+
+                                    ParsedParameter parsedParameter = new ParsedParameter(parameter.Name, parameterType, parameterNamespace);
+                                    parsedMethod.AddParameter(parsedParameter);
+                                }
+
+                                parsedType.AddMethod(parsedMethod);
+                            }
+                        }
+
+
 
                         foreach (ConstructorInfo constructor in type.GetConstructors(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance))
                         {
